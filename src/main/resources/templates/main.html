@@ -15,8 +15,8 @@
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-	<div th:replace="layout/headerTop :: headerTopFragment"></div>
-	<div th:replace="layout/headerBottom :: headerBottomFragment"></div>
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
+	<div th:replace="layout/user-header-menu :: headerMenuFragment"></div>
   </header>
   <!--  -->
   
@@ -208,12 +208,10 @@
   <!--  -->
 
   <!-- 하단 푸터 영역 -->
-  <footer th:replace="layout/footer :: footerFragment"></footer>
-  <!-- -->
-
+  <footer th:replace="layout/user-footer :: footerFragment"></footer>
+  
   <!-- 알람 모달 -->
   <div th:replace="layout/modal :: modalFragment"></div>
-  <!--  -->
 
 </body>
 </html>
