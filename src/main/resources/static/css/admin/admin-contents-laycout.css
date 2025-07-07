@@ -1,0 +1,211 @@
+/* 배너 상세, 작성 / 공지 상세, 작성 / 건의사항 상세 */
+.section-line {
+  width: 85%;
+  min-width: 650px;
+  margin: auto;
+  padding: 30px 50px;
+
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+}
+
+.section-line:not(:last-child) { margin-bottom: 15px; }
+
+/* -------------------------------------------------------------- */
+
+/* 상세페이지 */
+/* 글 제목 */
+#DIV-CONTENT-TITLE {
+  margin: 20px 0 25px;
+
+  font-size: 27px;
+  font-weight: 800;
+}
+
+/* 섹션 별 제목 */
+.div-section-title {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  
+  border-bottom: 1px solid #cccccc;
+  font-size: 23px;
+  font-weight: 800;
+  color: #555555;
+}
+
+.div-section-content-wrap {
+  margin-top: 20px;
+  color: #555555;
+}
+
+#DIV-POST-INFO-WRAP {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #cccccc;
+}
+
+/* 프로필 */
+#DIV-PROFILE-WRAP {
+  display: flex;
+  align-items: center;
+}
+
+.div-profile-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.div-nickname {
+  margin: 0 10px;
+
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* 시간 - 작성일, 수정일 */
+#DIV-DATE-WRAP {
+  display: flex;
+  margin-top: 15px;
+
+  color: #999999;
+}
+
+#DIV-DATE-WRAP > div > span:first-child { margin-right: 7px; }
+
+#DIV-UPDATE-WRAP::before {
+  content: "|";
+  margin: 0 7px 0 10px;
+  color: #CCCCCC;
+}
+
+/* -------------------------------------------------------------- */
+
+/* 작성 페이지 */
+textarea, input {
+  width: 100%;
+  border: none;
+}
+input[type="text"], input[type='date'] {
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+.div-column-input-wrap > input:focus, textarea:focus { outline: none; }
+
+.section-write-container { padding: 60px 50px 40px; }
+
+#DIV-PAGE-INFO-WRAP, #DIV-WRITE-FORM-WRAP {
+  width: 95%;
+  margin: auto;
+}
+
+/* 페이지 설명 */
+#DIV-PAGE-INFO-WRAP { margin-bottom: 40px; }
+
+.div-page-info {
+  margin-top: 10px;
+  color: #999999;
+}
+
+/* 작성 폼 */
+.div-one-column-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.div-column-name {
+  width: 130px;
+  margin-right: 25px;
+
+  color: #000;
+  font-size: 20px;
+  text-align: right;
+}
+
+/* 필수 입력 영역 */
+.required-column {
+  margin-right: 5px;
+  color: #ff0000;
+  font-size: 20px;
+}
+
+.div-column-input-wrap {
+  width: 100%;
+  flex: 1;
+}
+
+.div-line {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+
+  background-color: #fff;
+}
+
+
+/* textarea 영역 */
+.div-textarea-wrap { padding: 15px; }
+.textarea-content { height: 250px; }
+
+/* 글자 수 카운트 */
+#DIV-COUNT-WRAP {
+  margin-top: 10px;
+  
+  color: #999999;
+  font-size: 16px;
+  text-align: right;
+}
+
+/* 이미지 첨부 버튼 */
+.div-flex-none {
+  display: block;
+  margin-bottom: 0; 
+}
+.div-column-flex-wrap {
+  display: flex;
+  align-items: center;
+}
+
+#input-image { display: none; }
+
+.img-regist-btn {
+  width: 60px;
+  cursor: pointer;
+}
+
+/* 이미지 첨부시 참고할 메세지 */
+.div-check-msg {
+  margin: 10px 0 35px 155px;
+
+  color: #999999;
+  font-size: 16px;
+}
+
+/* -------------------------------------------------------------- */
+
+/* 버튼 (상세) - 수정, 삭제 */
+#DIV-BTN-GROUP-WRAP {
+  display: flex;
+  color: #999999;
+}
+
+.grey-font-btn { cursor: pointer; }
+.grey-font-btn:hover { color: #006497; }
+
+
+/* 버튼 (상세) - 목록으로 */
+.section-list-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 80px;
+}
+
+/* 작성된 것이 없을 경우 */
+.div-none {
+  height: 50px;
+}

@@ -1,0 +1,95 @@
+/* 회원가입 join-required */
+
+.div-join-wrap {
+  height: 105px;
+  display: flex;
+  justify-content: center;
+
+  letter-spacing: 0.5px;
+}
+
+#DIV-AGE-WRAP, .div-join-text {
+  width: 32%;
+  display: flex;
+  margin-right: 25px;
+  text-align: right;
+}
+
+.div-join-text {
+  height: 54px;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-weight: 500;
+}
+
+#DIV-AGE-WRAP {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.div-join-input-wrap {
+  width: 250px
+}
+
+.div-check {
+  color: #555555;
+  font-size: 15px;
+}
+
+#DIV-NICK-CHECK {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.required-input { width: 100%; }
+
+/* 생년월일 입력 칸 */
+input[type='date'] {
+  position: relative;
+  font-family: inherit;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* 배경, 글자 투명하게하여 아이콘 안보이도록 설정 */
+  background: transparent; 
+  color: transparent; 
+  cursor: pointer;
+}
+
+/* 나이 공개 여부 */
+#DIV-AGE {
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  font-weight: 500;
+}
+
+input[type='radio'] { display: none;}
+
+.div-age-visible-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-age-visible-wrap span {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 120px;
+  height: 50px;
+  background-color: #dddddd;
+  
+  border-radius: 10px;
+  color: #ffffff;
+}
+input[type="radio"]:checked + span { background-color: #064973; }
+input[type="radio"]:not(:checked) + span:hover { background-color: #A9A9A9; }
+
+.div-age-visible-wrap span:first-child { margin-right: 10px; }

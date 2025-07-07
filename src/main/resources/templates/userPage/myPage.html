@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/layout/list-layout.css">
+  <link rel="stylesheet" href="../../css/layout/userPage-layout.css">
+  <link rel="stylesheet" href="../../css/userPage/myPage.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/userPage/userPage.js"></script>
+  <script defer src="../../js/userPage/myPage.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link">
+          <a href="">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <!-- 유저 프로필 정보 영역 -->
+    <div id="DIV-USER-INFO-CONTAINER">
+        <div id="DIV-USER-PROFILE-IMG">
+            <img src="../../image/example/profile_image/profile3.jpg">
+        </div>
+        <!-- 유저 나이, 닉네임, 메세지함, 설정 -->
+        <div id="DIV-USER-INFO-WRAP">
+          <div class="div-age-wrap"><span class="div-age">20대</span></div>
+          <div class="div-nick-btn-wrap">
+            <div class="div-nickname">포근한 하루</div>
+            <div class="div-message-btn">메세지함</div>
+            <div class="div-settings-btn" onclick="location.href='mypage-settings.html'">
+              <img src="../../image/userPage/setting.png">설정
+            </div>
+          </div>
+          <!-- 게시글, 팔로워, 팔로우 -->
+          <div class="div-counts-wrap">
+            <div class="div-type-wrap">
+              <div class="div-count-name">게시글</div>
+              <div class="div-count">10</div>
+            </div>
+            <div class="div-type-wrap follow-click show-follower">
+              <div class="div-count-name">팔로워</div>
+              <div class="div-count">254</div>
+            </div>
+            <div class="div-type-wrap follow-click show-follow">
+              <div class="div-count-name">팔로우</div>
+              <div class="div-count">112</div>
+            </div>
+          </div>
+          <!-- 유저 한 줄 소개 -->
+          <div class="div-user-info">이불 속 온기를 좋아하는 사람<br>조용한 하루를 즐깁니다 🌿</div>
+        </div>
+    </div>
+    <!--  -->
+
+    <!-- 카테고리 메뉴 - 작성글, 스크랩 -->
+    <div id="DIV-CATEGORY-CONTAINER">
+      <div id="DIV-CATEGORY-WRAP">
+        <ul id="UL-CATEGORY">
+          <li class="ca-selected"></li>
+          <li class="li-category-wrap">
+            <div class="div-category div-selected" data-category="my-board">
+              <img src="../../image/userPage/board_menu.png" class="ca-img" data-category="my-board">
+              <div>작성 글 (10)</div>
+            </div>
+          </li>
+          <li class="li-category-wrap">
+            <div class="div-category" data-category="my-scrap">
+              <img src="../../image/layout/scrap_no.png" class="ca-img" data-category="my-scrap">
+              <div>스크랩 (7)</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--  -->
+    
+    <!-- 리스트 -->
+    <div id="DIV-LIST-CONTAINER">
+      <div class="list-slide-wrap">
+
+        <!-- 받은 메세지 -->
+        <div class="div-mypage-containe write-list-wrap">
+
+            <!-- 글 목록 -->
+            <div class="div-list-wrap">
+              <div class="div-post-list-wrap">
+    
+                <!-- 글 1개 -->
+                <div class="div-one-post-wrap post-hover" onclick="location.href='../community/community-view.html'">
+                  <div class="div-my-post-info-wrap">
+                    <div class="div-post-text-wrap">
+                      <div class="div-one-skip div-title">이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!</div>
+                      <div class="div-two-skip div-content">소파가 너무 헤져서 바꾸려고 하는데요...<br>20만원 이하 2인 소파 추천 부탁드립니다!!!!소파가 너무 헤져서 바꾸려고 하는데요...20만원 이하 2인 소파 추천 부탁드립니다!!!!</div>
+                    </div>
+                    <div class="div-none-profile">
+                      <img src="../../image/example/board/work-desk.jpg" alt="postIMG">
+                    </div>
+                  </div>
+                  <div class="div-hashtag-wrap">
+                    <div class="div-hashtag">#소파</div>
+                    <div class="div-hashtag">#가구</div>
+                    <div class="div-hashtag">#가죽소파</div>
+                  </div>
+                  <div class="div-time-count-wrap">
+                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                    <div class="div-two-counts-wrap">
+                      <div class="div-count-wrap">
+                        <img src="../../image/layout/comment_count.png" alt="comment">
+                        <div class="div-comment">17</div>
+                      </div>
+                      <div class="div-count-wrap">
+                        <img src="../../image/layout/scrap_no.png" alt="scrap">
+                        <div class="div-scrap">221</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--   -->
+
+                <!--  -->
+                <div class="div-one-post-wrap post-hover" onclick="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-text-wrap">
+                    <div class="div-one-skip div-title">하루종일 앉아있는 직장인인데 허리 안 아픈 소파 찾고 있어요! 디자인도 예쁘고 착석감 좋은 제품 추천 부탁드려요</div>
+                    <div class="div-two-skip div-content">요즘 재택근무도 많고, 집에서 보내는 시간이 많아지다 보니 소파에 앉아 있는 시간이 정말 많아졌어요.<br>지금 쓰는 소파는 앉은 지 30분도 안 돼서 허리가 아프고, 등받이도 낮아서 기대기도 애매하더라고요.</div>
+                  </div>
+                </div>
+                <div class="div-hashtag-wrap">
+                  <div class="div-hashtag">#소파</div>
+                  <div class="div-hashtag">#가구</div>
+                  <div class="div-hashtag">#가죽소파</div>
+                </div>
+                <div class="div-time-count-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:01:00"></div>
+                  <div class="div-two-counts-wrap">
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/comment_count.png" alt="comment">
+                      <div class="div-comment">17</div>
+                    </div>
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/scrap_no.png" alt="scrap">
+                      <div class="div-scrap">221</div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="div-one-post-wrap post-hover" onclick="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-text-wrap">
+                    <div class="div-one-skip div-title">거실 분위기 바꾸고 싶은데 우드 톤에 잘 어울리는 러그 + 소파 조합 추천 부탁드립니다.</div>
+                    <div class="div-two-skip div-content">최근에 벽지랑 커튼을 따뜻한 아이보리 톤으로 바꿨어요. 근데 기존 소파가 어두운 블랙이라 너무 튀어서 거실 전체가 안 어울리는 느낌이에요.<br>
+    그래서 이번에 우드 톤 가구에 잘 어울리는 러그랑 소파를 새로 들이려고 하는데요, 러그는 크림이나 라이트 베이지, 소파는 브라운~카멜 계열 생각하고 있어요.</div>
+                  </div>
+                </div>
+                <div class="div-hashtag-wrap">
+                  <div class="div-hashtag">#소파</div>
+                  <div class="div-hashtag">#가구</div>
+                  <div class="div-hashtag">#가죽소파</div>
+                </div>
+                <div class="div-time-count-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-25T15:05:00"></div>
+                  <div class="div-two-counts-wrap">
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/comment_count.png" alt="comment">
+                      <div class="div-comment">17</div>
+                    </div>
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/scrap_no.png" alt="scrap">
+                      <div class="div-scrap">221</div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <!--  -->
+                
+                <!-- 게시글이 없을 경우 -->
+                <!-- <div class="div-post-none">아직 아무것도 남기지 않았어요.<br>당신의 방, 취향, 하루를 들려주세요.</div> -->
+                <!--  -->
+    
+              </div>
+            </div>
+            <!--  -->
+            
+            <!-- 페이지네이션 -->
+            <div id="DIV-PAGENATION-WRAP">
+              <div class="div-page-btn-wrap">
+                <div class="pagenation previous" onclick="">◁</div>
+              </div>
+              <ul>
+                <li class="pagenation page selected" onclick="">1</li>
+                <li class="pagenation page" onclick="">2</li>
+                <li class="pagenation page" onclick="">3</li>
+                <li class="pagenation page" onclick="">4</li>
+                <li class="pagenation page" onclick="">5</li>
+              </ul>
+              <div class="div-page-btn-wrap">
+                <div class="pagenation next" onclick="">▷</div>
+              </div>
+            </div>
+            <!--  -->
+            
+        </div>
+        <!--  -->
+
+        <!-- 스크랩한 게시글 -->
+        <div class="div-mypage-container scrap-list-wrap">
+          <div class="div-list-wrap">
+            <!-- 글 목록 -->
+            <div class="div-post-list-wrap">
+    
+              <!-- 글 1개 -->
+              <div class="div-one-post-wrap post-hover" onclick="location.href='../community/community-view.html'">
+                <div class="div-post-info-wrap">
+                  <div class="div-profile-post-wrap">
+                    <div class="div-profile-wrap">
+                      <div class="div-go-user-page">
+                        <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                        <div class="div-nickname div-nick" onclick=""><span>조용한 오후</div>
+                      </div>
+                      <div class="div-age">20대</div>
+                    </div>
+                    <div class="div-one-skip div-title">이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!</div>
+                    <div class="div-two-skip div-content">소파가 너무 헤져서 바꾸려고 하는데요...<br>20만원 이하 2인 소파 추천 부탁드립니다!!!!소파가 너무 헤져서 바꾸려고 하는데요...20만원 이하 2인 소파 추천 부탁드립니다!!!!</div>
+                  </div>
+                  <div class="div-post-img">
+                    <img src="../../image/example/board/work-desk.jpg" alt="postIMG">
+                  </div>
+                </div>
+                <div class="div-hashtag-wrap">
+                  <div class="div-hashtag">#소파</div>
+                  <div class="div-hashtag">#가구</div>
+                  <div class="div-hashtag">#가죽소파</div>
+                </div>
+                <div class="div-time-count-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                  <div class="div-two-counts-wrap">
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/comment_count.png" alt="comment">
+                      <div class="div-comment">17</div>
+                    </div>
+                    <div class="div-count-wrap">
+                      <img src="../../image/layout/scrap_ok.png" alt="scrap_ok" onclick="noScrap(event, this, 1)">
+                      <!-- <img src="../../image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
+                      <div class="div-scrap">221</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--   -->
+
+              <!--  -->
+              <div class="div-one-post-wrap post-hover" onclick="">
+              <div class="div-post-info-wrap">
+                <div class="div-profile-post-wrap">
+                  <div class="div-profile-wrap">
+                    <div class="div-go-user-page" onclick="">
+                      <img src="../../image/example/profile_image/profile2.jpg" alt="프로필">
+                      <div class="div-nickname div-nick">작은식탁일기</div>
+                    </div>
+                    <div class="div-age">20대</div>
+                  </div>
+                  <div class="div-one-skip div-title">하루종일 앉아있는 직장인인데 허리 안 아픈 소파 찾고 있어요! 디자인도 예쁘고 착석감 좋은 제품 추천 부탁드려요</div>
+                  <div class="div-two-skip div-content">요즘 재택근무도 많고, 집에서 보내는 시간이 많아지다 보니 소파에 앉아 있는 시간이 정말 많아졌어요.<br>지금 쓰는 소파는 앉은 지 30분도 안 돼서 허리가 아프고, 등받이도 낮아서 기대기도 애매하더라고요.</div>
+                </div>
+              </div>
+              <div class="div-hashtag-wrap">
+                <div class="div-hashtag">#소파</div>
+                <div class="div-hashtag">#가구</div>
+                <div class="div-hashtag">#가죽소파</div>
+              </div>
+              <div class="div-time-count-wrap">
+                <div class="div-time time-ago" data-timestamp="2025-06-27T15:01:00"></div>
+                <div class="div-two-counts-wrap">
+                  <div class="div-count-wrap">
+                    <img src="../../image/layout/comment_count.png" alt="comment">
+                    <div class="div-comment">17</div>
+                  </div>
+                  <div class="div-count-wrap">
+                    <img src="../../image/layout/scrap_ok.png" alt="scrap" onclick="noScrap(event, this, 0)">
+                    <div class="div-scrap">221</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="div-one-post-wrap post-hover" onclick="">
+              <div class="div-post-info-wrap">
+                <div class="div-profile-post-wrap">
+                  <div class="div-profile-wrap">
+                    <div class="div-go-user-page" onclick="">
+                      <img src="../../image/example/profile_image/profile1.jpg" alt="프로필">
+                      <div class="div-nickname div-nick">고양이좋아</div>
+                    </div>
+                    <div class="div-age">20대</div>
+                  </div>
+                  <div class="div-one-skip div-title">거실 분위기 바꾸고 싶은데 우드 톤에 잘 어울리는 러그 + 소파 조합 추천 부탁드립니다.</div>
+                  <div class="div-two-skip div-content">최근에 벽지랑 커튼을 따뜻한 아이보리 톤으로 바꿨어요. 근데 기존 소파가 어두운 블랙이라 너무 튀어서 거실 전체가 안 어울리는 느낌이에요.<br>
+    그래서 이번에 우드 톤 가구에 잘 어울리는 러그랑 소파를 새로 들이려고 하는데요, 러그는 크림이나 라이트 베이지, 소파는 브라운~카멜 계열 생각하고 있어요.</div>
+                </div>
+              </div>
+              <div class="div-hashtag-wrap">
+                <div class="div-hashtag">#소파</div>
+                <div class="div-hashtag">#가구</div>
+                <div class="div-hashtag">#가죽소파</div>
+              </div>
+              <div class="div-time-count-wrap">
+                <div class="div-time time-ago" data-timestamp="2025-06-25T15:05:00"></div>
+                <div class="div-two-counts-wrap">
+                  <div class="div-count-wrap">
+                    <img src="../../image/layout/comment_count.png" alt="comment">
+                    <div class="div-comment">17</div>
+                  </div>
+                  <div class="div-count-wrap">
+                    <img src="../../image/layout/scrap_ok.png" alt="scrap" onclick="noScrap(event, this, 1)">
+                    <div class="div-scrap">221</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <!--  -->
+                
+              <!-- 게시글이 없을 경우 -->
+              <!-- <div class="div-post-none">아직 스크랩한 글이 없어요.<br>머무르고 싶은 공간을 스크랩해보세요.</div> -->
+              <!--  -->
+    
+            </div>
+          </div>
+            
+          <!-- 페이지네이션 -->
+          <div id="DIV-PAGENATION-WRAP">
+            <div class="div-page-btn-wrap">
+              <div class="pagenation previous" onclick="">◁</div>
+            </div>
+            <ul>
+              <li class="pagenation page selected" onclick="">1</li>
+              <li class="pagenation page" onclick="">2</li>
+              <li class="pagenation page" onclick="">3</li>
+              <li class="pagenation page" onclick="">4</li>
+              <li class="pagenation page" onclick="">5</li>
+            </ul>
+            <div class="div-page-btn-wrap">
+              <div class="pagenation next" onclick="">▷</div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        
+      </div>
+    </div>
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+  <!-- 팔로워, 팔로우 모달창 -->
+  <!-- <div class="div-alert-container modal-follow">
+    <div class="div-alert-wrap">
+      <div id="DIV-MODAL-HEADER">
+        <div class="div-modal-title">팔로워</div>
+        <img src="../../image/layout/close_btn_grey.png" class="modal-close modal-close-img" alt="close">
+      </div>
+
+      <div class="div-alert-content">
+        <div id="DIV-USER-SEARCH-WRAP">
+
+          <input type="text" id="user-search" placeholder="누구를 찾고 있나요?">
+        </div>
+        <div id="DIV-USER-COUNT-WRAP">
+          총 <div id="USER-COUNT">10</div>명
+        </div>
+        <div id="DIV-USER-LIST-WRAP">
+
+          <div class="div-user-wrap">
+            <div class="div-follow-user-wrap">
+              <div class="div-user-profile-img user-profile-img">
+                <img src="../../image/example/profile_image/profile1.jpg">
+              </div>
+              <div class="div-user-simple-info">
+                <div class="user-nick"><span class="user-nickname">조용한 오후</span></div>
+                <div class="user-info-wrap">
+                  <div class="user-info div-one-skip">집에 햇살과 고양이가 함께 있어요.</div>
+                </div>
+              </div>
+            </div>
+            <div class="div-follow-btn-wrap">
+              <div class="button-style delete-button" onclick="noFollow(event, this, 1)">삭제</div>
+              <div class="button-style basic-button" onclick="noFollow(event, this, 1)">팔로잉</div>
+              <div class="button-style follow-btn" onclick="goFollow(event, this, 0)">팔로우</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+  <!--  -->
+
+</body>
+</html>

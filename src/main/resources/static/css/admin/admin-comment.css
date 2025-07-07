@@ -1,0 +1,74 @@
+/* 커뮤니티 댓글 관리 목록 페이지 */
+#SECTION-LIST-CONTAINER td { padding: 10px 14px; }
+
+.t-number { width: 8%; }
+.t-content { width: calc(56% - 60px); }
+.t-nickname { width: 15%; }
+.t-regist-date { width: 13%; }
+
+tbody > tr > td:nth-child(2) { text-align: left; }
+.go-page { cursor: context-menu; }
+
+.board-number:hover {
+  background-color: rgba(213, 229, 242, 0.8);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.delete-btn { cursor: pointer; }
+
+/* 댓글 내용 전체 보기 */
+.comment-content {
+  display: flex;
+  justify-content: space-between;
+}
+.comment-content:hover {
+  background-color: rgba(213, 229, 242, 0.8);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.comment-text {
+  width: calc(100% - 20px);
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  line-height: 1.7;
+}
+
+.comment-content-show { padding-bottom: 5px; }
+
+.comment-content-show > img {
+  width: 15px;
+  transform: rotate(0deg);
+  transform-origin: center center;
+  transition: transform 0.3s linear;
+}
+.comment-content-show > img.rotate {
+  transform: rotate(180deg);
+}
+
+.comment-all > td { border: none; }
+
+.comment-slide-wrap {
+  display: none;
+  width: 95%;
+  min-height: 30px;
+  margin: auto;
+  padding: 15px 30px;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  text-align: left;
+  line-height: 1.7;
+}
+
+/* 토글 - 댓글 내용 전체가 보일 때 부여할 클래스 */
+.comment-active { background-color: rgba(213, 229, 242, 0.5); }
+
+/* -------------------------------------------------------------- */

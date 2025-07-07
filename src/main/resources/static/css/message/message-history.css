@@ -1,0 +1,73 @@
+#MAIN-CONTAINTER { padding: 0 0 50px; }
+
+#DIV-USER-INFO-WRAP {
+  border-bottom: 1px solid #cccccc;
+}
+
+#DIV-MESSAGE-HISTORY-WRAP {
+  padding-top: 30px;
+  position: relative;
+}
+
+#DIV-MESSAGE-LIST {
+  height: 45vh;
+  padding: 0 10px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/* 메세지 */
+.div-message-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+.div-message-wrap:not(:last-child) { margin-bottom: 20px; }
+
+.div-my-message-wrap {
+  flex-direction: row-reverse;
+}
+
+.div-message {
+  display: inline-block;
+  max-width: 450px;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.div-other-message-wrap > .div-message {
+  background-color: rgba(213, 229, 242, 0.6);
+}
+
+.div-my-message-wrap > .div-message {
+  border: 1px solid #cccccc;
+  text-align: right;
+}
+
+.div-time { font-size: 16px; }
+
+.div-other-message-wrap > .div-time { margin-left: 10px; }
+.div-my-message-wrap > .div-time { margin-right: 10px; }
+
+/* 맨 하단으로 스크롤 버튼 */
+.none-show { display: none; }
+
+#DIV-SCROLL-BTN-WRAP {
+  position: absolute;
+  bottom: 20px;
+  right: 50px;
+}
+
+#SCROLL-BTN {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fff;
+  border: 2px solid #064973;
+  border-radius: 50%;
+  color: #064973;
+  font-size: 22px;
+  cursor: pointer;
+}

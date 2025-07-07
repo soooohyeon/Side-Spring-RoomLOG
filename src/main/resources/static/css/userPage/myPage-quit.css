@@ -1,0 +1,46 @@
+#MAIN-CONTAINTER { border-top: 1px solid #dddddd; }
+#DIV-PAGE-TITLE-WRAP { margin: 60px 40px 50px; }
+
+/* 카테고리 제목 */
+#P-CURRENT-PAGE { margin-bottom: 7px; }
+
+/* 탈퇴전 안내 문구 */
+#DIV-QUIT-QUIDE {
+  text-align: center;
+  line-height: 1.7em;
+}
+
+/* 문구 입력 및 탈퇴 버튼 영역 */
+#DIV-QUIT-WRITE-WRAP {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 25px 0 60px;
+}
+
+#INPUT-QUIT-MSG, #DIV-QUIT-BTN { height: 35px; }
+
+#INPUT-QUIT-MSG {
+  width: 300px;
+  margin-right: 10px;
+  padding: 5px 0;
+  flex-shrink: 0;
+
+  border: 1px solid #999999;
+  border-radius: 5px;
+  text-align: center;
+}
+#INPUT-QUIT-MSG:focus { outline: none; }
+
+/* 버튼 */
+#DIV-QUIT-WRITE-WRAP > .button-style {
+  border-radius: 5px !important;
+  padding: 5px 10px;
+}
+
+.disabled {
+  background-color: #dddddd;
+  color: #fff;
+  cursor: not-allowed;
+}

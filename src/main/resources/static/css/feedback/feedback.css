@@ -1,0 +1,33 @@
+/* 건의 유형 카테고리 */
+#SELECT-CATEGORY {
+    width: 100%;
+    padding: 15px;
+    
+    border: none;
+    border-radius: 8px;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff url(../../image/layout/search_arrow.png) no-repeat 97% 50% / 15px auto;
+    background-position: right 10px center;
+}
+
+select:focus { outline: none; }
+
+.div-text-name {
+    margin-bottom: 30px;
+}
+
+.div-column-content-wrap {
+    padding: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+}
+
+#TEXTAREA-CONTENT {
+    height: 210px;
+    box-sizing: border-box;
+}

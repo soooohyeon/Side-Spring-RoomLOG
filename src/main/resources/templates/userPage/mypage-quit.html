@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/userPage/myPage-quit.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/userPage/myPage-quit.js"></script>
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link">
+          <a href="">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <!-- 페이지 영역 구분 선 -->
+    <section class="section-line">
+      <!-- 페이지 설명 영역 -->
+      <div id="DIV-PAGE-TITLE-WRAP">
+        <p id="P-CURRENT-PAGE">마이페이지</p>
+        <p id="P-TITLE">탈퇴하기</p>
+        <p id="P-SUB-TITLE">정말 떠나시려는 걸까요?<br>탈퇴하시면 계정과 활동 정보가 모두 삭제돼요.<br>진행 전, 아래 내용을 꼭 확인해 주세요.</p>
+      </div>
+      <!--  -->
+
+      <div id="DIV-QUIT-QUIDE">
+        RoomLOG를 탈퇴하시면 지금까지 남긴 모든 정보가 삭제됩니다.<br>
+        닉네임, 프로필, 작성한 게시글과 댓글, 스크랩한 글 등<br>
+        당신의 활동 기록은 완전히 제거되며, 삭제된 정보는 복구할 수 없습니다.<br><br>
+        단, 작성하신 댓글 중 다른 사용자의 댓글(대댓글)이 달려 있는 경우에는<br>
+        연결된 대댓글이 먼저 삭제된 이후에, 원댓글도 함께 삭제됩니다.<br>
+        이 과정에서 일부 댓글은 탈퇴 직후 잠시 노출될 수 있지만,<br>
+        작성자는 ‘탈퇴한 사용자’로 표시되며, 해당 댓글도 이후 자동 삭제됩니다.<br><br>
+        탈퇴를 진행하시려면 아래 입력창에 ‘탈퇴합니다’를 입력해주세요.
+      </div> 
+
+      <div id="DIV-QUIT-WRITE-WRAP">
+        <input type="text" id="INPUT-QUIT-MSG" autocomplete="off">
+        <div class="button-style disabled" id="DIV-QUIT-BTN">탈퇴하기</div>
+      </div>
+
+    </section>
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <!-- 해시태그 CDN 스크립트 코드 -->
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/layout/write-layout.css">
+  <link rel="stylesheet" href="../../css/feedback/feedback.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/feedback/feedback.js"></script>
+  <!-- TinyMCE Editor -->
+  <script src="https://cdn.tiny.cloud/1/zofwqu4mz4a8fi7sczm8ax1dhgbenvoz1xob3thhkvgz4uiw/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">메세지함</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="../../html/login/login.html">로그인</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+    <!-- 메뉴바 -->
+    <div id="DIV-HEADER-BOTTOM">
+      <ul id="UL-HEDAER-MENU">
+        <li id="LI-HOME-LINK"><a href="../main.html">홈</a></li>
+        <li id="LI-COMMUNITY-LINK"><a href="../../html/community/community.html">커뮤니티</a></li>
+        <li id="LI-NOTICE-LINK"><a href="../../html/notice/notice.html">공지사항</a></li>
+        <li id="LI-FEEDBACK-LINK"><a href="../../html/feedback/feedback.html">건의사항</a></li>
+      </ul>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <!-- 페이지 영역 구분 선 -->
+    <section class="section-line">
+      <!-- 페이지 설명 영역 -->
+      <div id="DIV-PAGE-TITLE-WRAP">
+        <p id="P-TITLE"><img src="../../image/layout/logo.png" alt="LOGO">에 전하고 싶은 말씀이 있으신가요?</p>
+        <p id="P-SUB-TITLE">사이트 이용 중 불편한 점이나 개선 의견이 있다면<br>언제든 자유롭게 남겨주세요.</p>
+      </div>
+      <!--  -->
+
+      <form action="" method="" enctype="multipart/form-data">
+        <!-- 글 작성 영역 -->
+        <div id="DIV-WRITE-FORM-WRAP">
+          <div class="div-one-column-wrap">
+            <div class="div-column-name"><span class="required-column">*</span>카테고리</div>
+            <div class="div-column-input-wrap div-input-line">
+              <select name="category" id="SELECT-CATEGORY">
+                <option value="" selected disabled hidden>카테고리를 선택해 주세요.</option>
+                <option value="suggestion">건의</option>
+                <option value="bug">오류 신고</option>
+                <option value="report">유저 신고</option>
+                <option value="etc">기타</option>
+              </select>
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-name"><span class="required-column">*</span>제목</div>
+            <div class="div-column-input-wrap div-input-line">
+              <input type="text" name="title" id="title" placeholder="불편 사항이나 제안 내용을 요약해 주세요.">
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-name div-text-name"><span class="required-column">*</span>내용</div>
+            <div class="div-column-content-wrap">
+              <textarea name="content" id="TEXTAREA-CONTENT" placeholder="건의, 오류 신고, 유저 신고 등&#10;어떤 내용이든 정확히 전달될 수 있도록&#10;카테고리를 먼저 선택하고 의견을 작성해 주세요."></textarea>
+              <div class="div-text-count-wrap"><span id="SPAN-COUNT">0</span>/500</div>
+            </div>
+          </div>
+          <div class="div-one-column-wrap div-flex-none div-image-wrap">
+            <div class="div-column-flex-wrap">
+              <div class="div-column-name image-column">첨부 이미지</div>
+              <div class="div-column-input-wrap" id="DIV-BTN-IMAGE-WRAP">
+                <label for="input-image" id="LABEL-IMAGE-BTN">
+                  <img src="../../image/layout/image_regist_btn.png" alt="이미지 등록" class="img-regist-btn">
+                  <input type="file" name="images" id="input-image" class="input-image-btn" multiple accept="image/*"/>
+                </label>
+                <!-- 등록한 이미지 미리보기 -->
+                <div id="DIV-THUMBNAIL-IMAGE-WRAP"></div>
+              </div>
+            </div>
+          </div>
+          <div class="div-check-msg">확인을 위한 이미지 5장까지 첨부 가능합니다.<br>오류 화면, 신고 사유 등 증빙이 필요한 경우에만 첨부해 주세요.</div>
+        </div>
+        <!--  -->
+
+        <!-- 목록 / 등록 버튼 영역 -->
+        <div id="DIV-WRITE-WRAP">
+          <div class="button-style disabled" id="WRITE-BTN">건의하기</div>
+        </div>
+        <!--  -->
+      </form>
+
+    </section>
+    <!--  -->
+  </main>
+  <!--  -->
+
+  <!-- 하단 푸터 영역 -->
+  <footer id="FOOTER-CONTAINER">
+    <div id="DIV-FOOTER-WRAP">
+      <div id="DIV-FOOTER-LEGAL-WRAP">
+        <div class="div-footer-legal div-menu-line"><a href="">개인정보처리방침</a></div>
+        <div class="div-footer-legal"><a href="">이용약관</a></div>
+      </div>
+
+      <div id="DIV-ROOMLOG-INFO-WRAP">
+        <p>우선의 공간을 기록하는 사람들.</p>
+        <p>Contact: official@roomlog.com</p>
+        <p>Copyright © RoomLOG. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+</body>
+</html>

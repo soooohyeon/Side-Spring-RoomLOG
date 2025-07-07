@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/layout/list-layout.css">
+  <link rel="stylesheet" href="../../css/message/message-list.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/message/message-list.js"></script>
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">마이페이지</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="../html/login/login.html">로그인</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    
+    <!-- 카테고리 메뉴 - 받은 메세지, 보낸 메세지 -->
+    <div id="DIV-CATEGORY-CONTAINER">
+      <div id="DIV-CATEGORY-WRAP">
+        <ul id="UL-CATEGORY">
+          <li class="li-category-wrap">
+            <div class="div-category div-selected" data-category="receive-msg">
+              <img src="../../image/message/msg_receive_active.png" class="ca-img img-receive-msg" data-category="receive-msg" alt="받은 메세지">
+              <div>받은 메세지</div>
+            </div>
+          </li>
+          <li class="li-category-wrap">
+            <div class="div-category" data-category="send-msg">
+              <img src="../../image/message/msg_sent.png" class="ca-img" data-category="send-msg" alt="보낸 메세지">
+              <div>보낸 메세지</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="ca-selected"></div>
+    </div>
+    <!--  -->
+
+    <!-- 리스트 -->
+    <div id="DIV-LIST-CONTAINER">
+      <div class="list-slide-wrap">
+        
+        <!-- 받은 메세지 -->
+        <div class="div-message-container receive-msg-list-wrap">
+
+          <!-- 검색 -->
+          <form action="" method="">
+            <div class="div-search-wrap">
+              <img src="../../image/community/search.png" alt="search">
+              <input type="text" name="search" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
+            </div>
+          </form>
+          <!--  -->
+          
+          <div class="div-list-wrap">
+            <!-- 메세지 개수 -->
+            <div class="div-msg-count-wrap">총 73개</div>
+            <!-- 메세지 목록 -->
+            <div class="div-post-list-wrap">
+  
+              <!-- 메세지 1개 -->
+              <div class="div-one-post-wrap post-hover unread-msg" data-userNumber="2">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">그럼요~아 이번에 소파 바꾸셨다면서요!!<br>어디꺼로 바꿨다고 하셨죠??</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                  <div class="div-none-show">미열람</div>
+                </div>
+              </div>
+              <!--   -->
+              
+              <!--  -->
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">넵!! 오랜만입니다!!</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile6.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">반쯤열린창</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">집이 예뻐요!!</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile5.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">작은식탁일기 </div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">헐 !!<br>너무 했다 진짜</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <!--  -->
+              
+            </div>
+          </div>
+          <!-- 페이지네이션 -->
+          <div class="div-pagenation-wrap">
+            <div class="div-page-btn-wrap">
+              <div class="pagenation previous" onclick="">◁</div>
+            </div>
+            <ul>
+              <li class="pagenation page selected" onclick="">1</li>
+              <li class="pagenation page" onclick="">2</li>
+              <li class="pagenation page" onclick="">3</li>
+              <li class="pagenation page" onclick="">4</li>
+              <li class="pagenation page" onclick="">5</li>
+            </ul>
+            <div class="div-page-btn-wrap">
+              <div class="pagenation next" onclick="">▷</div>
+            </div>
+          </div>
+
+          <!-- 메세지가 없을 경우 -->
+          <!-- <div class="div-post-none">메시지함이 아직 비어 있어요.<br>기다림 끝에 더 반가운 인사가 찾아올 수 있어요.</div> -->
+          <!--  -->
+
+        </div>
+        <!--  -->
+        
+        <!-- 보낸 메세지 -->
+        <div class="div-message-container send-msg-list-wrap">
+
+          <!-- 검색 -->
+          <form action="" method="">
+            <div class="div-search-wrap">
+              <img src="../../image/community/search.png" alt="search">
+              <input type="text" name="search" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
+            </div>
+          </form>
+          <!--  -->
+          
+          <div class="div-list-wrap">
+            <!-- 메세지 개수 -->
+            <div class="div-msg-count-wrap">
+              총 51개
+            </div>
+            <!-- 메세지 목록 -->
+            <div class="div-post-list-wrap">
+  
+              <!-- 메세지 1개 -->
+              <div class="div-one-post-wrap post-hover" data-userNumber="3">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">저 브랜드는 아니고 그냥 언니가 쓰던건데 준다고 해서 ㅎㅎㅎ<br>상태가 좋아서 받았어요!!!</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <!--   -->
+              
+              <!--  -->
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">잘 지내고 있으시죠~?</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">안녕하세요~~!!<br>오랜만이에요!!ㅎㅎㅎ</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <div class="div-one-post-wrap post-hover" data-userNumber="">
+                <div class="div-post-info-wrap">
+                  <div class="div-post-wrap">
+                    <div class="div-post-btn-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img src="../../image/example/profile_image/profile6.jpg" onclick="">
+                          <div class="div-nickname div-nick" onclick="">반쯤열린창 </div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-delete">삭제</div>
+                    </div>
+                    <div class="div-two-skip div-content">감사합니다!! 맞팔해요!!</div>
+                  </div>
+                </div>
+                <div class="div-time-wrap">
+                  <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                </div>
+              </div>
+              <!--  -->
+          
+            </div>
+          </div>
+
+          <!-- 페이지네이션 -->
+          <div class="div-pagenation-wrap">
+            <div class="div-page-btn-wrap">
+              <div class="pagenation previous" onclick="">◁</div>
+            </div>
+            <ul>
+              <li class="pagenation page selected" onclick="">1</li>
+              <li class="pagenation page" onclick="">2</li>
+              <li class="pagenation page" onclick="">3</li>
+              <li class="pagenation page" onclick="">4</li>
+              <li class="pagenation page" onclick="">5</li>
+            </ul>
+            <div class="div-page-btn-wrap">
+              <div class="pagenation next" onclick="">▷</div>
+            </div>
+          </div>
+          
+          <!-- 메세지가 없을 경우 -->
+          <!-- <div class="div-post-none">보낸 메시지 내역이 비어 있습니다.<br>마음속 이야기를 전하고 싶은 사람이 있나요? 지금 메시지를 보내보세요.</div> -->
+          <!--  -->
+          
+        </div>
+        <!--  -->
+        
+      </div>
+    </div>
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+  <!-- 메세지 상세 보기 -->
+  <!-- <div class="div-alert-container madal-message" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap div-message-view">
+      <div class="div-alert-close-btn">
+        <img src="../../image/layout/close_btn_grey.png" class="modal-close modal-close-img" alt="close">
+      </div>
+      <div class="div-alert-content">
+        <div id="DIV-MESSAGE-CONTENT-CONTAINER">
+          <div class="div-profile-btn-wrap">
+            <div class="div-profile-wrap">
+              <div class="div-go-user-page">
+                <img src="../../image/example/profile_image/profile6.jpg" onclick="">
+                <div class="div-nickname div-nick" onclick="">반쯤열린창 </div>
+              </div>
+              <div class="div-age">20대</div>
+            </div>
+            <div class="div-time-btn-wrap">
+              <div class="div-delete">삭제</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+          </div>
+          <div id="DIV-MESSAGE-CONTENT-WRAP">
+            잘 지내고 있으시죠~? 
+          </div>
+        </div>
+      </div>
+      <div class="div-alert-btn-wrap div-message-btn-wrap">
+        <div class="button-style list-button" onclick="showMessage(3)">지난 대화</div>
+        <div class="button-style blue-line-button" onclick="sendMessage(3)">답장하기</div>
+      </div>
+    </div>
+  </div> -->
+  <!--  -->
+
+</body>
+</html>

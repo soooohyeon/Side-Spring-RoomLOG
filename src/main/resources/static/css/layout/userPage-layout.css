@@ -1,0 +1,302 @@
+#MAIN-CONTAINTER {
+    border-top: 1px solid #DDDDDD;
+    padding: 0 0 150px;
+}
+
+/* 유저 프로필 정보 영역 */
+#DIV-USER-INFO-CONTAINER, #DIV-LIST-CONTAINER { min-width: 625px; }
+
+/* 유저 프로필 정보 영역 */
+#DIV-USER-INFO-CONTAINER {
+    width: 50%;
+    margin: auto;
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+}
+
+/* 유저 프로필 사진 */
+#DIV-USER-PROFILE-IMG {
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+#DIV-USER-PROFILE-IMG > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* 유저 나이, 닉네임, 메세지함, 설정 */
+#DIV-USER-INFO-WRAP {
+    width: 100%;
+    margin-left: 60px;
+}
+
+.div-age {
+    font-size: 14px;
+    padding: 5px;
+} 
+
+.div-nick-btn-wrap {
+    display: flex;
+    align-items: center;
+    margin: 7px 0 25px;
+}
+
+.div-nick-btn-wrap > .div-nickname {
+    margin: 0;
+    margin-right: 20px;
+}
+
+.div-message-btn, .div-settings-btn {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    border-radius: 5px;
+    cursor:  pointer;
+}
+
+.div-message-btn {
+    margin-right: 10px;
+    padding: 7px;
+
+    border: 1px solid #cccccc;
+    color: #333333;
+}
+.div-message-btn:hover { background-color: #ececec; }
+
+.div-settings-btn {
+    padding: 4px 7px;
+    
+    background-color: #dddddd;
+    color: #555555;
+}
+.div-settings-btn:hover { background-color: #cecece; }
+
+.div-settings-btn > img {
+    width: 28px;
+    margin-right: 3px;
+}
+
+/* 게시글, 팔로워, 팔로우 */
+.div-counts-wrap, .div-type-wrap {
+    display: flex;
+    align-items: center;
+}
+.div-counts-wrap { margin-bottom: 15px; }
+.div-type-wrap { margin-right: 23px; }
+.follow-click { cursor: pointer; }
+.follow-click:hover { color: #064973; }
+
+.div-count-name {
+    color: #999999;
+}
+
+.div-count {
+    padding-left: 7px;
+    letter-spacing: 0;
+}
+
+/* 유저 한 줄 소개 */
+.div-user-info {
+    height: 50px;
+    margin-top: 10px;
+
+    line-height: 1.5em;
+}
+
+/* --------------------------------------------------------------- */
+
+/* 글 목록 */
+#DIV-LIST-CONTAINER {
+    width: 65%;
+    overflow: hidden;
+    position: relative;
+}
+
+.has-img .div-post-text-wrap { width: calc(100% - 195px); }
+.div-post-text-wrap { width: 100%; }
+
+.div-my-post-info-wrap {
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div-post-text-wrap > .div-title { margin-top: 12px; }
+
+.div-none-profile {
+    width: 180px;
+    height: 120px;
+    overflow: hidden;
+}
+
+/* 게시글에 등록된 이미지 */
+.div-none-profile > img {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    margin-right: 20px;
+    
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+/* --------------------------------------------------------------- */
+
+/* 팔로워, 팔로우 목록 (모달) */
+.modal-follow > .div-alert-wrap {
+    width: 550px;
+    margin-bottom: 3%;
+    padding: 15px;
+    padding-bottom: 30px;
+
+    border-radius: 25px;
+}
+
+/* 모달 상단 */
+#DIV-MODAL-HEADER {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #cccccc;
+}
+
+.div-modal-title {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.modal-close-img {
+    width: 18px;
+    position: absolute;
+    right: 5px;
+
+    cursor: pointer;
+}
+
+/* 모달 내용 */
+.div-alert-content {
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+    overflow: hidden;
+}
+
+#DIV-USER-SEARCH-WRAP, #DIV-USER-COUNT-WRAP {
+    margin: 0 5px;
+}
+
+/* 검색 칸 */
+#user-search {
+    width: 100%;
+    padding: 13px 20px;
+    background-color: #efefef;
+    
+    box-sizing: border-box;
+    border: none;
+    border-radius: 30px;
+}
+#user-search:focus { outline: none; }
+
+/*  유저 목록 */
+#DIV-USER-LIST-WRAP {
+    /* min-height: 255px; */
+    max-height: 440px;
+    margin-top: 35px;
+    margin-left: 15px;
+
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-gutter: stable;
+}
+
+/* 유저 1명 */
+.div-user-wrap, .div-follow-user-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.div-user-wrap:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.div-follow-user-wrap { min-width: 0; }
+
+/* 유저 프로필 사진 */
+.div-user-profile-img {
+    width: 75px;
+    height: 75px;
+    aspect-ratio: 1;
+    margin-right: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.div-user-profile-img:hover { border: 1px solid #006497; }
+
+.div-user-profile-img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* 유저 닉네임, 한 줄 소개 */
+.div-user-simple-info {
+    min-width: 0;
+}
+.div-user-simple-info > .user-nick {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.div-user-simple-info > .user-nick > span:hover {
+    color: #006497;
+    cursor: pointer;
+}
+
+/* 한 줄 소개 */
+.user-info-wrap {
+    margin-top: 5px;
+    overflow: hidden;
+}
+.user-info {
+    color: #555555;
+    font-size: 17px;
+}
+
+.button-style {
+    margin: 0 10px;
+    padding: 6px 13px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.delete-button { background-color: #eeeeee; }
+.delete-button:hover { background-color: #dddddd; }
+
+/* 팔로워, 팔로우 0명일 경우 */
+#DIV-USER-NONE {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #555555;
+    font-size: 18px;
+    text-align: center;
+    line-height: 2em;
+}

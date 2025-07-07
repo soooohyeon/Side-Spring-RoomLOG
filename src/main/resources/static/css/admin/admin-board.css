@@ -1,0 +1,13 @@
+/* 커뮤니티 게시글 관리 목록 페이지 */
+#SECTION-LIST-CONTAINER td { padding: 10px 14px; }
+
+.t-number { width: 7%; }
+.t-title { width: calc(55% - 60px); }
+.t-nickname { width: 15%; }
+.t-comment { width: 10%; }
+.t-scrap { width: 10%; }
+.t-regist-date { width: 13%; }
+
+tbody > tr > td:nth-child(2) { text-align: left; }
+
+/* -------------------------------------------------------------- */

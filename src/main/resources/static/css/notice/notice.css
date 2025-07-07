@@ -1,0 +1,141 @@
+/* 공지 목록 */
+.div-one-post-wrap { padding: 20px 30px; }
+
+.div-profile-wrap {
+  justify-content: space-between;
+}
+
+.div-go-user-page > img {
+  width: 50px;
+  height: 50px;
+}
+
+/* ------------------------------------------------ */
+
+/* 공지 상세 */
+/* 이미지 공통 */
+.notic-main-container { padding: 50px 0 !important; }
+
+#DIV-POST-USER-PROFILE > img, .div-sub-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 글 내용 출력 영역 */
+#DIV-POST-TITLE {
+  margin: 50px 0 25px;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+/* 프로필 + 작성/수정일 + 수정/삭제 버튼 */
+#DIV-USER-DATE-BTN-WRAP {
+  width: 100%;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  border-bottom: 1px solid #cccccc;
+  color: #999999;
+}
+
+/* 프로필 영역 */
+#DIV-USER-INFO-WRAP {
+  display: flex;
+  align-items: center;
+}
+
+#DIV-POST-USER-PROFILE {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+  overflow: hidden;
+  flex-shrink: 0; 
+
+  border-radius: 50%;
+}
+
+#DIV-BTN-DATE-WRAP {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* 수정 / 삭제 버튼 */
+#DIV-BTN-WRAP, #DIV-DATE-WRAP, .div-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#DIV-BTN-WRAP { margin-bottom: 5px; }
+.div-post-btn > span { cursor: pointer; }
+.div-post-btn > span:hover { color: #006497; }
+
+
+/* 등록 / 수정 날짜 */
+#DIV-DATE-WRAP > span { font-weight: 500; }
+
+/* 본문 + 이미지 */
+#DIV-POST-INFO-WRAP {
+  padding-bottom: 25px;
+  font-weight: 500;
+}
+
+/* 본문 */
+#DIV-POST-CONTENT {
+  margin: 30px 0 20px;
+
+  color: #555555;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.7em;
+}
+
+/* 이미지 */
+#DIV-POST-IMAGE-WRAP { margin: 50px 0 30px; }
+
+/* 메인 이미지 */
+#DIV-MAIN-IMAGE {
+  width: 70%;
+  margin: auto;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+#DIV-MAIN-IMAGE > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이미지 리스트 */
+#DIV-SUB-IMAGE-WRAP {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.div-sub-image {
+  width: 18%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* 이미지 리스트 중 마지막 사진만 제외하고 여백주기 */
+#DIV-SUB-IMAGE-WRAP .div-sub-image:not(:last-child) { margin-right: 10px; }
+
+/* 목록 버튼 영역 */
+.section-btn-wrap {
+  margin: 50px 0 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-style {
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 800;
+}

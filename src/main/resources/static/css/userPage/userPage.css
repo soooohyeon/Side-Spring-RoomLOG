@@ -1,0 +1,12 @@
+/* 팔로우, 팔로잉 버튼 */
+.button-style {
+  padding: 10px 10px;
+  border-radius: 5px;
+}
+.button-style:last-child { margin: 0; }
+
+/* 게시글 목록 */
+#DIV-LIST-CONTAINER { margin-top: 0; }
+
+/* 게시글이 없을 경우 */
+.div-post-none { height: 300px; }

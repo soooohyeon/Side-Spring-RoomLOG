@@ -1,0 +1,73 @@
+/* 카테고리 */
+#DIV-CATEGORY-WRAP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-top: 1px solid #cccccc;
+}
+
+#UL-CATEGORY {
+    display: flex;
+    position: relative;
+}
+
+.li-category-wrap {
+    padding: 15px 2px;
+    color: #999999;
+    cursor: pointer;
+}
+
+.li-category-wrap:not(:last-child) {
+    margin-right: 50px !important;
+}
+
+/* 카테고리 선택 시 - 작성글, 스크랩 */
+.ca-selected {
+    border-top: 4px solid #04B2D9;
+    position: absolute;
+    top: 0;
+    transition: all 0.3s ease;
+}
+
+.div-category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-selected { color: #000000; }
+
+.div-category > img {
+    height: 28px;
+    margin-top: 2px;
+    margin-right: 7px;
+}
+
+.li-category-wrap:hover { color: #006497; }
+
+/* 슬라이드 효과를 위한 글 목록을 감싸는 wrap */
+.list-slide-wrap {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+}
+
+.write-list-wrap,
+.scrap-list-wrap {
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0 auto;
+}
+
+/* 스크랩한 게시글 */
+.has-img .div-profile-post-wrap { width: calc(100% - 265px); }
+/* 유저 프로필 사진 호버시 */
+.div-go-user-page > img:hover { border: 1px, solid #006497; }
+/* 게시글에 등록된 이미지 */
+.div-post-img {
+    width: 250px;
+    height: 165px;
+    overflow: hidden;
+}

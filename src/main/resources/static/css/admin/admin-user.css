@@ -1,0 +1,246 @@
+/* 사용자 관리 목록 페이지 */
+#SECTION-LIST-CONTAINER td { padding: 10px 14px; }
+
+.td-social > img {
+  width: 25px;
+  height: 25px;
+  margin-top: 5px;
+}
+
+.t-email { width: calc(40% - 60px); }
+.t-nickname { width: 20%; }
+.t-birth { width: 15%; }
+.t-social-type { width: 10%; }
+.t-regist-date { width: 15%; }
+
+/* -------------------------------------------------------------- */
+
+/* 사용자 상세 페이지 */
+#SECTION-USER-PROFILE-CONTAINER,
+#SECTION-USER-POST-CONTAINER,
+#SECTION-BTN-CONTAINER {
+  width: 80%;
+  margin: auto;
+  min-width: 570px;
+}
+
+/* 사용자 기본 정보 */
+#SECTION-USER-PROFILE-CONTAINER {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+
+  border-bottom: 1px solid #cccccc;
+}
+
+.div-user-profile-wrap {
+  width: 20%;
+  height: 20%;
+  max-width: 130px;
+  max-height: 130px;
+  aspect-ratio: 1;
+  margin-top: 35px;
+  margin-right: 40px;
+  display: block;
+  
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.div-user-info-wrap {
+  width: 70%;
+  max-width: 700px;
+  padding: 15px 30px;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+
+.div-one-line, .div-two-data, .div-one-data {
+  display: flex;
+  align-items: center;
+
+  color: #555555;
+}
+.div-one-line:not(:last-child) { margin-bottom: 20px; }
+.div-menu-line::after { margin: 0 15px; }
+
+.div-line-title, .div-follower-title {
+  width: 90px;
+  margin-right: 15px;
+
+  font-weight: 800;
+  text-align: right;
+}
+
+.div-email-wrap { display: flex; }
+
+.img-social-type {
+  width: 23px;
+  height: 23px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.follow-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+
+.div-follow-title {
+  margin-right: 15px;
+  font-weight: 800;
+}
+
+.div-line-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.skip-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+/* ------------------------------- */
+
+/* 프로필 사진, 닉네임 호버 시 유저 페이지로 이동 */
+.hover-btn { cursor: pointer; }
+.hover-btn > img { cursor: pointer; }
+.hover-btn:hover { color: #064973; }
+.hover-btn > img:hover { border: 2px solid #064973; }
+
+/* ------------------------------- */
+
+/* 사용자가 작성한 게시글, 댓글, 건의사항 */
+.div-post-list-wrap:not(:first-child) { margin-top: 75px; }
+
+/* 각 리스트의 제목 및 개수 */
+.div-title-count-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 15px;
+  padding: 0 20px 0 10px;
+
+  color: #555555;
+}
+
+.div-title-count-wrap > .div-title { font-size: 20px; }
+
+/* 리스트 */
+.div-list-wrap table thead > tr > th { padding: 0; }
+.go-type-page { height: 60px; }
+
+.go-type-page > td {
+  border: none;
+}
+
+.go-type-page > td:first-child {
+  padding: 16px 30px;
+  text-align: left;
+}
+.go-type-page:not(:last-child) > td { border-bottom: 1px solid #cccccc; }
+
+.div-list-wrap {
+  max-height: 305px;
+  overflow-y: auto;
+}
+
+.div-list-wrap .t-regist-date { width: 150px; }
+
+/* 댓글의 게시글 번호 */
+.span-board-number {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 3px 8px;
+
+  border: 1px solid #999999;
+  color: #999999;
+  text-align: center;
+}
+.span-board-number:hover {
+  border: 1px solid #555555;
+  color: #555555;
+}
+
+/* 건의사항 목록 */
+.t-status { width: 90px; }
+.table-feedback .t-regist-date { width: 150px; }
+.td-status { font-weight: 700; }
+
+/* ------------------------------- */
+
+/* 버튼 */
+#SECTION-BTN-CONTAINER {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 70px;
+}
+.btn-grey-line { margin-right: 10px; }
+
+/* ------------------------------- */
+
+/* 댓글 상세 (모달) */
+#MODAL-VEIW-COMMENT { display: flex; }
+.modal-comment > .div-alert-wrap {
+    width: 650px;
+    margin-bottom: 3%;
+    padding: 15px;
+    padding-bottom: 30px;
+
+    border-radius: 10px;
+}
+
+/* 모달 상단 */
+#DIV-MODAL-HEADER {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 15px;
+  
+  border-bottom: 1px solid #cccccc;
+}
+
+.div-modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0px;
+}
+
+.modal-close-img {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 5px;
+  
+  cursor: pointer;
+}
+
+.modal-comment .div-alert-wrap {
+  padding: 20px;
+}
+
+.div-comment {
+  width: 90%;
+  min-height: 70px;
+  margin: 30px auto 15px;
+  padding: 20px;
+
+  border: 1px solid #cccccc;
+}
+
+/* 모달 버튼 */
+.modal-comment .div-alert-btn-wrap {
+  margin: 20px auto 0;
+  padding: 0 15px;
+}
+
+.modal-comment .button-style {
+  height: 25px;
+  line-height: 25px;
+}
+

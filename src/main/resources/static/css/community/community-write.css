@@ -1,0 +1,58 @@
+/* 해시태그 */
+.tagify {
+    width: 100%;
+}
+  
+.tagify > span {
+  margin: 0;
+  padding: 15px;
+}
+
+.tagify__input {
+  color: #999999;
+  opacity: 1;
+  line-height: 1.3;
+  vertical-align: middle;
+}
+
+/* placeholder 항상 보이게 강제 */
+.tagify__input::before {
+  content: attr(data-placeholder);
+  opacity: var(--placeholder-visible, 1);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+#DIV-HASHTAG-WRAP {
+  margin-left: 135px;
+}
+
+.input-hashtag{
+    border: 0;
+}
+.input-hashtag {
+  border-bottom: none !important;
+}
+
+
+.input-hashtag .tagify__input{
+  order: -1;
+  flex: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  transition: .1s;
+}
+
+.tagify__tag,
+.tagify__input {
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+
+/* .tagify__tag { margin-top: 1em; } */
+
+.input-hashtag .tagify__input:hover{ border-color:var(--tags-hover-border-color); }
+.input-hashtag .tagify--focus .tagify__input{
+  transition:0s;
+  border-color: var(--tags-focus-border-color);
+}

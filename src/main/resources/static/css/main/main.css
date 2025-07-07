@@ -1,0 +1,194 @@
+/* 배너 영역 */
+#SECTION-BANNER-CONTAINER {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1080 / 550;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+}
+
+#UL-BANNER-WRAP {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.img-banner {
+  height: 100%;
+  aspect-ratio: 1080 / 550;
+  object-fit: cover;
+}
+
+/* 랭킹 공통 */
+.section-rank-container { margin-top: 100px; }
+
+.p-rank-section-title {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.p-rank-section-sub-title {
+  margin: 7px 0 33px;
+  font-size: 20px;
+  color: #999999;
+}
+
+.div-rank-wrap {
+  width: 100%;
+  display: flex;
+}
+
+/* 유저, 게시글 1개의 기본 레이아웃 */
+.div-rank-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #ffffff;
+  border: 1px solid #CCCCCC;
+  border-radius: 20px;
+}
+
+/* 팔로워 - 한 줄 소개, 게시판 - 제목, 본문 말줄임표  */
+.div-skip {
+  height: 48px;
+
+  font-size: 17px;
+  color: #555555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/*  랭킹 - 팔로워 많은 유저 4명 */
+.div-rank-follower-wrap {
+  width: 23%;
+  min-width: 180px;
+  padding: 30px 2%;
+}
+
+/* 유저 리스트 중 마지막 유저만 제외하고 여백주기 */
+.div-rank-wrap .div-rank-follower-wrap:not(:last-child) { margin-right: 30px; }
+
+.div-profile-image {
+  width: 130px;
+  height: 130px;
+}
+
+.div-profile-image > img {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 100%;
+}
+
+.div-nickname {
+  margin: 15px 0 11px;
+
+  font-size: 20px;
+}
+
+.p-user-intro {
+  margin: 10px 0 20px;
+  padding: 0 5%;
+  
+  text-align: center;
+}
+
+.button-style {
+  width: 90px;
+  padding: 8px;
+}
+
+.div-user-info-wrap { color: #999999; }
+.div-user-info-wrap div:first-child { margin-bottom: 5px;}
+.div-count-wrap { display: flex; }
+
+.div-count-name::after {
+  content: "|";
+  color: #999999;
+  margin: 0 17px;
+}
+
+.div-count-wrap > img { margin-right: 10px; }
+
+.img-followr-count { width: 27px; }
+.img-board-count { width: 27px; }
+
+/* 랭킹 - 스크랩 많은 게시글 3개 */
+#DIV-RANK-BOARD-TITLE-WRAP {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#DIV-GO-BOARD-PAGE > a {
+  color: #999999;
+  font-weight: 500;
+}
+#DIV-GO-BOARD-PAGE > a:hover { color: #006497; }
+
+/* 게시글 리스트 중 마지막 게시글만 제외하고 여백주기 */
+.div-rank-wrap .div-rank-board-wrap:not(:last-child) { margin-right: 20px; }
+
+.div-rank-board-wrap {
+  width: 30%;
+  min-width: 250px;
+  padding: 20px 2%;
+}
+
+.div-board-info-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.div-board-title {
+  padding-top: 10px;
+
+  font-size: 18px;
+  color: #000000;
+}
+
+.div-board-image {
+  width: 140px;
+  height: 100%;
+}
+
+.div-board-image > img {
+  width: 140px;
+  height: 100%;
+  margin-left: 5px;
+
+  object-fit:cover;
+  border-radius: 3px;
+}
+
+.div-board-info-count-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.div-board-count-wrap {
+  display: flex;
+  margin-top: 15px;
+}
+
+.div-board-count-wrap > img { height: 26px; }
+.div-board-info-count-wrap > div:first-child > img { margin-right: 7px; }
+.div-board-info-count-wrap > div:nth-child(2) > img { margin-right: 3px; }
+
+.div-board-info-count {
+  font-size: 20px;
+  color: #999999;
+  line-height: 25px;
+}
+
+.comment-count { margin-right: 15px; }

@@ -1,0 +1,139 @@
+/* 배너 관리 목록 페이지 */
+#SELECT-SORT { padding: 0 30px; }
+#SECTION-LIST-CONTAINER td { padding: 10px 14px; }
+
+.t-number { width: 7%; }
+.t-title { width: calc(50% - 140px); }
+.t-nickname { width: 80px; }
+.t-period { width: 23%; }
+.t-status { width: 7%; }
+.t-regist-date { width: 13%; }
+
+tbody > tr > td:nth-child(2) { text-align: left; }
+
+.td-used { color: #006497; }
+
+/* 각 배너 글에 대한 메뉴 버튼 */
+.td-menu_btn {
+  position: relative;
+  padding: 12px 14px 8px !important;
+  overflow: visible;
+}
+
+.div-menu-btn {
+  z-index: 10;
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.div-menu-btn > img { width: 16px; }
+
+/* 메뉴 - 수정, 삭제 */
+.div-menu-wrap {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 9;
+  top: 3px;
+  right: 8px;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+}
+.div-menu-option:first-child { border-bottom: 1px solid #cccccc; }
+
+.div-menu-option {
+  width: 60px;
+  padding: 7px;
+  padding-left: 20px;
+
+  font-size: 17px;
+  text-align: left;
+}
+
+.div-menu-option:hover { background-color: #f5f5f5; }
+
+/* 페이지네이션 */
+#DIV-PAGENATION-WRAP { margin-top: 90px; }
+
+/* -------------------------------------------------------------- */
+
+/* 배너 작성, 상세 페이지의 배너 이미지 */
+#DIV-BANNER-IMG {
+  width: 100%;
+  aspect-ratio: 1080 / 550;
+
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------- */
+
+/* 배너 작성 페이지 */
+#DIV-BANNER-IMG-WRAP {
+  margin-top: 10px;
+  margin-left: 155px;
+  max-width: 100%;
+}
+
+/* 이미지 등록 시 같이 나타낼 이미지 명 */
+.div-img-name {
+  margin: 5px 0;
+
+  color: #999999;
+  font-size: 16px;
+  text-align: right;
+}
+
+/* 사용 기간 입력 칸 */
+input[type='date'] {
+  position: relative;
+  font-family: inherit;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* 배경, 글자 투명하게하여 아이콘 안보이도록 설정 */
+  background: transparent; 
+  color: transparent; 
+  cursor: pointer;
+}
+
+.input-date {
+  width: 200px;
+  text-align: center;
+}
+
+.span-period {
+  margin: 0 15px;
+  color: #999999;
+}
+
+/* -------------------------------------------------------------- */
+
+/* 배너 상세 페이지 */
+.banner-period-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.div-view-status {
+  margin-right: 15px;
+  padding: 6px 12px;
+  border: 1px solid #555555;
+}
+
+.status-used {
+  color: #006497;
+  border: 1px solid #006497;
+}
+
+.div-banner-memo {
+  line-height: 1.6;
+}

@@ -1,0 +1,89 @@
+/* 로그인 및 회원가입 공통 레이아웃 */
+#MAIN-LOGIN-CONTAINTER { border-top:1px solid #DDDDDD; }
+
+#DIV-LOGIN-CONTAINER {
+  width: 55%;
+  min-width: 650px;
+  max-width: 820px;
+  height: 590px;
+  margin: auto;
+  margin-top: 70px;
+  padding: 70px 0 40px;
+}
+
+.div-login-container-line {
+  background-color: #ffffff;
+  border: 1px solid #CCCCCC;
+  border-radius: 40px;
+}
+
+#DIV-LOGIN-INFO-WRAP > #DIV-LOGO, p {
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#DIV-LOGO > img {
+  width: 250px;
+  margin-bottom: 40px;
+}
+
+#P-LOGIN-TITLE {
+  margin-bottom: 17px;
+
+  font-size: 23px;
+  font-weight: 700;
+}
+
+#P-LOGIN-SUB-TITLE {
+  height: 55px;
+  font-weight: 500;
+  line-height: 1.5em;
+}
+
+/* 회원가입 입력 영역 */
+#SECTION-JOIN-CONTAINER { margin-top: 20px; }
+
+/* input */
+.input-join-data {
+  height: 50px;
+
+  border: 2px solid #999999;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* 회원가입, 건너띄기기 버튼 */
+#DIV-JOIN-BTN-WRAP {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#DIV-JOIN-BTN-WRAP > button {
+  width: 120px;
+  height: 50px;
+  
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-no-join { background-color: #dddddd; }
+.btn-jump {
+  margin-right: 12px;
+  cursor: pointer;
+}
+.btn-jump:hover { background-color: #A9A9A9; }
+.btn-go-join {
+  background-color: #064973;
+  cursor: pointer;
+}
+.btn-go-join:hover { background-color: #00263A; }
+
+/* © 2025 RoomLOG. All rights reserved. */
+#FOOTER-ROOMLOG {
+  margin: 50px;
+
+  color: #555555;
+  text-align: center;
+}

@@ -1,0 +1,34 @@
+# Java 관련
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle 관련
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Eclipse / STS 관련
+.classpath
+.project
+.settings/
+bin/
+tmp/
+.metadata/
+recovery/
+
+# 운영체제 관련
+.DS_Store
+Thumbs.db
+
+# 로그 및 환경 파일
+*.log
+.env
+
+# Node.js (프론트 연동 시)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log

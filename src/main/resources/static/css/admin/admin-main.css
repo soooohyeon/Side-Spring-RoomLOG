@@ -1,0 +1,60 @@
+/* 그래프 영역 */
+#SECTION-CHART-CONTAINER {
+  display: flex;
+}
+
+.div-chart-wrap > .div-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.div-line-chart-wrap {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.div-pie-chart-wrap { width: 30%; }
+#DIV-PIE-CHART { margin-top: 10%; }
+
+/* ----------------------------------------------------------------- */
+
+/* 4가지 목록 최신 5개 출력 - 유저, 커뮤니티 게시글, 건의사항, 공지사항 */
+#SECTION-4-LIST-CONTAINER { margin-top: 100px; }
+
+.div-two-list-wrap {
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+}
+.div-one-list-wrap { width: 50%; }
+.div-two-list-wrap > .div-one-list-wrap:first-child { margin-right: 20px; }
+
+.div-list-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid #cccccc;
+}
+
+/* 테이블별 제목 */
+.div-title { font-size: 20px; }
+
+.div-list-all {
+  color: #555555;
+  font-size: 17px;
+  cursor: pointer;
+}
+.div-list-all:hover { color: #064973; }
+
+/* 테이블 */
+.div-list-wrap { margin-top: 10px; }
+.main-post-list td:first-child { text-align: left; }
+
+/* 컬럼별 너비 */
+.t-email { width: 50%; }
+.t-nick { width: 27%; }
+.t-date { width: 23%; }
+
+.t-title { width: 50%; }
+
+.t-notice-title { width: 77%; }

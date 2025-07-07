@@ -1,0 +1,36 @@
+/* 로그인 및 회원가입 버튼 */
+#DIV-LOGIN-BTN-WRAP {
+  margin-top: 65px;
+}
+
+.btn-social-wrap {
+  width: 45%;
+  margin: auto;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #000000;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#KAKAO-LOGIN {
+  margin-bottom: 25px;
+  background-color: #FBE300;
+}
+#KAKAO-LOGIN:hover { background-color: #ebd40c }
+#GOOGLE-LOGIN { background-color: #ffffff; }
+#GOOGLE-LOGIN:hover { background-color: #f5f5f5; }
+
+.btn-social-wrap > img {
+  height: 36px;
+  margin-right: 10px;
+}
+
+.span-login-text {
+  font-size: 19px;
+  margin-right: 10px;
+}

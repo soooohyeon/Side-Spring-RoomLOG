@@ -1,0 +1,287 @@
+#MAIN-CONTAINTER {
+  padding: 0 0 100px;
+  border-top: 1px solid #DDDDDD;
+}
+
+#DIV-CATEGORY-CONTAINER, #DIV-LIST-CONTAINER {
+  width: 80%;
+  min-width: 600px;
+}
+
+/* 카테고리를 감싸는 wrap */
+#DIV-CATEGORY-CONTAINER {
+  margin: auto;
+  margin-top: 60px;
+  display: flex;
+  position: relative;
+}
+
+#DIV-CATEGORY-WRAP {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#UL-CATEGORY {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
+.li-category-wrap {
+  width: 50%;
+
+  background: #f5f5f5;
+  color: #999999;
+  cursor: pointer;
+}
+
+/* 카테고리 선택 시 - 받은 메세지, 보낸 메세지 */
+.ca-selected {
+  border-top: 4px solid #04B2D9;
+  position: absolute;
+  top: 0;
+  transition: all 0.3s ease;
+}
+
+.div-category {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+}
+
+.div-category > img {
+  width: 33px;
+  margin-right: 8px;
+}
+.img-receive-msg { padding-top: 6px; }
+
+.div-category > div { font-size: 21px; }
+.div-selected {
+  background-color: #fff;
+  color: #000000;
+}
+
+.li-category-wrap:hover { color: #006497; }
+
+/* 메세지 목록을 감싸는 wrap */
+#DIV-LIST-CONTAINER {
+  margin: auto;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* 슬라이드 효과를 위한 글 목록을 감싸는 wrap */
+.list-slide-wrap {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+
+/* 받은 메세지, 보낸 메세지 wrap */
+.receive-msg-list-wrap,
+.send-msg-list-wrap {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* 검색 */
+.div-search-wrap {
+  width: 60%;
+  min-width: 400px;
+  margin: auto;
+  margin-top: 60px;
+  padding: 13px 25px;
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #cccccc;
+  border-radius: 40px;
+}
+
+.div-search-wrap > img {
+  width: 25px;
+  margin-right: 20px;
+}
+
+.div-search-wrap > input {
+  width: 100%;
+
+  border: none;
+  font-size: 19px;
+}
+.div-search-wrap > input:focus { outline: none; }
+
+/* 목록 wrap */
+.div-list-wrap { margin: 60px 0; }
+
+/* 카운트 */
+.div-msg-count-wrap {
+  width: 84%;
+  margin: auto;
+  margin-bottom: 20px;
+
+  color: #555555;
+  text-align: right;
+}
+
+/* 메세지 1개 */
+.div-one-post-wrap {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.div-post-wrap { width: 100%; }
+
+.div-post-btn-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.div-profile-wrap { margin-bottom: 0; }
+.div-go-user-page > img {
+    width: 55px;
+    height: 55px;
+}
+.div-go-user-page > img:hover { border: 1px, solid #006497; }
+.div-age { margin-top: 5px; }
+.div-delete { color: #999999; }
+.div-delete:hover { color: #064973; }
+.div-content { margin-left: 65px; }
+.div-time-wrap {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 받은 메세지 - 미열람한 메세지 */
+.div-none-show {
+  margin-top: 5px;
+  margin-left: 15px;
+  padding: 5px 6px;
+  color: #999;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.unread-msg .div-nickname,
+.unread-msg .div-content {
+  font-weight: 800;
+}
+.unread-msg .div-content { font-size: 20px; }
+.unread-msg .div-nickname { font-size: 22px; }
+
+.unread-msg {
+  background-color: #e8f3ff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+/* 페이지네이션 */
+.div-pagenation-wrap {
+  margin-top: 120px;
+  margin-bottom: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cccccc;
+}
+.div-pagenation-wrap > ul { display: flex; }
+
+/* --------------------------------------------------------------- */
+
+/* 메세지가 없을 경우 */
+.div-post-none { height: 550px; }
+
+/* --------------------------------------------------------------- */
+
+/* 메세지 상세 보기 (모달) */
+#message-modal {
+  display: flex;
+}
+
+.div-message-view {
+  width: 630px;
+  margin-bottom: 3%;
+  padding: 15px;
+  padding-bottom: 30px;
+  
+  border-radius: 25px;
+}
+
+/* 모달 닫기 버튼 (x) */
+.div-alert-close-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+  padding-bottom: 15px;
+}
+
+.modal-close-img {
+  width: 18px;
+  cursor: pointer;
+}
+
+#DIV-MESSAGE-CONTENT-CONTAINER {
+  width: 88%;
+  margin: auto;
+}
+
+.div-profile-btn-wrap {
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-time-btn-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.div-time-btn-wrap > div {
+  font-size: 15px;
+}
+
+.div-time-btn-wrap > .div-time { 
+  color: #555555;  
+}
+.div-time-btn-wrap > .div-delete { cursor: pointer; }
+
+#DIV-MESSAGE-CONTENT-WRAP {
+  min-height: 85px;
+  margin-top: 20px;
+  padding: 20px 30px;
+
+  border: 1px solid #cccccc;
+  color: #555555;
+  line-height: 1.6em;
+}
+
+/* 모달 버튼 - 지난 대화, 답장하기 */
+.div-message-btn-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.div-message-btn-wrap > .button-style { padding: 7px 10px; }
+.div-message-btn-wrap > .button-style:last-child { margin-left: 10px; }
+
+.div-message-btn-wrap > .list-button {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 9px;
+}

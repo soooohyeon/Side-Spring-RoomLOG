@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG Admin</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/admin/main-layout.css">
+  <link rel="stylesheet" href="../../css/admin/admin-user.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/admin/admin-basic.js"></script>
+  <script defer src="../../js/admin/admin-user.js"></script>
+  <script defer src="../../js/admin/admin-comment.js"></script>
+</head>
+<body>
+  
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='admin-main.html';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="../../html/main.html" id="GO-MESSAGE-PAGE">홈페이지</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="javascript:void(0);">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  
+    <!-- 메뉴바 -->
+    <div id="DIV-HEADER-BOTTOM">
+      <ul id="UL-HEDAER-MENU">
+        <li id="LI-HOME-LINK"><a href="admin-user-list.html">사용자 관리</a></li>
+        <li id="LI-COMMUNITY-LINK" class="li-main-menu"><a href="admin-board-list.html">콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-board-list.html">게시글 관리</a></li>
+            <li><a href="admin-comment-list.html">댓글 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-NOTICE-LINK" class="li-main-menu"><a href="admin-notice-list.html">운영 콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-notice-list.html">공지 사항 관리</a></li>
+            <li><a href="admin-banner-list.html">배너 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-FEEDBACK-LINK"><a href="admin-feedback-list.html">건의사항 관리</a></li>
+      </ul>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER" class="userNumber" data-user="2">
+    <!-- 사용자 정보 확인 -->
+    <section id="SECTION-USER-PROFILE-CONTAINER">
+      <div class="div-user-profile-wrap hover-btn">
+        <img src="../../image/example/profile_image/profile7.jpg" alt="profile">
+      </div>
+      <div class="div-user-info-wrap" data-user="1">
+        <div class="div-one-line">
+          <div class="div-line-title">닉네임</div>
+          <div class="div-line-text hover-btn">조용한 오후</div>
+        </div>
+        <div class="div-one-line">
+          <div class="div-line-title">E-Mail</div>
+          <div class="div-line-text div-email-wrap">
+            <div class="skip-text">
+              <img src="../../image/layout/login_google.png" class="img-social-type" alt="google">
+              <!-- <img src="../../image/layout/login_kakao.png" class="img-social-type" alt="kakao"> -->
+              slow.afternoon@gmail.com
+            </div>
+          </div>
+        </div>
+        <div class="div-one-line">
+          <div class="div-line-title">생년월일</div>
+          <div class="div-line-text">2000.01.01</div>
+        </div>
+        <div class="div-one-line">
+          <div class="div-two-data">
+            <div class="div-one-data div-menu-line follow-wrap">
+              <div class="div-follower-title">팔로워</div>
+              <div class="div-line-text follow-text">254 명</div>
+            </div>
+            <div class="div-one-data follow-wrap">
+              <div class="div-follow-title">팔로우</div>
+              <div class="div-line-text follow-text">112 명</div>
+            </div>
+          </div>
+        </div>
+        <div class="div-one-line">
+          <div class="div-line-title">한 줄 소개</div>
+          <div class="div-line-text">
+            <div class="skip-text">
+              혼자 꾸미는 자취방, 감성으로 완성해보세요 ㅋㅋㅋㄴㅋ🍂
+            </div>
+          </div>
+        </div>
+        <div class="div-one-line">
+          <div class="div-line-title">가입일</div>
+          <div class="div-line-text">2025.06.19 07:07</div>
+        </div>
+      </div>
+    </section>
+    <!--  -->
+
+    <!-- 사용자가 작성한 게시글, 댓글, 건의사항 -->
+    <section id="SECTION-USER-POST-CONTAINER">
+
+      <!-- 게시글 -->
+      <div class="div-post-list-wrap">
+        <div class="div-title-count-wrap">
+          <div class="div-title">해당 유저가 작성한 게시글</div>
+          <div class="div-count">74개</div>
+        </div>
+        <div class="div-list-wrap">
+          <table class="table-board">
+            <thead>
+              <tr>
+                <th class="t-title skip-text"></th>
+                <th class="t-regist-date"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>무드등 하나로 방 분위기 바꿔봤어요</td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>작은 테이블 하나 뒀을 뿐인데 느낌이 달라졌어요</td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>러그 깔고 나서 청소 습관이 생긴 것 같아요</td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>조용한 아침, 오늘은 혼자 시간을 보내고 있어요</td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>작은 테이블 하나 뒀을 뿐인데 느낌이 달라졌어요</td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="board">
+                <td>러그 깔고 나서 청소 습관이 생긴 것 같아요</td>
+                <td>2025.06.19</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 댓글 -->
+      <div class="div-post-list-wrap">
+        <div class="div-title-count-wrap">
+          <div class="div-title">해당 유저가 작성한 댓글</div>
+          <div class="div-count">74개</div>
+        </div>
+        <div class="div-list-wrap">
+          <table class="table-comment">
+            <thead>
+              <tr>
+                <th class="t-title skip-text"></th>
+                <th class="t-regist-date"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="go-page go-type-page" data-id="1" data-type="comment">
+                <td>
+                  <span class="span-board-number">글 번호 <span class="span-board">1</span></span>
+                  빛 번짐이 은은해서 밤에 켜두면 진짜 좋아요 :)
+                </td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="comment">
+                <td>
+                  <span class="span-board-number">글 번호 <span class="span-board">11</span></span>
+                  작은 테이블 하나 뒀을 뿐인데 느낌이 달라졌어요
+                </td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="comment">
+                <td>
+                  <span class="span-board-number">글 번호 <span class="span-board">123</span></span>
+                  러그 깔고 나서 청소 습관이 생긴 것 같아요
+                </td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="comment">
+                <td>
+                  <span class="span-board-number">글 번호 <span class="span-board">11</span></span>
+                  조용한 아침, 오늘은 혼자 시간을 보내고 있어요
+                </td>
+                <td>2025.06.19</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 건의사항 -->
+      <div class="div-post-list-wrap">
+        <div class="div-title-count-wrap">
+          <div class="div-title">해당 유저가 작성한 건의사항</div>
+          <div class="div-count">74개</div>
+        </div>
+        <div class="div-list-wrap">
+          <table class="table-feedback">
+            <thead>
+              <tr>
+                <th class="t-title skip-text"></th>
+                <th class="t-status"></th>
+                <th class="t-regist-date"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>작성한 댓글을 수정할 수 있는 기능도 추가되면 좋겠어요.</td>
+                <td class="td-status" data-status="1"></td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>이미지 첨부 시 미리보기가 바로 보이면 편할 것 같아요.</td>
+                <td class="td-status" data-status="0"></td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>글 신고 시 신고 사유를 선택하는 방식이면 더 편할 것 같아요.</td>
+                <td class="td-status" data-status="3"></td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>게시글 정렬을 최신순 외에도 스크랩순이나 댓글 많은 순으로도 볼 수 있으면 ...</td>
+                <td class="td-status" data-status="2"></td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>다른 유저의 소개글을 볼 수 있으면 더 좋을 것 같아요!     </td>
+                <td class="td-status" data-status="2"></td>
+                <td>2025.06.19</td>
+              </tr>
+              <tr class="go-page go-type-page" data-id="1" data-type="feedback">
+                <td>러그 깔고 나서 청소 습관이 생긴 것 같아요</td>
+                <td class="td-status" data-status="2"></td>
+                <td>2025.06.19</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="SECTION-BTN-CONTAINER">
+      <div class="button-style btn-grey-line" onclick="history.back()"><span>←</span>사용자 목록</div>
+      <div class="button-style btn-full-blue delete-btn">탈퇴 처리</div>
+    </section>
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+  <!-- 댓글 상세 보기 -->
+  <!-- <div class="div-alert-container modal-comment" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div id="DIV-MODAL-HEADER">
+        <div class="div-modal-title">[게시글 131] 에 달린 댓글</div>
+        <img src="../../image/layout/close_btn_grey.png" class="modal-close modal-close-img" alt="close">
+      </div>
+      <div class="div-alert-content">
+        <div class="div-comment">
+          사진 진짜 좋네요. 뭔가 말 안 해도 오늘 하루가 어땠을지 느껴져서 괜히 같이 조용해졌어요.<br>
+          저도 가끔 그런 날 있거든요. 말없이 조명만 켜놓고, 그냥 멍하게 있는 거요.<br>괜히 위로 받고 가요. 고마워요.
+        </div>
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="button-style btn-full-blue delete-comment" data-comment="2" data-parent="3">댓글 삭제</div>
+      </div>
+    </div>
+  </div> -->
+  <!--  -->
+
+</body>
+</html>

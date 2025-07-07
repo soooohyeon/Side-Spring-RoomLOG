@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/userPage/myPage-settings.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/userPage/myPage-settings.js"></script>
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link">
+          <a href="">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <!-- 페이지 영역 구분 선 -->
+    <section class="section-line">
+      <!-- 페이지 설명 영역 -->
+      <div id="DIV-PAGE-TITLE-WRAP">
+        <p id="P-CURRENT-PAGE">마이페이지</p>
+        <p id="P-TITLE">개인 정보 수정</p>
+        <p id="P-SUB-TITLE">지금의 정보를 확인하고, 필요한 부분만 바꿔보세요.<br>언제든 수정할 수 있어요.</p>
+      </div>
+      <!--  -->
+
+      <form action="" method="">
+        <!-- 프로필 이미지 -->
+        <div id="DIV-PROFILE-IMG" class="none-img">
+          <div id="DIV-PROFILE-IMG-WRAP">
+            <img src="../../image/userPage/profile_img_basic.png" class="img-one-preview" alt="프로필사진">
+            <label for="profile-image" id="LABEL-PROFILE-IMAGE-BTN">
+              <img src="../../image/userPage/profile_img_update_btn.png" alt="img-btn" id="IMG-PROFILE-IMAGE-BTN">
+            </label>
+            <input type="file" name="one-image" id="profile-image" class="input-profile-image">
+          </div>
+        </div>
+
+        <!-- 정보 확인 및 수정 영역 -->
+        <div id="DIV-DATA-COLUMNS-WRAP">
+          <div class="div-one-column-wrap">
+            <div class="div-column-wrap">
+              <div class="div-column-text">연동된 계정</div>
+            </div>
+            <div class="div-data-column-wrap">
+              <div class="div-no-edit-wrap">
+                <img src="../../image/layout/login_google.png" alt="social-type">
+                <!-- <img src="../../image/layout/login_kakao.png" alt="social-type"> -->
+                test123@gmail.com
+              </div>
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-wrap">
+              <div class="div-column-text">닉네임</div>
+            </div>
+            <div class="div-data-column-wrap">
+              <input type="text" name="nickname" data-original="포근한하루" value="포근한하루" id="INPUT-NICK" class="input-mypage" autocomplete="off">
+              <div class="div-check-msg" id="DIV-NICK-CHECK"></div>
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-wrap">
+              <div class="div-column-text">한 줄 소개</div>
+            </div>
+            <div class="div-data-column-wrap">
+              <input type="text" name="intro" data-original="" id="INPUT-INTRO" class="input-mypage" autocomplete="off">
+              <div class="div-check-msg">짧은 한 문장이 더 오래 머물 수 있어요 (30자 이내)</div>
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-wrap">
+              <div class="div-column-text">생년월일</div>
+            </div>
+            <div class="div-data-column-wrap">
+              <div class="div-no-edit-wrap">2000.01.01</div>
+            </div>
+          </div>
+          <div class="div-one-column-wrap">
+            <div class="div-column-wrap">
+              <div class="div-column-text">나이 공개</div>
+            </div>
+            <div class="div-data-column-wrap">
+              <div class="div-age-visible-wrap">
+                <label for="age-visible-yes">
+                  <input type="radio" name="age-visible" data-original="Y" value="Y" id="age-visible-yes" class="input-join-data required-input" required checked>
+                  <span>보여주기</span>
+                </label>
+                <label for="age-visible-no" class="">
+                  <input type="radio" name="age-visible" data-original="Y" value="N" id="age-visible-no" class="input-join-data required-input" required>
+                  <span>숨기기</span>
+                </label>
+              </div>
+              <div class="div-check-msg">다른 사람에게 나이대가 보여져요<br>언제든 숨길 수 있어요</div>
+            </div>
+          </div>
+
+          <!-- 탈퇴, 뒤로가기, 저장 -->
+          <div class="action-btn-wrap">
+            <div id="DIV-QUIT-SITE"><a href="mypage-quit.html">계정을 삭제하시려면 여기를 눌러주세요</a></div>
+            <div id="DIV-WRITE-WRAP">
+              <div class="button-style list-button" onclick="history.back();"><span>←</span> 돌아가기</div>
+              <div class="button-style basic-button" id="WRITE-BTN">저장하기</div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </form>
+
+
+    </section>
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG Admin</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/admin/main-layout.css">
+  <link rel="stylesheet" href="../../css/admin/admin-board.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/admin/admin-basic.js"></script>
+  <script defer src="../../js/admin/admin-board.js"></script>
+</head>
+<body>
+  
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='admin-main.html'">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="../../html/main.html" id="GO-MESSAGE-PAGE">홈페이지</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="javascript:void(0);">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  
+    <!-- 메뉴바 -->
+    <div id="DIV-HEADER-BOTTOM">
+      <ul id="UL-HEDAER-MENU">
+        <li id="LI-HOME-LINK"><a href="admin-user-list.html">사용자 관리</a></li>
+        <li id="LI-COMMUNITY-LINK" class="li-main-menu"><a href="admin-board-list.html">콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-board-list.html">게시글 관리</a></li>
+            <li><a href="admin-comment-list.html">댓글 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-NOTICE-LINK" class="li-main-menu"><a href="admin-notice-list.html">운영 콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-notice-list.html">공지 사항 관리</a></li>
+            <li><a href="admin-banner-list.html">배너 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-FEEDBACK-LINK"><a href="admin-feedback-list.html">건의사항 관리</a></li>
+      </ul>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <div class="div-title"><div class="div-sub-title">콘텐츠 관리</div>커뮤니티 게시글 관리</div>
+
+    <!-- 검색창 -->
+    <section id="SECTION-SEARCH-CONTAINER">
+      <form action="" method="">
+        <div id="DIV-SEARCH-WRAP">
+          <div id="DIV-SEARCH-CATEGORY-WRAP">
+            <select name="search-category" id="SELECT-SEARCH-CATEGORY">
+              <option value="all" selected>전체</option>
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+              <option value="nickname">닉네임</option>
+              <option value="hashtag">해시태그</option>
+            </select>
+          </div>
+          <div id="DIV-SEARCH-TEXT-WRAP">
+            <img src="../../image/layout/search.png" alt="search">
+            <input type="text" name="search-text" id="INPUT-SEARCH-TEXT" placeholder="검색어 입력">
+          </div>
+        </div>
+      </form>
+    </section>
+    <!--  -->
+
+    <!-- 글 개수 + 정렬 카테고리 -->
+    <section id="SECTION-COUNT-FILTER-CONTAINER">
+      <div id="DIV-INFO-WRAP">
+        <div id="DIV-POST-COUNT">총 83개</div>
+        <div id="DIV-SORT-WRAP">
+          <select name="sort" id="SELECT-SORT">
+            <option value="newest" selected>최신순</option>
+            <option value="comment">댓글 순</option>
+            <option value="scrap">스크랩 순</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- 목록 영역 -->
+    <section id="SECTION-LIST-CONTAINER">
+      <table>
+        <thead>
+          <tr>
+            <th class="t-number">글 번호</th>
+            <th class="t-title">제목</th>
+            <th class="t-nickname">닉네임</th>
+            <th class="t-comment">댓글 수</th>
+            <th class="t-scrap">스크랩 수</th>
+            <th class="t-regist-date">가입일</th>
+            <th class="t-btn"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="go-page go-detail" data-board="2">
+            <td>5</td>
+            <td>월세 40에 이 정도면 괜찮나요?</td>
+            <td>방꾸밀래</td>
+            <td>41 개</td>
+            <td>41 개</td>
+            <td>2025.06.19</td>
+            <td><div class="div-delete-btn delete-btn">삭제</div></td>
+          </tr>
+          <tr class="go-page go-detail" data-board="2">
+            <td>5</td>
+            <td>자주 쓰는 조명 색감 추천 좀 해주세요, 너무 고민돼요</td>
+            <td>무드등켜고</td>
+            <td>41 개</td>
+            <td>41 개</td>
+            <td>2025.06.19</td>
+            <td><div class="div-delete-btn delete-btn">삭제</div></td>
+          </tr>
+          <tr class="go-page go-detail" data-board="2">
+            <td>5</td>
+            <td>셀프 인테리어 하다가 망함ㅋ</td>
+            <td>룸메는고양이</td>
+            <td>41 개</td>
+            <td>41 개</td>
+            <td>2025.06.19</td>
+            <td><div class="div-delete-btn delete-btn">삭제</div></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- 페이지네이션 -->
+      <div id="DIV-PAGENATION-WRAP">
+        <div class="div-page-btn-wrap">
+          <div class="pagenation previous" onclick="">◁</div>
+        </div>
+        <ul>
+          <li class="pagenation page selected" onclick="">1</li>
+          <li class="pagenation page" onclick="">2</li>
+          <li class="pagenation page" onclick="">3</li>
+          <li class="pagenation page" onclick="">4</li>
+          <li class="pagenation page" onclick="">5</li>
+        </ul>
+        <div class="div-page-btn-wrap">
+          <div class="pagenation next" onclick="">▷</div>
+        </div>
+      </div>
+    </section>
+    <!--  -->
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+</body>
+</html>

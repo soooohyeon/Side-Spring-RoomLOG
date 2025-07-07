@@ -1,0 +1,159 @@
+textarea, input {
+  width: 100%;
+  border: none;
+}
+input[type="text"] {
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+#MAIN-CONTAINTER { padding: 70px 0 100px !important }
+
+.div-column-input-wrap > input:focus, textarea:focus { outline: none; }
+
+/* 페이지 설명 영역 */
+#DIV-PAGE-TITLE-WRAP { margin: 60px 40px 50px; }
+
+/* 글 작성 영역 */
+.section-line > form {
+  width: 85%;
+  margin: auto;
+}
+
+#DIV-WRITE-FORM-WRAP { color: #999999; }
+
+.div-one-column-wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.div-image-wrap { margin-bottom: 0; }
+.div-flex-none { display: block; }
+.div-column-flex-wrap { display: flex; }
+
+.div-hashtag-input-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.div-column-name {
+  width: 110px;
+  margin-right: 25px;
+
+  color: #000;
+  font-size: 20px;
+  text-align: right;
+}
+
+/* 필수 입력 영역 */
+.required-column {
+  margin-right: 5px;
+  color: #ff0000;
+  font-size: 20px;
+}
+
+/* 이미지 첨부 영역 */
+.image-column {
+  height: 60px;
+  display: flex;
+  align-items: center;
+} 
+
+.div-column-input-wrap {
+  width: 100%;
+  flex: 1;
+}
+
+.div-input-line {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+}
+
+.div-column-content-wrap {
+  width: 100%;
+  flex: 1;
+}
+
+.div-text-count-wrap {
+  margin-top: 8px;
+  padding: 0 5px;
+  text-align: right;
+}
+
+/* 이미지 첨부 버튼 */
+#DIV-BTN-IMAGE-WRAP { border: none; }
+
+#input-image { display: none; }
+
+.img-regist-btn {
+  width: 60px;
+  cursor: pointer;
+}
+
+/* 등록한 이미지 미리보기 */
+#DIV-THUMBNAIL-IMAGE-WRAP {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.div-thumbnail-wrap {
+  width: 18%;
+  min-width: 100px;
+  aspect-ratio: 4 / 3;
+  margin-right: 10px;
+  position: relative;
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: 100%;
+  margin: 10px 0 0;
+
+  border: 1px solid #cccccc;
+  object-fit: cover;
+}
+
+.span-thumbnail-close-btn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 0;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.div-check-msg {
+  margin-top: 10px;
+  margin-left: 135px;
+}
+
+.span-thumbnail-close-btn > img {
+  width: 70%;
+  height: 70%;
+}
+
+/* 목록 / 등록 버튼 영역 */
+#DIV-WRITE-WRAP {
+  display: flex;
+  justify-content: flex-end;
+  margin: 90px 0 40px;
+}
+
+#DIV-WRITE-WRAP > .button-style {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 5px !important;
+}
+
+.disabled {
+  background-color: #999999;
+  color: #fff;
+  cursor: not-allowed;
+}

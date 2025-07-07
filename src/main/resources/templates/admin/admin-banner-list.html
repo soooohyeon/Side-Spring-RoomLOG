@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG Admin</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/admin/main-layout.css">
+  <link rel="stylesheet" href="../../css/admin/admin-banner.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/admin/admin-basic.js"></script>
+  <script defer src="../../js/admin/admin-banner.js"></script>
+</head>
+<body>
+  
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='admin-main.html'">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="../../html/main.html" id="GO-MESSAGE-PAGE">홈페이지</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="javascript:void(0);">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  
+    <!-- 메뉴바 -->
+    <div id="DIV-HEADER-BOTTOM">
+      <ul id="UL-HEDAER-MENU">
+        <li id="LI-HOME-LINK"><a href="admin-user-list.html">사용자 관리</a></li>
+        <li id="LI-COMMUNITY-LINK" class="li-main-menu"><a href="admin-board-list.html">콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-board-list.html">게시글 관리</a></li>
+            <li><a href="admin-comment-list.html">댓글 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-NOTICE-LINK" class="li-main-menu"><a href="admin-notice-list.html">운영 콘텐츠 관리</a>
+          <ul class="ul-sub-menu">
+            <li><a href="admin-notice-list.html">공지 사항 관리</a></li>
+            <li><a href="admin-banner-list.html">배너 관리</a></li>
+          </ul>
+        </li>
+        <li id="LI-FEEDBACK-LINK"><a href="admin-feedback-list.html">건의사항 관리</a></li>
+      </ul>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <div class="div-title"><div class="div-sub-title">운영 콘텐츠 관리</div>배너 관리</div>
+
+    <!-- 검색창 -->
+    <section id="SECTION-SEARCH-CONTAINER">
+      <form action="" method="">
+        <div id="DIV-SEARCH-WRAP">
+          <div id="DIV-SEARCH-CATEGORY-WRAP">
+            <select name="search-category" id="SELECT-SEARCH-CATEGORY">
+              <option value="all" selected>전체</option>
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+            </select>
+          </div>
+          <div id="DIV-SEARCH-TEXT-WRAP">
+            <img src="../../image/layout/search.png" alt="search">
+            <input type="text" name="search-text" id="INPUT-SEARCH-TEXT" placeholder="검색어 입력">
+          </div>
+        </div>
+      </form>
+    </section>
+    <!--  -->
+
+    <!-- 글 개수 + 정렬 카테고리 -->
+    <section id="SECTION-COUNT-FILTER-CONTAINER">
+      <div id="DIV-INFO-WRAP">
+        <div id="DIV-POST-COUNT">총 83개</div>
+        <div id="DIV-SORT-WRAP">
+          <select name="sort" id="SELECT-SORT">
+            <option value="newest" selected>최신순</option>
+            <option value="used">사용</option>
+            <option value="unused">미사용</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- 목록 영역 -->
+    <section id="SECTION-LIST-CONTAINER">
+      <table>
+        <thead>
+          <tr>
+            <th class="t-number">배너 번호</th>
+            <th class="t-title">제목</th>
+            <th class="t-nickname">닉네임</th>
+            <th class="t-period">사용기간</th>
+            <th class="t-status">상태</th>
+            <th class="t-regist-date">등록일</th>
+            <th class="t-btn-group"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="go-page view-banner" data-banner="2">
+            <td>5</td>
+            <td>서비스 점검 일정 안내</td>
+            <td>운영자</td>
+            <td>2025.06.15 ~ 2025.06.30</td>
+            <td class="td-used">사용</td>
+            <!-- <td>미사용</td> -->
+            <td>2025.06.19</td>
+            <td class="td-menu_btn">
+              <div class="div-menu-btn"><img src="../../image/layout/menu_btn.png"></div>
+            </td>
+          </tr>
+          <tr class="go-page view-banner" data-banner="2">
+            <td>3</td>
+            <td>오늘의 공간, 오늘의 이야기</td>
+            <td>운영자</td>
+            <td>2025.06.15 ~ 2025.06.30</td>
+            <td>미사용</td>
+            <td>2025.06.19</td>
+            <td class="td-menu_btn">
+              <div class="div-menu-btn"><img src="../../image/layout/menu_btn.png"></div>
+            </td>
+          </tr>
+          <tr class="go-page view-banner" data-banner="2">
+            <td>2</td>
+            <td>업데이트 안내드립니다</td>
+            <td>운영자</td>
+            <td>2025.06.15 ~ 2025.06.30</td>
+            <td>미사용</td>
+            <td>2025.06.19</td>
+            <td class="td-menu_btn">
+              <div class="div-menu-btn"><img src="../../image/layout/menu_btn.png"></div>
+            </td>
+          </tr>
+          <tr class="go-page view-banner" data-banner="2">
+            <td>1</td>
+            <td>RoomLOG가 더 편해졌어요</td>
+            <td>운영자</td>
+            <td>2025.06.15 ~ 2025.06.30</td>
+            <td class="td-used">사용</td>
+            <td>2025.06.19</td>
+            <td class="td-menu_btn">
+              <div class="div-menu-btn"><img src="../../image/layout/menu_btn.png"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div id="DIV-BTN-WRITE-GROUP">
+        <div class="button-style btn-full-blue" onclick="location.href='admin-banner-write.html'">글 남기기</div>
+      </div>
+      
+      <!-- 페이지네이션 -->
+      <div id="DIV-PAGENATION-WRAP">
+        <div class="div-page-btn-wrap">
+          <div class="pagenation previous" onclick="">◁</div>
+        </div>
+        <ul>
+          <li class="pagenation page selected" onclick="">1</li>
+          <li class="pagenation page" onclick="">2</li>
+          <li class="pagenation page" onclick="">3</li>
+          <li class="pagenation page" onclick="">4</li>
+          <li class="pagenation page" onclick="">5</li>
+        </ul>
+        <div class="div-page-btn-wrap">
+          <div class="pagenation next" onclick="">▷</div>
+        </div>
+      </div>
+    </section>
+    <!--  -->
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+
+</body>
+</html>

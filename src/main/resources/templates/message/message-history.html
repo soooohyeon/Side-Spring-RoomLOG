@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLOG</title>
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/layout/list-layout.css">
+  <link rel="stylesheet" href="../../css/message/message-layout.css">
+  <link rel="stylesheet" href="../../css/message/message-history.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/message/message-history.js"></script>
+</head>
+<body>
+  <!-- 상단 공통 헤더 영역 -->
+  <header id="HEADER-CONTAINER">
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">마이페이지</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="../html/login/login.html">로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+  </header>
+  <!--  -->
+  
+  <!-- 메인 콘텐츠 영역 -->
+  <main id="MAIN-CONTAINTER">
+    <div id="DIV-MASSAGE-CONTAINER">
+      <div id="DIV-MESSAGE-WRAP">
+
+        <div id="DIV-USER-INFO-WRAP">
+          <div class="div-user-page">
+            <img src="../../image/example/profile_image/profile7.jpg">
+            <div class="div-nickname">반쯤열린창<span>님에게 보내는 메세지</span></div>
+          </div>
+        </div>
+
+        <div id="DIV-MESSAGE-HISTORY-WRAP">
+          <div id="DIV-MESSAGE-LIST">
+            <!-- 상대방 -->
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">안녕하세요!!<br>인테리어가 너무 제 취향이라 연락드렸어요 ㅎㅎ<br>맞팔 부탁드려요!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+
+            <!-- 나 -->
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">네 안녕하세요!!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+
+            <!--  -->
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">앞으로 소통하면서 지내고 싶어요~ ㅎㅎ</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">잘 부탁드립니다!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">넵 저도 잘 부탁드려요</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">소통하면서 지내요!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">앞으로 소통하면서 지내고 싶어요~ ㅎㅎ</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">잘 부탁드립니다!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">넵 저도 잘 부탁드려요</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">소통하면서 지내요!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">앞으로 소통하면서 지내고 싶어요~ ㅎㅎ</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">잘 부탁드립니다!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">넵 저도 잘 부탁드려요</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">소통하면서 지내요!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">앞으로 소통하면서 지내고 싶어요~ ㅎㅎ</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-other-message-wrap">
+              <div class="div-message">잘 부탁드립니다!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">넵 저도 잘 부탁드려요</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <div class="div-message-wrap div-my-message-wrap">
+              <div class="div-message">소통하면서 지내요!!</div>
+              <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+            </div>
+            <!--  -->
+
+          </div>
+          <div id="DIV-SCROLL-BTN-WRAP" class="none-show"><div id="SCROLL-BTN">▼</div></div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div id="DIV-LIST-BTN-WRAP">
+      <button class="button-style list-button" onclick="history.back()">이전 화면으로</button>
+    </div>
+
+  </main>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+</body>
+</html>

@@ -1,0 +1,58 @@
+/* 회원가입 join-optional */
+
+#DIV-PROFILE-SETTINGS-WRAP { margin-top: 30px; }
+
+#DIV-PROFILE-IMG {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.none-img { 
+  width: 110px;
+  height: 110px;
+  border: 8px solid #dddddd;
+}
+.none-img:hover { border: 8px solid #999999; }
+.has-img {
+  width: 124px;
+  height: 124px;
+  border: 2px solid #dddddd;
+}
+.has-img:hover { border: 2px solid #999999; }
+
+#DIV-PROFILE-IMG > label {
+  width: 100%;
+  height: 100%;
+}
+
+#DIV-PROFILE-IMG-WRAP {
+  height: 100%;
+  cursor: pointer;
+}
+
+.img-one-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.input-profile-image { display: none; }
+
+#DIV-PROFILE-NAME {
+  margin: 15px 0 20px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#DIV-PROFILE-INTRO {
+  width: 90%;
+  margin: auto;
+  padding-bottom: 35px;
+}
+
+.optional-input { width: 100%; }
