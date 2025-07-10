@@ -15,8 +15,8 @@
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-	<div th:replace="layout/headerTop :: headerTopFragment"></div>
-	<div th:replace="layout/headerBottom :: headerBottomFragment"></div>
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
+	<div th:replace="layout/user-header-menu :: headerMenuFragment"></div>
   </header>
   <!--  -->
   
@@ -46,7 +46,7 @@
               </select>
             </div>
             <div id="DIV-SEARCH-TEXT-WRAP">
-              <img src="../../image/layout/search.png" alt="search">
+              <img src="/image/layout/search.png" alt="search">
               <input type="text" name="search-text" id="INPUT-SEARCH-TEXT" placeholder="검색어 입력">
             </div>
           </div>
@@ -84,7 +84,7 @@
                   <div class="div-two-skip div-content">소파가 너무 헤져서 바꾸려고 하는데요...<br>20만원 이하 2인 소파 추천 부탁드립니다!!!!소파가 너무 헤져서 바꾸려고 하는데요...20만원 이하 2인 소파 추천 부탁드립니다!!!!</div>
                 </div>
                 <div class="div-post-img">
-                  <img src="../../image/example/board/work-desk.jpg" alt="postIMG">
+                  <img src="/image/example/board/work-desk.jpg" alt="postIMG">
                 </div>
               </div>
               <div class="div-hashtag-wrap">
@@ -96,12 +96,12 @@
                 <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                 <div class="div-two-counts-wrap">
                   <div class="div-count-wrap">
-                    <img src="../../image/layout/comment_count.png" alt="comment">
+                    <img src="/image/layout/comment_count.png" alt="comment">
                     <div class="div-comment">17</div>
                   </div>
                   <div class="div-count-wrap">
-                    <img src="../../image/layout/scrap_ok.png" alt="scrap_ok" onclick="noScrap(event, this, 1)">
-                    <!-- <img src="../../image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
+                    <img src="/image/layout/scrap_ok.png" alt="scrap_ok" onclick="noScrap(event, this, 1)">
+                    <!-- <img src="/image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
                     <div class="div-scrap">221</div>
                   </div>
                 </div>
@@ -214,35 +214,10 @@
   <!--  -->
 
   <!-- 하단 푸터 영역 -->
-  <footer id="FOOTER-CONTAINER">
-    <div id="DIV-FOOTER-WRAP">
-      <div id="DIV-FOOTER-LEGAL-WRAP">
-        <div class="div-footer-legal div-menu-line"><a href="">개인정보처리방침</a></div>
-        <div class="div-footer-legal"><a href="">이용약관</a></div>
-      </div>
-
-      <div id="DIV-ROOMLOG-INFO-WRAP">
-        <p>우선의 공간을 기록하는 사람들.</p>
-        <p>Contact: official@roomlog.com</p>
-        <p>Copyright © RoomLOG. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <!--  -->
-
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
+  <footer th:replace="layout/user-footer :: footerFragment"></footer>
+  
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>
