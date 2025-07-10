@@ -26,6 +26,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Override
     public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(request);
+        // 소셜 로그인 종류를 저장하기 위한 변수
+        String socialType = request.getClientRegistration().getRegistrationId();
 
         // Kakao 계정 정보 추출
         Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttribute("kakao_account");

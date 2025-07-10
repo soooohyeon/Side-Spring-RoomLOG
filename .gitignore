@@ -28,7 +28,7 @@ recovery/
 *.jks
 *.p12
 /secrets.*
-/application-oauth.properties
+/src/main/resources/application.properties
 /src/main/resources/application-oauth.properties
 
 # 운영체제 관련
