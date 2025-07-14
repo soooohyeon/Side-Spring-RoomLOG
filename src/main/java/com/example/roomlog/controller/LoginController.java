@@ -15,7 +15,7 @@ public class LoginController {
 	public String loginPage() {
 		return "login/login";
 	}
-	
+
 	// 회원가입일 경우 - 회원 필수 정보 입력받는 페이지
 	@GetMapping("/join-required")
 	public String requiredJoinPage() {
