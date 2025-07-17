@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="/image/layout/favicon.png">
-  <link rel="stylesheet" href="/css/layout/main-layout.css">
-  <link rel="stylesheet" href="/css/layout/list-layout.css">
-  <link rel="stylesheet" href="/css/main/main.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/main/main.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="/js/main/main.js"></script>
-  <script defer src="/js/basic/basic.js"></script>
+  <script defer th:src="@{/js/main/main.js}"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
@@ -28,13 +28,13 @@
     <section id="SECTION-BANNER-CONTAINER">
       <ul id="UL-BANNER-WRAP">
         <li class="li-slide-banner">
-          <img src="/image/banner/banner1.png" class="img-banner">
+          <img th:src="@{/image/banner/banner1.png}" class="img-banner">
         </li>
         <li class="li-slide-banner">
-          <img src="/image/banner/banner2.png" class="img-banner">
+          <img th:src="@{/image/banner/banner2.png}" class="img-banner">
         </li>
         <li class="li-slide-banner">
-          <img src="/image/banner/banner3.png" class="img-banner">
+          <img th:src="@{/image/banner/banner3.png}" class="img-banner">
         </li>
       </ul>
     </section>
@@ -47,8 +47,8 @@
       <div class="div-rank-wrap">
 
         <!-- 팔로워 1명 -->
-        <div class="div-rank-layout div-rank-follower-wrap post-hover" onclick="location.href='/userPage/userPage.html'">
-          <div class="div-profile-image"><img src="/image/example/profile_image/profile1.jpg" alt="profile"></div>
+        <div class="div-rank-layout div-rank-follower-wrap post-hover" th:onclick="|location.href='@{/userPage/userPage.html}'|">
+          <div class="div-profile-image"><img th:src="@{/image/example/profile_image/profile1.jpg}" alt="profile"></div>
           <div class="div-nickname">조용한오후</div>
           <button class="button-style follow-btn" onclick="goFollow(event, this, 0)">팔로우</button>
           <!-- <button class="button-style basic-button" onclick="noFollow(event, this, 1)">팔로잉</button> -->
@@ -141,19 +141,19 @@
         <div class="div-rank-layout div-rank-board-wrap post-hover">
           <div class="div-board-info-wrap">
             <div class="div-skip div-board-title">이번에 인테리어 싹 바꿔봤습니당</div>
-            <div class="div-board-image"><img src="/image/example/board/work-desk.jpg"></div>
+            <div class="div-board-image"><img th:src="@{/image/example/board/work-desk.jpg}"></div>
           </div>
           <div class="div-skip div-board-content">
             자취 로망이었던 인테리어로 싹 바꿔 봤어요. 따뜻한 무드톤으로 바꿔봤는데 어때여??
           </div>
           <div class="div-board-info-count-wrap">
             <div class="div-board-count-wrap">
-              <img src="/image/layout/comment_count.png" class="img-bookmark" alt="bookmark">
+              <img th:src="@{/image/layout/comment_count.png}" class="img-bookmark" alt="bookmark">
               <div class="div-board-info-count comment-count">46</div>
             </div>
             <div class="div-board-count-wrap">
-              <!-- <img src="/image/layout/scrap_ok.png" alt="scrap_ok" onclick="noScrap(event, this, 0)"> -->
-              <img src="/image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, 0)">
+              <!-- <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" onclick="noScrap(event, this, 0)"> -->
+              <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" onclick="goScrap(event, this, 0)">
               <div class="div-board-info-count">117</div>
             </div>
           </div>

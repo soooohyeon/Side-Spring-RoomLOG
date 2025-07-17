@@ -1,11 +1,14 @@
 package com.example.roomlog.domain.user;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +17,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +27,7 @@ import lombok.ToString;
 @Table(name = "tbl_user")
 @Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 	
 	@Id
@@ -39,26 +42,21 @@ public class User {
 	@JoinColumn(name = "profile_img_id")
 	private ProfileImg profileImg;
 
-	@NotNull
 	@Column(unique = true, nullable = false)
 	private String userEmail;
-	@NotNull
 	@Column(unique = true, nullable = false)
 	private String userNickname;
-	@NotNull
 	@Column(nullable = false)
-	private LocalDateTime userBirth;
-	@NotNull
+	private LocalDate userBirth;
 	@Column(nullable = false)
 	private int isAgeVisible = 1;
 	private String userIntro;
-	@NotNull
 	@Column(nullable = false)
-	@CreationTimestamp
+	@CreatedDate
 	private LocalDateTime userJoinDate;
 	
 	@Builder
-	public User(SocialType socialType, String userEmail, String userNickname, LocalDateTime userBirth, int isAgeVisible) {
+	public User(SocialType socialType, String userEmail, String userNickname, LocalDate userBirth, int isAgeVisible) {
 		this.socialType = socialType;
 		this.userEmail = userEmail;
 		this.userNickname = userNickname;
@@ -66,14 +64,19 @@ public class User {
 		this.isAgeVisible = isAgeVisible;
 	}
 
-//	닉네임, 나이 노출 여부, 한줄 소개 업데이트
+	// 회원가입 시 한줄 소개 저장
+	public void saveUserIntro(String userIntro) {
+		this.userIntro = userIntro;
+	}
+
+	// 닉네임, 나이 노출 여부, 한줄 소개 업데이트
 	public void updateUserInfo(String userNickname, int isAgeVisible, String userIntro) {
 		this.userNickname = userNickname;
 		this.isAgeVisible = isAgeVisible;
 		this.userIntro = userIntro;
 	}
 	
-//	프로필 사진 업데이트
+	// 프로필 사진 업데이트
 	public void updateProfileImg(ProfileImg profileImg) {
 	    this.profileImg = profileImg;
 	}

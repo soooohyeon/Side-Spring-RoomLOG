@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/layout/list-layout.css">
-  <link rel="stylesheet" href="../../css/login/login-layout.css">
-  <link rel="stylesheet" href="../../css/login/join-required.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/login/login-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/login/join-required.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/login/join-required.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
+  <script defer th:src="@{/js/login/join-required.js}"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
     <div id="DIV-HEADER-TOP"></div>
-    <!--  -->
-
   </header>
   <!--  -->
 
@@ -28,20 +25,20 @@
     <div id="DIV-LOGIN-CONTAINER" class="div-login-container-line">
       <section id="DIV-LOGIN-INFO-WRAP">
         <div id="DIV-LOGO">
-          <img src="../../image/layout/logo.png" alt="LOGO">
+          <img th:src="@{/image/layout/logo.png}" alt="LOGO">
         </div>
         <p id="P-LOGIN-TITLE">RoomLOG에 오신 걸 환영합니다.</p>
         <p id="P-LOGIN-SUB-TITLE">소소한 기록을 시작하기 위한 첫 걸음이에요.</p>
       </section>
 
       <section id="SECTION-JOIN-CONTAINER">
-        <form action="/login/join-required-data" method="post">
+        <form th:action="@{/login/join-required-data}" method="post" id="joinForm">
 
           <!-- 닉네임 입력 -->
           <div class="div-join-wrap">
             <div class="div-join-text">닉네임을 입력해주세요</div>
             <div class="div-join-input-wrap">
-              <input type="text" name="nickname" id="nickname" class="input-join-data required-input" placeholder="닉네임 입력" autocomplete="off" required>
+              <input type="text" name="userNickname" id="nickname" class="input-join-data required-input" placeholder="닉네임 입력" autocomplete="off" required>
               <div id="DIV-NICK-CHECK" class="div-check">2~12자 사이로 입력해 주세요</div>
             </div>
           </div>
@@ -50,7 +47,7 @@
           <div class="div-join-wrap">
             <div class="div-join-text">생년월일을 입력해주세요</div>
             <div class="div-join-input-wrap">
-              <input type="date" name="birth" id="birth" class="input-join-data required-input" required>
+              <input type="date" name="userBirth" id="birth" class="input-join-data required-input" required>
             </div>
           </div>
 
@@ -62,11 +59,11 @@
             </div>
             <div class="div-join-input-wrap div-age-visible-wrap">
               <label for="age-visible-yes">
-                <input type="radio" name="age-visible" value="Y" id="age-visible-yes" class="input-join-data required-input" required checked>
+                <input type="radio" name="isAgeVisible" value="1" id="age-visible-yes" class="input-join-data required-input" required checked>
                 <span>보여주기</span>
               </label>
               <label for="age-visible-no" class="">
-                <input type="radio" name="age-visible" value="N" id="age-visible-no" class="input-join-data required-input" required>
+                <input type="radio" name="isAgeVisible" value="0" id="age-visible-no" class="input-join-data required-input" required>
                 <span>숨기기</span>
               </label>
             </div>
@@ -84,6 +81,9 @@
   <footer id="FOOTER-ROOMLOG">
     © 2025 RoomLOG. All rights reserved.
   </footer>
+
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>

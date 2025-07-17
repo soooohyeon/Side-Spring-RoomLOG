@@ -38,6 +38,10 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    
+    // 테스트에서도 사용가능하도록 설정
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 
     // querydsl (jakarta 버전)
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'

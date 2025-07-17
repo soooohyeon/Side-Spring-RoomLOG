@@ -25,11 +25,29 @@ let isFileChange = false;
 $('#DIV-PROFILE-IMG').hover(function() {
   if (!isFileChange) {  // 이미지 프리뷰가 없을 때 만 바뀌도록
     $imgBtn = $(this).find(".img-one-preview");
-    $imgBtn.attr("src", "../../image/login/profile_img_add_hover.png");
+    $imgBtn.attr("src", "/image/login/profile_img_add_hover.png");
   }
 }, function() {
   if (!isFileChange) {  // 이미지 프리뷰가 없을 때 만 바뀌도록
     $imgBtn = $(this).find(".img-one-preview");
-    $imgBtn.attr("src", "../../image/login/profile_img_add.png");
+    $imgBtn.attr("src", "/image/login/profile_img_add.png");
   }
+});
+
+// ---------------------------------------------------------------
+
+// 회원 가입 버튼 클릭 시
+const joinMsg = "회원가입 완료되었습니다.";
+$(document).on("click", ".join-btn", function() {
+  const className = $(this).attr("class");
+
+  openModal(joinMsg).then((result) => {
+	if (result) {
+		if (className.includes("btn-jump")) {
+			location.href = "/main";
+		} else {
+			$("#optionalForm").submit();
+		}
+	}
+  });
 });

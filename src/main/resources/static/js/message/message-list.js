@@ -3,14 +3,14 @@ const $receiveMsgImage = $(".ca-img[data-category='receive-msg']");
 const $sendMsgImage = $(".ca-img[data-category='send-msg']");
 const imageSrc = {
     receiveMsg: {
-        normal: "../../image/message/msg_receive.png",
-        selected: "../../image/message/msg_receive_active.png",
-        hover: "../../image/message/msg_receive_hover.png"
+        normal: "/image/message/msg_receive.png",
+        selected: "/image/message/msg_receive_active.png",
+        hover: "/image/message/msg_receive_hover.png"
     },
     sendMsg: {
-        normal: "../../image/message/msg_sent.png",
-        selected: "../../image/message/msg_sent_active.png",
-        hover: "../../image/message/msg_sent_hover.png"
+        normal: "/image/message/msg_sent.png",
+        selected: "/image/message/msg_sent_active.png",
+        hover: "/image/message/msg_sent_hover.png"
     }
 };
 
@@ -186,12 +186,12 @@ $(document).on("click", ".div-delete", function (e){
 
 // 지난 대화 클릭 시
 function showMessage(userNumber) {
-  location.href = "../../html/message/message-history.html";
+  location.href = "/html/message/message-history.html";
 }
 
 // ---------------------------------------------------------------
 
 // 답장하기 클릭 시
 function sendMessage(userNumber) {
-  location.href = "../../html/message/message-write.html";
+  location.href = "/html/message/message-write.html";
 }

@@ -1,4 +1,9 @@
 /* 로그인 및 회원가입 공통 레이아웃 */
+input[type='text']:focus {
+  outline: none;
+  border: 2px solid #999999;
+}
+
 #MAIN-LOGIN-CONTAINTER { border-top:1px solid #DDDDDD; }
 
 #DIV-LOGIN-CONTAINER {

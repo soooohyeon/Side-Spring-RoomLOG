@@ -59,7 +59,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         session.setAttribute("isNewUser", isNewUser);
         if (isNewUser) {
         	session.setAttribute("oauthEmail", email);
-        	session.setAttribute("oauthSocialType", socialType.getSocialTypeId());
+        	session.setAttribute("oauthSocialType", socialTypeName.toUpperCase());
         }
         
         // (기존 유저면) UserEntity → OAuth2User 로 변환해서 리턴

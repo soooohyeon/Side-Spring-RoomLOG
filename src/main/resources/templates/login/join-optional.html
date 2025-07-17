@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/login/login-layout.css">
-  <link rel="stylesheet" href="../../css/login/join-optional.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/login/login-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/login/join-optional.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/login/join-optional.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
+  <script defer th:src="@{/js/login/join-optional.js}"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
     <div id="DIV-HEADER-TOP"></div>
-    <!--  -->
-
   </header>
   <!--  -->
 
@@ -27,33 +24,33 @@
     <div id="DIV-LOGIN-CONTAINER" class="div-login-container-line">
       <section id="DIV-LOGIN-INFO-WRAP">
         <div id="DIV-LOGO">
-          <img src="../../image/layout/logo.png" alt="LOGO">
+          <img th:src="@{/image/layout/logo.png}" alt="LOGO">
         </div>
         <p id="P-LOGIN-TITLE">RoomLOG에 오신 걸 환영합니다.</p>
         <p id="P-LOGIN-SUB-TITLE">당신의 분위기를 담아볼까요?<br>사진 한 장과 한 문장만으로도 충분해요.</p>
       </section>
 
       <section id="SECTION-JOIN-CONTAINER">
-        <form action="" method="">
+        <form th:action="@{/login/join-required-data}" method="post" id="optionalForm">
 
           <div id="DIV-PROFILE-SETTINGS-WRAP">
             <div id="DIV-PROFILE-IMG" class="none-img">
               <label for="profile-image">
                 <div id="DIV-PROFILE-IMG-WRAP">
-                  <img src="../../image/login/profile_img_add.png" class="img-one-preview" alt="프로필사진 추가">
+                  <img th:src="@{/image/login/profile_img_add.png}" class="img-one-preview" alt="프로필사진 추가">
                 </div>
               </label>
               <input type="file" name="one-image" id="profile-image" class="input-profile-image" accept="image/*" />
             </div>
-            <div id="DIV-PROFILE-NAME">○○○ 님</div>
+            <div id="DIV-PROFILE-NAME"><span th:text="${nickname}"></span> 님</div>
             <div id="DIV-PROFILE-INTRO">
               <input type="text" name="profile-intro" id="profile-intro" class="input-join-data optional-input" placeholder="30자 이내로 지금의 나를 표현해보세요." autocomplete="off">
             </div>
           </div>
 
           <div id="DIV-JOIN-BTN-WRAP">
-            <button type="button" class="btn-no-join btn-jump" onclick="">건너띄기</button>
-            <button type="button" class="btn-go-join">완료</button>
+            <button type="button" class="join-btn btn-no-join btn-jump">건너띄기</button>
+            <button type="button" class="join-btn btn-go-join">완료</button>
           </div>
         </form>
       </section>
@@ -64,20 +61,9 @@
   <footer id="FOOTER-ROOMLOG">
     © 2025 RoomLOG. All rights reserved.
   </footer>
-
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
-
+  
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
+  
 </body>
 </html>

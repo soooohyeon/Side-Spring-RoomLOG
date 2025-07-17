@@ -135,8 +135,8 @@ function noScrap(event, element, userNumber) {
 
 // ---------------------------------------------------------------
 
-// 닉네임 중복 검사
-function isNickUsed($result, nickname, originalNick = null) {
+// 닉네임 유효성 및 중복 검사
+async function isNickUsed($result, nickname, originalNick = null) {
   let nickLength = Array.from(nickname).length; 
   let isCheckNick = false;
 
@@ -152,19 +152,29 @@ function isNickUsed($result, nickname, originalNick = null) {
     const trimmed = Array.from(nickname).slice(0, 12).join("");
     $(this).val(trimmed);
   } else {  // 2 ~ 12자 이내일 때 중복 검사
-    
-    // 중복검사 패스
-    $result.text("사용할 수 있는 닉네임이에요");
-    $result.css("color", "#064973");
-    isCheckNick = true;
-
-    // 중복됨
-    // $result.text("다른 닉네임을 입력해 주세요");
-    // $result.css("color", "#FF0000");
-    // isCheckNick = false;
+	  isCheckNick = await checkNickname($result, nickname);
   }
-  // 결과 리턴
   return isCheckNick;
+}
+
+// 닉네임 중복 검사
+async function checkNickname($result, nickname) {
+	const res = await fetch("/user/check-nickname?nickname=" + nickname);
+	const result = await res.json();
+	let checkResult = false;
+
+	if (result) {
+		// 중복됨
+		$result.text("다른 닉네임을 입력해 주세요");
+		$result.css("color", "#FF0000");
+		checkResult = false;
+	} else {
+		// 중복검사 통과
+		$result.text("사용할 수 있는 닉네임이에요");
+		$result.css("color", "#064973");
+		checkResult = true;
+	}
+	return checkResult;
 }
 
 // ---------------------------------------------------------------

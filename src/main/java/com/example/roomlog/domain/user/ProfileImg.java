@@ -2,7 +2,7 @@ package com.example.roomlog.domain.user;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +25,12 @@ public class ProfileImg {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long profileImgId;
-	@NotNull
 	@Column(unique = true, nullable = false)
 	private String progileImgUuid;
-	@NotNull
 	@Column(nullable = false)
 	private String profileImgOriginal;
-	@NotNull
 	@Column(nullable = false)
-	@CreationTimestamp
+	@CreatedDate
 	private LocalDateTime profileImgUploadDate;
 	
 	@Builder
