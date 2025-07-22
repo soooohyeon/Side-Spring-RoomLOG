@@ -6,11 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.roomlog.domain.user.SocialType;
 import com.example.roomlog.domain.user.User;
-import java.util.List;
 
 
-
-public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 	// OAuth - 이메일이 존재하는지 체크
 	Optional<User> findByUserEmailAndSocialType(String userEmail, SocialType socialType);
@@ -20,6 +18,5 @@ public interface UserRepository extends JpaRepository<User, Long>, UserCustomRep
 	
 	// 닉네임 중복 체크
 	boolean existsByUserNickname(String userNickname);
-	
 	
 }

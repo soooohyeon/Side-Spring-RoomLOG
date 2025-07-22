@@ -3,6 +3,7 @@ package com.example.roomlog.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.user.UserDTO;
@@ -76,8 +78,16 @@ public class UserServiceTest {
 		userDTO2.setUserNickname("test입니다");
 		userDTO2.setIsAgeVisible(0);
 		userDTO2.setUserIntro("한 줄 소개 테스트");
+		
+		MultipartFile image = null;
+		
 		// when
-		userService.updateUserInfo(userDTO2, "MYPAGE");		
+		try {
+			userService.updateUserInfo(userDTO2, image, "MYPAGE");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		// then
 		Optional<User> user = userRepository.findByUserId(userDTO2.getUserId());
 		assertThat(user).isNotEmpty();

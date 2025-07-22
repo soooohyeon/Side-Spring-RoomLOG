@@ -13,12 +13,11 @@ import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table (name = "tbl_profile_img")
-@Getter @Setter @ToString
+@Getter @ToString
 @NoArgsConstructor
 public class ProfileImg {
 	
@@ -26,17 +25,24 @@ public class ProfileImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long profileImgId;
 	@Column(unique = true, nullable = false)
-	private String progileImgUuid;
+	private String profileImgUuid;
 	@Column(nullable = false)
 	private String profileImgOriginal;
 	@Column(nullable = false)
-	@CreatedDate
-	private LocalDateTime profileImgUploadDate;
+	private String profileImgPath;
 	
 	@Builder
-	public ProfileImg(String progileImgUuid, String profileImgOriginal) {
-		this.progileImgUuid = progileImgUuid;
+	public ProfileImg(String profileImgUuid, String profileImgOriginal, String profileImgPath) {
+		this.profileImgUuid = profileImgUuid;
 		this.profileImgOriginal = profileImgOriginal;
+		this.profileImgPath = profileImgPath;
+	}
+	
+	// 프로필 사진 수정 시
+	public void updateProfileImg (String profileImgUuid, String profileImgOriginal, String profileImgPath) {
+		this.profileImgUuid = profileImgUuid;
+		this.profileImgOriginal = profileImgOriginal;
+		this.profileImgPath = profileImgPath;
 	}
 	
 }

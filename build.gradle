@@ -64,6 +64,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
   	// Spring Security - Oauth2 Social Login
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	
+	// Thumbnailator 라이브러리
+    implementation 'net.coobird:thumbnailator:0.4.20'
 }
 
 tasks.named('test') {

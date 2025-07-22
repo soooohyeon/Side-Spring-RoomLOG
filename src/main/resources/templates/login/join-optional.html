@@ -31,7 +31,7 @@
       </section>
 
       <section id="SECTION-JOIN-CONTAINER">
-        <form th:action="@{/login/join-required-data}" method="post" id="optionalForm">
+        <form th:action="@{/login/join-optional-data}" method="post" id="optionalForm" enctype="multipart/form-data">
 
           <div id="DIV-PROFILE-SETTINGS-WRAP">
             <div id="DIV-PROFILE-IMG" class="none-img">
@@ -44,7 +44,7 @@
             </div>
             <div id="DIV-PROFILE-NAME"><span th:text="${nickname}"></span> 님</div>
             <div id="DIV-PROFILE-INTRO">
-              <input type="text" name="profile-intro" id="profile-intro" class="input-join-data optional-input" placeholder="30자 이내로 지금의 나를 표현해보세요." autocomplete="off">
+              <input type="text" name="userIntro" id="profile-intro" class="input-join-data optional-input" placeholder="30자 이내로 지금의 나를 표현해보세요." autocomplete="off">
             </div>
           </div>
 
