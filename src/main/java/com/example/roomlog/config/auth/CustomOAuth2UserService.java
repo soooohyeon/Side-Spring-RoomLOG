@@ -2,7 +2,6 @@ package com.example.roomlog.config.auth;
 
 import java.util.*;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.*;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.user.*;
@@ -59,8 +58,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         session.setAttribute("isNewUser", isNewUser);
         if (isNewUser) {
         	session.setAttribute("oauthEmail", email);
-        	session.setAttribute("oauthSocialType", socialTypeName.toUpperCase());
         }
+        session.setAttribute("oauthSocialType", socialTypeName.toUpperCase());
         
         // (기존 유저면) UserEntity → OAuth2User 로 변환해서 리턴
         return oAuth2User;

@@ -44,7 +44,7 @@ public class LoginController {
 		userDTO.setUserEmail(email);
 		int userNumber = userService.insertUser(userDTO, socialTypeName);
 		
-	    session.setAttribute("userNumber", userNumber);
+	    session.setAttribute("joinUserNumber", userNumber);
 	    session.setAttribute("nickname", userDTO.getUserNickname());
 		session.removeAttribute("oauthEmail");
 		session.removeAttribute("oauthSocialType");
@@ -64,20 +64,22 @@ public class LoginController {
 	// 회원 가입 - 선택 정보 저장
 	@PostMapping("/join-optional-data")
 	public String updateUserInfo(@RequestParam("one-image") MultipartFile image, HttpSession session, UserDTO userDTO) {
-		int userNumber = (Integer) session.getAttribute("userNumber");
+		Integer userNumber = (Integer) session.getAttribute("joinUserNumber");
+		// 예외 처리 : 세션 만료 시 로그인 페이지로 이동
+	    if (userNumber == null) {
+	        return "redirect:/login";
+	    }
+		
 		userDTO.setUserId(userNumber);
-		
-		System.out.println();
-		System.out.println(userDTO);
-		
 		try {
 			userService.updateUserInfo(userDTO, image, "JOIN");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		session.removeAttribute("joinUserNumber");
 		session.removeAttribute("nickname");
-		
+	    session.setAttribute("userNumber", userNumber);
+	    
 		return "redirect:/main";
 	}
 }
