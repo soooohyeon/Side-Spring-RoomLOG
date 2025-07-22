@@ -33,6 +33,7 @@ public class SecurityConfig {
     public static final String[] allowUrls = {
     	"/", "/main",
     	"/login", "/oauth2/**", "/login/oauth2/**",
+    	"/community/community-list",
     	"/css/**", "/js/**", "/image/**"
     };
 

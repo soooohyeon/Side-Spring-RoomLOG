@@ -39,6 +39,7 @@ public class UserService {
 	// 회원가입 - 필수 정보
 	public int insertUser(UserDTO userDTO, String socialTypeName) {
 		SocialType socialType = socialTypeRepository.findBySocialTypeName(socialTypeName);
+		
 		User user = User.builder()
 				.socialType(socialType)
 				.userEmail(userDTO.getUserEmail())

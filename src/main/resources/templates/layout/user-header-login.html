@@ -1,11 +1,11 @@
 <!-- 로고 및 로그인 링크 -->
 <div id="DIV-HEADER-TOP" th:fragment="headerLoginFragment">
-  <div id="DIV-LEFT-LOGO" onclick="location.href='[[@{/main]]}';">
+  <div id="DIV-LEFT-LOGO" th:attr="onclick=|location.href='@{/main}'|">
     <img th:src="@{/image/layout/logo.png}" id="IMG-LOGO" alt="LOGO">
   </div>
   <div id="DIV-RIGHT-LOGIN">
     <div class="div-header-top-link div-menu-line">
-      <a href="" id="GO-MESSAGE-PAGE">메세지함</a>
+      <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">메세지함</a>
     </div>
     <div class="div-header-top-link" th:if="${session.userNumber == null}">
       <a th:href="@{/login}">로그인</a>

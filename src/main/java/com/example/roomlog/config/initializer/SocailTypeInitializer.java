@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.user.SocialType;
 import com.example.roomlog.repository.user.SocialTypeRepository;
@@ -18,6 +19,7 @@ public class SocailTypeInitializer implements ApplicationRunner {
 	private final SocialTypeRepository socialTypeRepository;
 	
 	@Override
+	@Transactional
 	public void run(ApplicationArguments args) throws Exception {
         if (socialTypeRepository.count() == 0) {
             Arrays.asList(

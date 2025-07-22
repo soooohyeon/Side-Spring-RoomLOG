@@ -18,7 +18,11 @@ $(document).ready(function() {
   // 로그아웃 버튼 클릭 시
   const params = new URLSearchParams(window.location.search);
   if (params.get("logout") === "true") {
-      openModal("로그아웃 되었습니다");  // ← 네가 만든 모달 함수 호출
+      openModal("로그아웃 되었습니다").then((result) => {
+		if (result) {
+			location.href = "/main";
+		}
+	  });
   }
 	
   // 메뉴바 css 설정
@@ -122,7 +126,7 @@ function goScrap(event, element, userNumber) {
   event.stopPropagation();
 
   if (userNumber > 0) {
-    element.src = "../../image/layout/scrap_ok.png";
+    element.src = "/image/layout/scrap_ok.png";
     element.setAttribute("onclick", "noScrap(event, this, 0)");
     element.setAttribute("alt", "scrap_ok")
   } else {

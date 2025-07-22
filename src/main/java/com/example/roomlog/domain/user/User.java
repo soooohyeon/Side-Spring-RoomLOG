@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.example.roomlog.type.UserRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -42,6 +44,8 @@ public class User {
 	@JoinColumn(name = "profile_img_id")
 	private ProfileImg profileImg;
 
+	@Column(nullable = false)
+	private UserRole userRole;
 	@Column(unique = true, nullable = false)
 	private String userEmail;
 	@Column(unique = true, nullable = false)
@@ -58,6 +62,7 @@ public class User {
 	@Builder
 	public User(SocialType socialType, String userEmail, String userNickname, LocalDate userBirth, int isAgeVisible) {
 		this.socialType = socialType;
+		this.userRole = UserRole.USER;
 		this.userEmail = userEmail;
 		this.userNickname = userNickname;
 		this.userBirth = userBirth;
@@ -80,4 +85,5 @@ public class User {
 	public void updateProfileImg(ProfileImg profileImg) {
 	    this.profileImg = profileImg;
 	}
+	
 }

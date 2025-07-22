@@ -1,4 +1,4 @@
-package com.example.roomlog.controller;
+package com.example.roomlog.controller.community;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,12 @@ public class CommunityController {
 	@GetMapping("/community-list")
 	public String communityListPage() {
 		return "community/community";
+	}
+
+	//	게시판 - 글 작성
+	@GetMapping("/community-regist")
+	public String communityWritePage() {
+		return "community/community-write";
 	}
 	
 }

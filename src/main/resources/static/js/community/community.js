@@ -25,9 +25,10 @@ document.querySelectorAll(".div-post-info-wrap").forEach(wrap => {
 
 // 글 작성 버튼 클릭 시
 $(".div-write-btn").on("click", function() {
-  const userNumber = 1;
+  const userNumber = $(this).data("userId");
+  
   if (userNumber > 0) {
-    location.href="community-write.html";
+    location.href="community-regist";
   } else {
     openModal("로그인이 필요해요.<br>글 작성은 로그인 후 이용할 수 있어요!");
   };
