@@ -10,5 +10,4 @@ import com.example.roomlog.domain.community.CommunityHashtagId;
 public interface CommunityHashtagRepository extends JpaRepository<CommunityHashtag, CommunityHashtagId> {
 
 	
-	
 }

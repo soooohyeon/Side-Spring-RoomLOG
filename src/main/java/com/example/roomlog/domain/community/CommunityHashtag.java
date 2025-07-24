@@ -33,6 +33,7 @@ public class CommunityHashtag {
     @MapsId(value = "hashtagId")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "hashtag_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private Hashtag hashtag;
 	
 	@Builder
