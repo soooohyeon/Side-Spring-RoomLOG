@@ -1,22 +1,56 @@
 // 해시태그
 let input = $("input[name='hashtag']");
+let firstFocusDone = false;
 const MAX_TAGS = 5;
 
-// 해시태그 목록 (자동완성 용)
-const tagNames = ["소파", "인테리어", "가죽소파", "디저트", "토스트", "치즈", "그릭요거트", "조명", "식탁", "커피", "라떼아트", "라떼"];
-
 let tagify = new Tagify(input[0], {
-  whitelist: tagNames,
   focusable: false,
   placeholder: '관련 키워드를 태그로 남겨보세요.',
   keepPlaceholder: true,
   maxTags: MAX_TAGS,
   dropdown: {
     position: "input",
-    enabled: 0
+    enabled: 0,
+	selectOnClick: true
   }
 });
 
+async function showHashtagList(keyword = "") {
+  const res = await fetch(`/community/community-regist/hashtags?keyword=${keyword}`);
+  return res.json();
+}
+
+// 해시태그 입력칸 입력 시 해시태그 목록 보이도록 설정
+tagify.on("input", async (e) => {
+  const keyword = e.detail.value;
+  const data = await showHashtagList(keyword);
+  tagify.settings.whitelist = data;
+  tagify.dropdown.show.call(tagify, keyword);
+});
+
+// 해시태그 입력칸 클릭 시 해시태그 목록 보이도록 설정
+tagify.DOM.input.addEventListener("focus", () => {
+  if (tagify.state.dropdown.visible) return;
+
+  setTimeout(async () => {
+    const data = await showHashtagList();
+    tagify.settings.whitelist = data;
+
+	const triggerValue = firstFocusDone ? '' : ' ';
+	tagify.input.value = triggerValue;
+	tagify.input.set();
+	tagify.dropdown.show.call(tagify, triggerValue);
+
+	firstFocusDone = true;
+  }, 100);
+});
+
+// 등록한 태그 삭제시 해시태그 목록 안보이도록
+tagify.DOM.scope.addEventListener("click", (e) => {
+  if (e.target.matches('.tagify__tag__removeBtn')) {
+    tagify.dropdown.hide();
+  }
+});
 
 // placeholder 보이도록
 function updatePlaceholderState() {

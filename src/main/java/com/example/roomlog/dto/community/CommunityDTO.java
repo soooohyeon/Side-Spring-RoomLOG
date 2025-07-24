@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import com.example.roomlog.domain.community.Community;
+import com.example.roomlog.domain.community.CommunityImg;
 import com.example.roomlog.domain.user.User;
 import com.querydsl.core.annotations.QueryProjection;
 
@@ -24,12 +25,13 @@ public class CommunityDTO {
 	private User user;
 	private String communityTitle;
 	private String communityContent;
+	private CommunityImg communityImg;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime createDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime modifiedDate;
 
-	public Community toEntity() {
+	public Community toEntityCommunity() {
 		return Community.builder()
 				.user(user)
 				.communityTitle(communityTitle)
@@ -38,13 +40,14 @@ public class CommunityDTO {
 	}
 	
 	@QueryProjection
-	public CommunityDTO(long communityId, User user, String communityTitle, String communityContent,
+	public CommunityDTO(long communityId, User user, String communityTitle, String communityContent, CommunityImg communityImg,
 			LocalDateTime createDate, LocalDateTime modifiedDate) {
 		super();
 		this.communityId = communityId;
 		this.user = user;
 		this.communityTitle = communityTitle;
 		this.communityContent = communityContent;
+		this.communityImg = communityImg;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
 	}

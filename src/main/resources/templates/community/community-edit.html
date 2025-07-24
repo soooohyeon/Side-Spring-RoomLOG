@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +9,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
   
-  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
-  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
-  <link rel="stylesheet" th:href="@{/css/layout/write-layout.css}">
-  <link rel="stylesheet" th:href="@{/css/community/community-write.css}">
+  <link rel="shortcut icon" href="../../image/layout/favicon.png">
+  <link rel="stylesheet" href="../../css/layout/main-layout.css">
+  <link rel="stylesheet" href="../../css/layout/write-layout.css">
+  <link rel="stylesheet" href="../../css/community/community-write.css">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer th:src="@{/js/basic/basic.js}"></script>
-  <script defer th:src="@{/js/community/community-write.js}"></script>
+  <script defer src="../../js/basic/basic.js"></script>
+  <script defer src="../../js/community/community-write.js"></script>
   <!-- TinyMCE Editor -->
   <script src="https://cdn.tiny.cloud/1/zofwqu4mz4a8fi7sczm8ax1dhgbenvoz1xob3thhkvgz4uiw/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
@@ -23,8 +23,32 @@
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
-	<div th:replace="layout/user-header-menu :: headerMenuFragment"></div>
+    <!-- 로고 및 로그인 링크 -->
+    <div id="DIV-HEADER-TOP">
+      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
+        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
+      </div>
+      <div id="DIV-RIGHT-LOGIN">
+        <div class="div-header-top-link div-menu-line">
+          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">메세지함</a>
+        </div>
+        <div class="div-header-top-link">
+          <a href="../../html/login/login.html">로그인</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+    <!-- 메뉴바 -->
+    <div id="DIV-HEADER-BOTTOM">
+      <ul id="UL-HEDAER-MENU">
+        <li id="LI-HOME-LINK"><a href="../main.html">홈</a></li>
+        <li id="LI-COMMUNITY-LINK"><a href="../../html/community/community.html">커뮤니티</a></li>
+        <li id="LI-NOTICE-LINK"><a href="../../html/">공지사항</a></li>
+        <li id="LI-FEEDBACK-LINK"><a href="../../html/feedback/feedback.html">건의사항</a></li>
+      </ul>
+    </div>
+    <!--  -->
   </header>
   <!--  -->
   
@@ -68,7 +92,7 @@
               <div class="div-column-name image-column">첨부 이미지</div>
               <div class="div-column-input-wrap" id="DIV-BTN-IMAGE-WRAP">
                 <label for="input-image" id="LABEL-IMAGE-BTN">
-                  <img th:src="@{/image/layout/image_regist_btn.png}" alt="이미지 등록" class="img-regist-btn">
+                  <img src="../../image/layout/image_regist_btn.png" alt="이미지 등록" class="img-regist-btn">
                   <input type="file" name="images" id="input-image" class="input-image-btn" multiple accept="image/*"/>
                 </label>
                 <!-- 등록한 이미지 미리보기 -->
@@ -94,10 +118,35 @@
   <!--  -->
 
   <!-- 하단 푸터 영역 -->
-  <footer th:replace="layout/user-footer :: footerFragment"></footer>
-  
-  <!-- 알람 모달 -->
-  <div th:replace="layout/modal :: modalFragment"></div>
+  <footer id="FOOTER-CONTAINER">
+    <div id="DIV-FOOTER-WRAP">
+      <div id="DIV-FOOTER-LEGAL-WRAP">
+        <div class="div-footer-legal div-menu-line"><a href="">개인정보처리방침</a></div>
+        <div class="div-footer-legal"><a href="">이용약관</a></div>
+      </div>
+
+      <div id="DIV-ROOMLOG-INFO-WRAP">
+        <p>우선의 공간을 기록하는 사람들.</p>
+        <p>Contact: official@roomlog.com</p>
+        <p>Copyright © RoomLOG. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <!--  -->
+
+  <!-- 알람 모달창 -->
+  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
+    <div class="div-alert-wrap">
+      <div class="div-alert-content">
+        모달 내용
+      </div>
+      <div class="div-alert-btn-wrap">
+        <div class="div-alert-btn alert-ok modal-close">확인</div>
+        <div class="div-alert-btn alert-no">취소</div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
 
 </body>
 </html>

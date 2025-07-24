@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.example.roomlog.controller.AdminController;
-import com.example.roomlog.controller.MainController;
 import com.example.roomlog.domain.user.ProfileImg;
 import com.example.roomlog.domain.user.SocialType;
 import com.example.roomlog.domain.user.User;
