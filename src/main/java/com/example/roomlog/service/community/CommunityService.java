@@ -26,7 +26,7 @@ public class CommunityService {
 	@Autowired
 	CommunityHashtagRepository communityHashtagRepository;
 	
-	// 커뮤니티 게시글 등록
+	// 커뮤니티 게시글 등록U
 	public long insertCommunity(CommunityDTO communityDTO) {
 		User user = userRepository.findByUserId(communityDTO.getUserId()).get();
 		
@@ -40,11 +40,13 @@ public class CommunityService {
 		Long communityId = community.getCommunityId();
 		
 		List<String> tags = communityDTO.getTags();
-		for (String tag : tags) {
-			Hashtag hashtag = hashtagService.selectHashtag(tag);
-			communityHashtagRepository.save(new CommunityHashtag(community, hashtag));
+		if (tags != null && !tags.isEmpty()) {
+			for (String tag : tags) {
+				Hashtag hashtag = hashtagService.selectHashtag(tag);
+				communityHashtagRepository.save(new CommunityHashtag(community, hashtag));
+			}
 		}
-		
+
 		return communityId;
 	}
 	
