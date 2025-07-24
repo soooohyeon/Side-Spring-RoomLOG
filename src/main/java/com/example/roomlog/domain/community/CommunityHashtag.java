@@ -1,5 +1,8 @@
 package com.example.roomlog.domain.community;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,11 +20,12 @@ import lombok.ToString;
 public class CommunityHashtag {
 
 	@EmbeddedId
-	private CommunityHashtagId id;
+	private CommunityHashtagId communityHashtagId;
 
     @MapsId(value = "communityId")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "community_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private Community community;
     @MapsId(value = "hashtagId")
 	@ManyToOne(fetch = FetchType.LAZY)

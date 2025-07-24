@@ -1,8 +1,8 @@
 package com.example.roomlog.dto.community;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +22,12 @@ import lombok.ToString;
 public class CommunityDTO {
 	
 	private long communityId;
+	private long userId;
 	private User user;
 	private String communityTitle;
 	private String communityContent;
 	private CommunityImg communityImg;
+	private List<String> tags;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime createDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

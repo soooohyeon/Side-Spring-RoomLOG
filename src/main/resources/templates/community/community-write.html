@@ -39,19 +39,19 @@
       </div>
       <!--  -->
 
-      <form action="" method="" enctype="multipart/form-data">
+      <form th:action="@{/community/community-registOk}" id="postForm" method="post" enctype="multipart/form-data">
         <!-- 글 작성 영역 -->
         <div id="DIV-WRITE-FORM-WRAP">
           <div class="div-one-column-wrap">
             <div class="div-column-name"><span class="required-column">*</span>제목</div>
             <div class="div-column-input-wrap div-input-line">
-              <input type="text" name="title" id="title" placeholder="나만의 공간에 어울리는 한 줄 작성해보세요.">
+              <input type="text" name="communityTitle" id="title" placeholder="나만의 공간에 어울리는 한 줄 작성해보세요.">
             </div>
           </div>
           <div class="div-one-column-wrap">
             <div class="div-column-name"><span class="required-column">*</span>내용</div>
             <div class="div-column-content-wrap">
-              <textarea name="content" id="TEXTAREA-CONTENT" placeholder="인테리어 이야기, 공간 팁, 소소한 일상도 좋아요."></textarea>
+              <textarea name="communityContent" id="TEXTAREA-CONTENT" placeholder="인테리어 이야기, 공간 팁, 소소한 일상도 좋아요."></textarea>
               <div class="div-text-count-wrap"><span id="SPAN-COUNT">0</span>/300</div>
             </div>
           </div>

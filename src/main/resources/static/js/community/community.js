@@ -1,3 +1,16 @@
+// 게시글 등록 완료 후
+const params = new URLSearchParams(window.location.search);
+const writeOkMsg = "글이 정상적으로 업로드되었습니다.<br>많은 사람들이 보게 될 거예요!";
+if (params.get("registOk") === "true") {
+    openModal(writeOkMsg).then((result) => {
+	if (result) {
+		location.href = "/community/community-list";
+	}
+  });
+}
+
+// ---------------------------------------------------------------
+
 // 정렬 카테고리 - 선택한 정렬에 따라 select 여백 조정
 $("#SELECT-SORT").click(function() {
   let selectValue = $("#SELECT-SORT");

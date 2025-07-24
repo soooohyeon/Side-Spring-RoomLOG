@@ -1,14 +1,16 @@
 package com.example.roomlog.domain.user;
 
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +26,12 @@ public class ProfileImg {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long profileImgId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+	private User user;
+	
 	@Column(unique = true, nullable = false)
 	private String profileImgUuid;
 	@Column(nullable = false)
@@ -32,7 +40,8 @@ public class ProfileImg {
 	private String profileImgPath;
 	
 	@Builder
-	public ProfileImg(String profileImgUuid, String profileImgOriginal, String profileImgPath) {
+	public ProfileImg(User user, String profileImgUuid, String profileImgOriginal, String profileImgPath) {
+		this.user = user;
 		this.profileImgUuid = profileImgUuid;
 		this.profileImgOriginal = profileImgOriginal;
 		this.profileImgPath = profileImgPath;

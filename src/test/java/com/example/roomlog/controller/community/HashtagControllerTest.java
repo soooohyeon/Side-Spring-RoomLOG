@@ -1,4 +1,4 @@
-package com.example.roomlog.controller;
+package com.example.roomlog.controller.community;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roomlog.controller.community.HashtagController;
+import com.example.roomlog.controller.community.HashtagRestController;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HashtagControllerTest {
 
 	@Autowired
-	HashtagController hashtagController;
+	HashtagRestController hashtagController;
 
 	// 해시태그 목록 (검색 조건 포함)
 	@Test

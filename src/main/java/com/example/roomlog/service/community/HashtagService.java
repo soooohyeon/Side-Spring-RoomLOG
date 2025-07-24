@@ -28,4 +28,10 @@ public class HashtagService {
 		return hashtags;
 	}
 	
+	// 해시태그 검색하고 없으면 등록
+	public Hashtag selectHashtag(String hashtag) {
+		return hashtagRepository.findByHashtagName(hashtag)
+				.orElseGet(() -> hashtagRepository.save(new Hashtag(hashtag)));
+	}
+	
 }

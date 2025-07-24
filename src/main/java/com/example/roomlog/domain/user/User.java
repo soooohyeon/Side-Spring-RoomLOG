@@ -40,10 +40,6 @@ public class User {
 	@JoinColumn(name = "social_type_id", nullable = false)
 	private SocialType socialType;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "profile_img_id")
-	private ProfileImg profileImg;
-
 	@Column(nullable = false)
 	private UserRole userRole;
 	@Column(unique = true, nullable = false)
@@ -79,11 +75,6 @@ public class User {
 		this.userNickname = userNickname;
 		this.isAgeVisible = isAgeVisible;
 		this.userIntro = userIntro;
-	}
-	
-	// 프로필 사진 업데이트
-	public void updateProfileImg(ProfileImg profileImg) {
-	    this.profileImg = profileImg;
 	}
 	
 }

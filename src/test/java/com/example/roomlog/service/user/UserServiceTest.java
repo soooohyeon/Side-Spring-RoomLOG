@@ -1,4 +1,4 @@
-package com.example.roomlog.service;
+package com.example.roomlog.service.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,13 +11,13 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.user.UserDTO;
 import com.example.roomlog.repository.user.UserRepository;
-import com.example.roomlog.service.user.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,8 +66,17 @@ public class UserServiceTest {
 //		UserDTO userDTO1 = new UserDTO();
 //		userDTO1.setUserId(1);
 //		userDTO1.setUserIntro("한 줄 소개 테스트");
+//		
+//		String fileName = "profile.png";
+//		String contentType = "image/png";
+//		byte[] content = "fake image data".getBytes(); // 실제 이미지는 필요 없음
+//		MockMultipartFile mockImg = new MockMultipartFile("image", fileName, contentType, content);
 //		// when
-//		userService.updateUserInfo(userDTO1, "JOIN");		
+//		try {
+//			userService.updateUserInfo(userDTO1, mockImg, "JOIN");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}		
 //		// then
 //		Optional<User> user = userRepository.findByUserId(userDTO1.getUserId());
 //		assertThat(user).isNotEmpty();
@@ -78,14 +87,11 @@ public class UserServiceTest {
 		userDTO2.setUserNickname("test입니다");
 		userDTO2.setIsAgeVisible(0);
 		userDTO2.setUserIntro("한 줄 소개 테스트");
-		
-		MultipartFile image = null;
-		
+		MockMultipartFile mockImg2 = null;
 		// when
 		try {
-			userService.updateUserInfo(userDTO2, image, "MYPAGE");
+			userService.updateUserInfo(userDTO2, mockImg2, "MYPAGE");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		// then

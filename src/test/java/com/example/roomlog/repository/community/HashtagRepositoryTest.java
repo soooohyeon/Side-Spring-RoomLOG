@@ -1,4 +1,4 @@
-package com.example.roomlog.repository;
+package com.example.roomlog.repository.community;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -33,6 +33,15 @@ public class HashtagRepositoryTest {
 //		}
 		
 		assertNull(hashtags);
+	}
+	
+	// 해시태그 존재 여부 확인
+	@Test
+	public void findByHashtagNameTest() {
+		String tag = "집꾸미기";
+		Hashtag hashtag = hashtagRepository.findByHashtagName(tag).get();
+
+		assertNull(hashtag);
 	}
 	
 }

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class HashtagController {
+public class HashtagRestController {
 	
 	private final HashtagService hashtagService;
 

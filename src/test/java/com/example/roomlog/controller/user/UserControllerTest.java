@@ -1,4 +1,4 @@
-package com.example.roomlog.controller;
+package com.example.roomlog.controller.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

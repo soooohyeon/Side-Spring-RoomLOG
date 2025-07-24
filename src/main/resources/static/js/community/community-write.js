@@ -45,7 +45,7 @@ tagify.DOM.input.addEventListener("focus", () => {
   }, 100);
 });
 
-// 등록한 태그 삭제시 해시태그 목록 안보이도록
+// 등록한 태그 삭제시 해시태그 목록 안보이도록 설정
 tagify.DOM.scope.addEventListener("click", (e) => {
   if (e.target.matches('.tagify__tag__removeBtn')) {
     tagify.dropdown.hide();
@@ -171,11 +171,11 @@ function updateCharCount() {
   let totalCount = 0;
   
   // 줄이 2개씩 카운팅 되므로 /2로 줄바꿈 1번당 1개로 계산
-  if (lineCount !== 0) {
-    lineCount = lineCount / 2;
-  }
+  lineCount = Math.floor(lineCount / 2);
   
   totalCount = charCount + lineCount;
+  isCheckContent = totalCount === 0 ? false : true;
+  
   $("#SPAN-COUNT").text(totalCount);
 }
 
@@ -187,7 +187,7 @@ let isCheckTitle = false;
 let isCheckContent = false;
 
 // 제목 값 확인
-$("input[name='title']").on("input keyup", function() {
+$("input[name='communityTitle']").on("input keyup", function() {
   isCheckTitle = $(this).val() == "" ? false : true;
   writeButton();
 });
@@ -207,21 +207,35 @@ function writeButton() {
 
 // --------------------------------------------------------------- 
 
+const $postForm= $("#postForm");
 const writePostMsg = "게시글을 업로드하시겠습니까?<br>다른 사용자들에게 곧바로 보여집니다.";
-const writeOkMsg = "글이 정상적으로 업로드되었습니다.<br>많은 사람들이 보게 될 거예요!";
-
 // 글 등록 버튼 클릭 시
 $(document).on("click", ".basic-button", function() {
   openModal(writePostMsg, 2).then((result) => {
     if (result) {
-      setTimeout(() => {
-        openModal(writeOkMsg);
-        tinymce.triggerSave();
-        // location.href="";
-      }, 50);
+	  submitHashtag();
+	  tinymce.triggerSave();
+	  $postForm.submit();
     }
   });
 });
+
+// ---------------------------------
+
+// 글 등록 버튼 클릭 후 submit 전 hashtag 값 넘기기 위한 input 태그 생성
+function submitHashtag() {
+	const tagInput = new Tagify(input[0]);
+	const tags = tagInput.value.map(tag => tag.value);
+	
+	tags.forEach(tag => {
+	  const hiddenTagsInput = $('<input>').attr({
+	    type: 'hidden',
+	    name: 'tags',
+	    value: tag
+	  });
+	  $postForm.append(hiddenTagsInput);
+	});
+}
 
 // --------------------------------------------------------------- 
 
