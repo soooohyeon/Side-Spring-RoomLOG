@@ -64,33 +64,33 @@
         </form>
         <!--  -->
         
-        <div class="div-list-wrap">
-          <!-- 글 개수 + 정렬 카테고리 -->
-          <div id="DIV-INFO-WRAP">
-            <div id="DIV-POST-COUNT">총 <span th:text="${countCommunity}"></span>개</div>
-            <div id="DIV-SORT-WRAP">
-              <select name="sort" id="SELECT-SORT">
-                <option value="newest" selected>최신순</option>
-                <option value="comment">댓글 순</option>
-                <option value="scrap">스크랩 순</option>
-              </select>
+        <th:block th:if="${countCommunity == 0}">
+          <!-- 게시글이 없을 경우 -->
+          <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div>
+          <!--  -->
+        </th:block>
+        <th:block th:if="${countSearchResult == 0} and ${lists.isEmpty()}">
+          <!-- 검색 후 검색 결과가 없을 경우 -->
+          <div class="div-post-none">해당 조건에 맞는 결과가 없어요.<br>다른 키워드로 다시 검색해보세요.</div>
+          <!--  -->
+        </th:block>
+        
+        <th:block th:if="${countSearchResult != 0}">
+          <div class="div-list-wrap">
+            <!-- 글 개수 + 정렬 카테고리 -->
+            <div id="DIV-INFO-WRAP">
+              <div id="DIV-POST-COUNT">총 <span th:text="${countCommunity}"></span>개</div>
+              <div id="DIV-SORT-WRAP">
+                <select name="sort" id="SELECT-SORT">
+                  <option value="newest" selected>최신순</option>
+                  <option value="comment">댓글 순</option>
+                  <option value="scrap">스크랩 순</option>
+                </select>
+              </div>
             </div>
-          </div>
-
-          <!-- 글 목록 -->
-          <div id="DIV-POST-LIST-WRAP">
-            <th:block th:if="${countCommunity == 0}">
-              <!-- 게시글이 없을 경우 -->
-              <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div>
-              <!--  -->
-            </th:block>
-            <th:block th:if="${countCommunity != 0} and ${lists.isEmpty()}">
-              <!-- 검색 후 검색 결과가 없을 경우 -->
-              <div class="div-post-none">해당 조건에 맞는 결과가 없어요.<br>다른 키워드로 다시 검색해보세요.</div>
-              <!--  -->
-            </th:block>
-            
-            <th:block th:unless="${countCommunity == 0}">
+          
+            <!-- 글 목록 -->
+            <div id="DIV-POST-LIST-WRAP">
               <th:block th:each="list : ${lists}">
                 <!-- 글 1개 -->
                 <div class="div-one-post-wrap post-hover" th:onclick="|location.href='@{/community/community-view}?communityId=${list.communityId}'|">
@@ -100,8 +100,8 @@
                         <div class="div-go-user-page" th:data-user-id="${list.userId}">
                           <img th:src="@{'/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}">
                           <div class="div-nickname div-nick div-one-skip">
-						  	<th:block th:text="${list.userNickname}"></th:block>
-						  </div>
+		  			  	<th:block th:text="${list.userNickname}"></th:block>
+		  			  </div>
                         </div>
                         <div class="div-age" th:if="${list.isAgeVisible == 1}")><span th:text="${list.userAge}"></span></div>
                       </div>
@@ -134,11 +134,12 @@
                     </div>
                   </div>
                 </div>
+                <!--  -->
               </th:block>
-            </th:block>
+            </div>
+            
           </div>
-          
-        </div>
+        </th:block>
 
         <div id="DIV-WRITE-WRAP">
           <div class="button-style div-write-btn" th:data-user-id="${session.userNumber}">글 남기기</div>

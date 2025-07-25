@@ -37,6 +37,7 @@ public class CommunityController {
         Page page = new Page(criteria, countSearchResult);
         
 		model.addAttribute("countCommunity", countCommunity);
+		model.addAttribute("countSearchResult", countSearchResult);
 		model.addAttribute("lists", lists);
 		model.addAttribute("page", page);
 		
