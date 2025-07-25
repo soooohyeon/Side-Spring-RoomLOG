@@ -1,8 +1,12 @@
 package com.example.roomlog.repository.community;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.Hashtag;
+import com.example.roomlog.repository.community.hashtag.HashtagRepository;
+
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
@@ -29,7 +35,7 @@ public class HashtagRepositoryTest {
 		List<Hashtag> hashtags = hashtagRepository.findByHashtagNameContaining(keyword);
 		// then
 //		for (Hashtag hashtag : hashtags) {
-//			log.info("hashtag : {}", hashtag);
+//			log.info("hashtag : ", hashtag);
 //		}
 		assertNull(hashtags);
 	}
@@ -40,9 +46,20 @@ public class HashtagRepositoryTest {
 		// given
 		String tag = "집꾸미기";
 		// when
-		Hashtag hashtag = hashtagRepository.findByHashtagName(tag).get();
+		Optional<Hashtag> hashtag = hashtagRepository.findByHashtagName(tag);
 		// then
-		assertNull(hashtag);
+		assertTrue(hashtag.isPresent(), "해시태그가 존재하지 않음");
+	}
+
+	// 커뮤니티 게시글 목록 - 각 게시글의 해시태그
+	@Test
+	public void selectListHashtagTest() {
+		// given
+		List<Long> communityIds = List.of(9L, 17L, 20L, 21L, 22L, 23L, 24L);
+		// when
+		Map<Long, List<String>> lists = hashtagRepository.selectListHashtag(communityIds);
+		// then
+		assertNotNull(lists);
 	}
 	
 }

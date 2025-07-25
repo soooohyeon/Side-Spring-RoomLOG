@@ -20,7 +20,7 @@ $(document).ready(function() {
   if (params.get("logout") === "true") {
       openModal("로그아웃 되었습니다").then((result) => {
 		if (result) {
-			location.href = "/main";
+			location.replace("/main");
 		}
 	  });
   }

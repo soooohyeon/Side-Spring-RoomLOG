@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.roomlog.dto.community.CommunityDTO;
+import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.page.Criteria;
+import com.example.roomlog.dto.page.Page;
 import com.example.roomlog.service.community.CommunityService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,7 +27,16 @@ public class CommunityController {
 	
 	//	게시판 - 목록
 	@GetMapping("/community-list")
-	public String communityListPage() {
+	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
+		long userNumber = (long) session.getAttribute("userNumber");
+		int countCommunity = (int) communityService.countAllCommunity();
+		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
+        Page page = new Page(criteria, countCommunity);
+        
+		model.addAttribute("countCommunity", countCommunity);
+		model.addAttribute("lists", lists);
+		model.addAttribute("page", page);
+		
 		return "community/community";
 	}
 
@@ -36,12 +48,12 @@ public class CommunityController {
 	
 	// 게시판 - 작성 글 저장
 	@PostMapping("/community-registOk")
-	public String insertCommunity(CommunityDTO communityDTO, List<MultipartFile> images, HttpSession session) {
+	public String insertCommunity(CommunityListDTO communityListDTO, List<MultipartFile> images, HttpSession session) {
 		long userNumber = (long) session.getAttribute("userNumber");
-		communityDTO.setUserId(userNumber);
+		communityListDTO.setUserId(userNumber);
 		
 		try {
-			communityService.insertCommunity(communityDTO, images);
+			communityService.insertCommunity(communityListDTO, images);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

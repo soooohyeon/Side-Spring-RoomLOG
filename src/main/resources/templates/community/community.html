@@ -37,7 +37,7 @@
         <form action="" method="get">
           <div id="DIV-SEARCH-WRAP">
             <div id="DIV-SEARCH-CATEGORY-WRAP">
-              <select name="search-category" id="SELECT-SEARCH-CATEGORY">
+              <select name="category" id="SELECT-SEARCH-CATEGORY">
                 <option value="all" selected>전체</option>
                 <option value="nickname">닉네임</option>
                 <option value="title-content">제목 + 내용</option>
@@ -47,7 +47,7 @@
             </div>
             <div id="DIV-SEARCH-TEXT-WRAP">
               <img src="/image/layout/search.png" alt="search">
-              <input type="text" name="search-text" id="INPUT-SEARCH-TEXT" placeholder="검색어 입력">
+              <input type="text" name="keyword" id="INPUT-SEARCH-TEXT" placeholder="검색어 입력">
             </div>
           </div>
         </form>
@@ -56,7 +56,7 @@
         <div class="div-list-wrap">
           <!-- 글 개수 + 정렬 카테고리 -->
           <div id="DIV-INFO-WRAP">
-            <div id="DIV-POST-COUNT">총 83개</div>
+            <div id="DIV-POST-COUNT">총 <span th:text="${countCommunity}"></span>개</div>
             <div id="DIV-SORT-WRAP">
               <select name="sort" id="SELECT-SORT">
                 <option value="newest" selected>최신순</option>
@@ -70,7 +70,7 @@
           <div id="DIV-POST-LIST-WRAP">
 
             <!-- 글 1개 -->
-            <div class="div-one-post-wrap post-hover" onclick="location.href='community-view.html'">
+            <div class="div-one-post-wrap post-hover" th:onclick="location.href='@{/community/community-view}'">
               <div class="div-post-info-wrap">
                 <div class="div-profile-post-wrap">
                   <div class="div-profile-wrap">

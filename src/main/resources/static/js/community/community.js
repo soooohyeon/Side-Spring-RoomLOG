@@ -4,7 +4,7 @@ const writeOkMsg = "글이 정상적으로 업로드되었습니다.<br>많은 �
 if (params.get("registOk") === "true") {
     openModal(writeOkMsg).then((result) => {
 	if (result) {
-		location.href = "/community/community-list";
+		location.replace("/community/community-list");
 	}
   });
 }

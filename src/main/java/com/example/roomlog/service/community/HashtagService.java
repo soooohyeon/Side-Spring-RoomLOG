@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.Hashtag;
-import com.example.roomlog.repository.community.HashtagRepository;
+import com.example.roomlog.repository.community.hashtag.HashtagRepository;
 
 import lombok.RequiredArgsConstructor;
 

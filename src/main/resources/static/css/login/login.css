@@ -1,3 +1,5 @@
+#DIV-LOGO > img { cursor: pointer; }
+
 /* 로그인 및 회원가입 버튼 */
 #DIV-LOGIN-BTN-WRAP {
   margin-top: 65px;
