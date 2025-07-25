@@ -9,5 +9,8 @@ public interface CommunityCustomRepository {
 
 	// 커뮤니티 게시글 목록
 	public List<CommunityListDTO> selectListWithPaging(Criteria criteria);
+
+	// 현재 리스트의 게시글 개수 - 검색 전, 후 결과
+	long countSearchResult (Criteria criteria);
 	
 }

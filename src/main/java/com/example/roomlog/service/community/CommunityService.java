@@ -51,6 +51,11 @@ public class CommunityService {
 		return (int) communityRepository.count();
 	}
 	
+	// 현재 리스트의 게시글 개수 - 검색 전, 후 결과
+	public int countSearchResult(Criteria criteria) {
+		return (int) communityRepository.countSearchResult(criteria);
+	}
+	
 	// 커뮤니티 게시글 목록
 	public List<CommunityListDTO> selectListAll(long userNumber, Criteria criteria) {
 		List<CommunityListDTO> lists = communityRepository.selectListWithPaging(criteria);

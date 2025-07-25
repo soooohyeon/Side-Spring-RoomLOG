@@ -37,6 +37,17 @@ public class CommunityRepositoryTest {
 		assertNotNull(lists);
 	}
 	
+	// 현재 리스트의 게시글 개수 - 검색 전, 후 결과
+	@Test
+	public void countSearchCountTest() {
+		Criteria criteria = new Criteria(null, null, "comment");
+		// when
+		long count = communityRepository.countSearchCount(criteria);
+		// then
+		log.info("list count : " + count);
+		assertNotNull(count);
+	}
+	
 	// 게시글 1개 조회
 	@Test
 	public void findByCommunityIdTest() {

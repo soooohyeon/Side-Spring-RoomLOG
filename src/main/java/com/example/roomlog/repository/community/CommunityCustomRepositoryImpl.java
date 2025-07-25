@@ -33,43 +33,17 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		QComment cm = QComment.comment;
 		QScrap s = QScrap.scrap;
 		
-		BooleanBuilder builder = new BooleanBuilder();
-
 		// 검색어 + 검색 조건 동적 조건 설정
+		BooleanBuilder builder = new BooleanBuilder();
 		String keyword = criteria.getKeyword();
-	    if (criteria.getCategory() != null && keyword != null) {
-			switch(criteria.getCategory()) {
-				case "all" :
-					builder.and(c.communityTitle.containsIgnoreCase(keyword)
-						.or(c.communityContent.containsIgnoreCase(keyword))
-						.or(c.user.userNickname.containsIgnoreCase(keyword))
-						);
-					break;
-				case "nickname" :
-					builder.and(c.user.userNickname.containsIgnoreCase(keyword));
-					break;
-				case "title-content" :
-					builder.and(c.communityTitle.containsIgnoreCase(keyword)
-							.or(c.communityContent.containsIgnoreCase(keyword))
-							);
-					break;
-				case "title" :
-					builder.and(c.communityTitle.containsIgnoreCase(keyword));
-					break;
-				case "content" :
-					builder.and(c.communityContent.containsIgnoreCase(keyword));
-					break;
-			}
+		String category = criteria.getCategory();
+	    if (category != null && keyword != null) {
+	    	builder = setSearch(category, keyword, c);
 	    }
 	    
 	    // 정렬 동적 조건 설정
 	    String sort = Optional.ofNullable(criteria.getSort()).orElse("newest");
-	    OrderSpecifier<?> order = switch (sort) {
-			case "newest"-> c.communityId.desc();
-			case "comment" -> cm.commentId.count().desc();
-			case "scrap" -> s.scrapId.count().desc();
-			default -> c.communityId.desc();
-	    };
+	    OrderSpecifier<?> order = setSort(sort, c, cm, s);
 			
 		// 해시태그를 제외한 게시글 목록 담기
 		List<CommunityListDTO> lists = jpaQueryFactory
@@ -77,6 +51,7 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 				c.communityId,
 		        c.communityTitle,
 		        c.communityContent,
+		        c.communityId.countDistinct().as("communityCount"),
 				c.createDate,
 				u.userId,
 				u.userNickname,
@@ -101,6 +76,69 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 			.fetch();
 		
 		return lists;
+	}
+
+	// 현재 리스트의 게시글 개수 - 검색 전, 후 결과
+	public long countSearchResult (Criteria criteria) {
+		QCommunity c = QCommunity.community;
+		
+		// 검색어 + 검색 조건 동적 조건 설정
+		BooleanBuilder builder = new BooleanBuilder();
+		String keyword = criteria.getKeyword();
+		String category = criteria.getCategory();
+	    if (category != null && keyword != null) {
+	    	builder = setSearch(category, keyword, c);
+	    }
+	    
+	    Long count = jpaQueryFactory
+	    	.select(c.count())
+	    	.from(c)
+	    	.where(builder)
+	    	.fetchOne();
+	    
+	    return count == null ? 0 : count;
+	}
+	
+	// 검색어 + 검색 조건 동적 조건 설정
+	public BooleanBuilder setSearch(String category, String keyword, QCommunity c) {
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		switch(category) {
+		case "all" :
+			builder.and(c.communityTitle.containsIgnoreCase(keyword)
+				.or(c.communityContent.containsIgnoreCase(keyword))
+				.or(c.user.userNickname.containsIgnoreCase(keyword))
+				);
+			break;
+		case "nickname" :
+			builder.and(c.user.userNickname.containsIgnoreCase(keyword));
+			break;
+		case "title-content" :
+			builder.and(c.communityTitle.containsIgnoreCase(keyword)
+					.or(c.communityContent.containsIgnoreCase(keyword))
+					);
+			break;
+		case "title" :
+			builder.and(c.communityTitle.containsIgnoreCase(keyword));
+			break;
+		case "content" :
+			builder.and(c.communityContent.containsIgnoreCase(keyword));
+			break;
+		}
+		
+		return builder;
+	}
+	
+	// 정렬 동적 조건 설정
+	public OrderSpecifier<?> setSort(String sort, QCommunity c, QComment cm, QScrap s) {
+		OrderSpecifier<?> order = switch (sort) {
+			case "newest"-> c.communityId.desc();
+			case "comment" -> cm.commentId.count().desc();
+			case "scrap" -> s.scrapId.count().desc();
+			default -> c.communityId.desc();
+		};
+		
+		return order;
 	}
 	
 }

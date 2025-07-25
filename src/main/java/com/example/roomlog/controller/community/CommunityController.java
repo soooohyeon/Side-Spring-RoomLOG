@@ -31,9 +31,10 @@ public class CommunityController {
 		Object userNumberObj = session.getAttribute("userNumber");
 		long userNumber = userNumberObj != null ? (long) userNumberObj : -1;
 		
-		int countCommunity = (int) communityService.countAllCommunity();
+		int countCommunity = communityService.countAllCommunity();
+		int countSearchResult = communityService.countSearchResult(criteria);
 		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
-        Page page = new Page(criteria, countCommunity);
+        Page page = new Page(criteria, countSearchResult);
         
 		model.addAttribute("countCommunity", countCommunity);
 		model.addAttribute("lists", lists);

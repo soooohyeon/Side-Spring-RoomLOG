@@ -45,7 +45,7 @@
       <section id="SECTION-SEARCH-LIST-WRAP">
 
         <!-- 검색창 -->
-        <form action="" method="get">
+        <form th:action="@{/community/community-list}" method="get">
           <div id="DIV-SEARCH-WRAP">
             <div id="DIV-SEARCH-CATEGORY-WRAP">
               <select name="category" id="SELECT-SEARCH-CATEGORY">
@@ -82,6 +82,11 @@
             <th:block th:if="${countCommunity == 0}">
               <!-- 게시글이 없을 경우 -->
               <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div>
+              <!--  -->
+            </th:block>
+            <th:block th:if="${countCommunity != 0} and ${lists.isEmpty()}">
+              <!-- 검색 후 검색 결과가 없을 경우 -->
+              <div class="div-post-none">해당 조건에 맞는 결과가 없어요.<br>다른 키워드로 다시 검색해보세요.</div>
               <!--  -->
             </th:block>
             
@@ -140,17 +145,19 @@
         </div>
         
         <!-- 페이지네이션 -->
-        <div id="DIV-PAGENATION-WRAP">
-          <div class="div-page-btn-wrap">
-            <div class="pagenation previous" th:onclick="|location.href='@{/community/community-list}?page=${page.startPage - 1}'|" th:if="${page.prev}">◁</div>
+        <th:block th:if="${!lists.isEmpty()}">
+          <div id="DIV-PAGENATION-WRAP">
+            <div class="div-page-btn-wrap">
+              <div class="pagenation previous" th:onclick="|location.href='@{/community/community-list}?page=${page.startPage - 1}'|" th:if="${page.prev}">◁</div>
+            </div>
+            <ul th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+              <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|location.href='@{/community/community-list}?page=${i}'|" th:text="${i}"></li>
+            </ul>
+            <div class="div-page-btn-wrap">
+              <div class="pagenation next" th:onclick="|location.href='@{/community/community-list}?page=${page.endPage + 1}'|" th:if="${page.next}">▷</div>
+            </div>
           </div>
-          <ul th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-            <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|location.href='@{/community/community-list}?page=${i}'|" th:text="${i}"></li>
-          </ul>
-          <div class="div-page-btn-wrap">
-            <div class="pagenation next" th:onclick="|location.href='@{/community/community-list}?page=${page.endPage + 1}'|" th:if="${page.next}">▷</div>
-          </div>
-        </div>
+        </th:block>
 
       </section>
     </div>
