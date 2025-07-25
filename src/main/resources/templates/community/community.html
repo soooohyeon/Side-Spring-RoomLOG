@@ -68,122 +68,58 @@
 
           <!-- 글 목록 -->
           <div id="DIV-POST-LIST-WRAP">
-
-            <!-- 글 1개 -->
-            <div class="div-one-post-wrap post-hover" th:onclick="location.href='@{/community/community-view}'">
-              <div class="div-post-info-wrap">
-                <div class="div-profile-post-wrap">
-                  <div class="div-profile-wrap">
-                    <div class="div-go-user-page">
-                      <img src="../../image/example/profile_image/profile3.jpg" onclick="">
-                      <div class="div-nickname div-nick div-one-skip" onclick="">조용한 오후</div>
+            <th:block th:if="${countCommunity == 0}">
+              <!-- 게시글이 없을 경우 -->
+              <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div>
+              <!--  -->
+            </th:block>
+            
+            <th:block th:unless="${countCommunity == 0}">
+              <th:block th:each="list : ${lists}">
+                <!-- 글 1개 -->
+                <div class="div-one-post-wrap post-hover" th:onclick="|location.href='@{/community/community-view}?communityId=${list.communityId}'|">
+                  <div class="div-post-info-wrap">
+                    <div class="div-profile-post-wrap">
+                      <div class="div-profile-wrap">
+                        <div class="div-go-user-page">
+                          <img th:src="@{|${list.profileImgPath}/th_${list.profileImgUuid}|}" th:onclick="|location.href='@{}'|">
+                          <div class="div-nickname div-nick div-one-skip" th:onclick="|location.href='@{}'|">
+						  	<th:block th:text="${list.userNickname}"></th:block>
+						  </div>
+                        </div>
+                        <div class="div-age">20대</div>
+                      </div>
+                      <div class="div-one-skip div-title" th:text="${list.communityTitle}"></div>
+                      <div class="div-two-skip div-content" th:text="${list.communityContent}"></div>
                     </div>
-                    <div class="div-age">20대</div>
+                    <div class="div-post-img">
+                      <img src="/image/example/board/work-desk.jpg" alt="postIMG">
+                    </div>
                   </div>
-                  <div class="div-one-skip div-title">이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!</div>
-                  <div class="div-two-skip div-content">소파가 너무 헤져서 바꾸려고 하는데요...<br>20만원 이하 2인 소파 추천 부탁드립니다!!!!소파가 너무 헤져서 바꾸려고 하는데요...20만원 이하 2인 소파 추천 부탁드립니다!!!!</div>
-                </div>
-                <div class="div-post-img">
-                  <img src="/image/example/board/work-desk.jpg" alt="postIMG">
-                </div>
-              </div>
-              <div class="div-hashtag-wrap">
-                <div class="div-hashtag">#소파</div>
-                <div class="div-hashtag">#가구</div>
-                <div class="div-hashtag">#가죽소파</div>
-              </div>
-              <div class="div-time-count-wrap">
-                <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
-                <div class="div-two-counts-wrap">
-                  <div class="div-count-wrap">
-                    <img src="/image/layout/comment_count.png" alt="comment">
-                    <div class="div-comment">17</div>
+                  <div class="div-hashtag-wrap">
+                    <div class="div-hashtag">#소파</div>
+                    <div class="div-hashtag">#가구</div>
+                    <div class="div-hashtag">#가죽소파</div>
                   </div>
-                  <div class="div-count-wrap">
-                    <img src="/image/layout/scrap_ok.png" alt="scrap_ok" onclick="noScrap(event, this, 1)">
-                    <!-- <img src="/image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
-                    <div class="div-scrap">221</div>
+                  <div class="div-time-count-wrap">
+                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                    <div class="div-two-counts-wrap">
+                      <div class="div-count-wrap">
+                        <img th:src="@{/image/layout/comment_count.png}" alt="comment">
+                        <div class="div-comment" th:text="${list.commentCount}"></div>
+                      </div>
+                      <div class="div-count-wrap">
+                        <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" onclick="noScrap(event, this, 1)">
+                        <!-- <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
+                        <div class="div-scrap" th:text="${list.scrapCount}"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <!--   -->
-            
-            <!--  -->
-            <div class="div-one-post-wrap post-hover" onclick="">
-            <div class="div-post-info-wrap">
-              <div class="div-profile-post-wrap">
-                <div class="div-profile-wrap">
-                  <div class="div-go-user-page" onclick="">
-                    <img src="../../image/example/profile_image/profile2.jpg" alt="프로필">
-                    <div class="div-nickname div-nick">작은식탁일기</div>
-                  </div>
-                  <div class="div-age">20대</div>
-                </div>
-                <div class="div-one-skip div-title">하루종일 앉아있는 직장인인데 허리 안 아픈 소파 찾고 있어요! 디자인도 예쁘고 착석감 좋은 제품 추천 부탁드려요</div>
-                <div class="div-two-skip div-content">요즘 재택근무도 많고, 집에서 보내는 시간이 많아지다 보니 소파에 앉아 있는 시간이 정말 많아졌어요.<br>지금 쓰는 소파는 앉은 지 30분도 안 돼서 허리가 아프고, 등받이도 낮아서 기대기도 애매하더라고요.</div>
-              </div>
-            </div>
-            <div class="div-hashtag-wrap">
-              <div class="div-hashtag">#소파</div>
-              <div class="div-hashtag">#가구</div>
-              <div class="div-hashtag">#가죽소파</div>
-            </div>
-            <div class="div-time-count-wrap">
-              <div class="div-time time-ago" data-timestamp="2025-06-27T15:01:00"></div>
-              <div class="div-two-counts-wrap">
-                <div class="div-count-wrap">
-                  <img src="../../image/layout/comment_count.png" alt="comment">
-                  <div class="div-comment">17</div>
-                </div>
-                <div class="div-count-wrap">
-                  <img src="../../image/layout/scrap_no.png" alt="scrap_no" onclick="goScrap(event, this, 0)">
-                  <div class="div-scrap">221</div>
-                </div>
-              </div>
-            </div>
-            </div>
-            <div class="div-one-post-wrap post-hover" onclick="">
-            <div class="div-post-info-wrap">
-              <div class="div-profile-post-wrap">
-                <div class="div-profile-wrap">
-                  <div class="div-go-user-page" onclick="">
-                    <img src="../../image/example/profile_image/profile1.jpg" alt="프로필">
-                    <div class="div-nickname div-nick">고양이좋아</div>
-                  </div>
-                  <div class="div-age">20대</div>
-                </div>
-                <div class="div-one-skip div-title">거실 분위기 바꾸고 싶은데 우드 톤에 잘 어울리는 러그 + 소파 조합 추천 부탁드립니다.</div>
-                <div class="div-two-skip div-content">최근에 벽지랑 커튼을 따뜻한 아이보리 톤으로 바꿨어요. 근데 기존 소파가 어두운 블랙이라 너무 튀어서 거실 전체가 안 어울리는 느낌이에요.<br>
-그래서 이번에 우드 톤 가구에 잘 어울리는 러그랑 소파를 새로 들이려고 하는데요, 러그는 크림이나 라이트 베이지, 소파는 브라운~카멜 계열 생각하고 있어요.</div>
-              </div>
-            </div>
-            <div class="div-hashtag-wrap">
-              <div class="div-hashtag">#소파</div>
-              <div class="div-hashtag">#가구</div>
-              <div class="div-hashtag">#가죽소파</div>
-            </div>
-            <div class="div-time-count-wrap">
-              <div class="div-time time-ago" data-timestamp="2025-06-25T15:05:00"></div>
-              <div class="div-two-counts-wrap">
-                <div class="div-count-wrap">
-                  <img src="../../image/layout/comment_count.png" alt="comment">
-                  <div class="div-comment">17</div>
-                </div>
-                <div class="div-count-wrap">
-                  <img src="../../image/layout/scrap_no.png" alt="scrap" onclick="goScrap(event, this, 1)">
-                  <div class="div-scrap">221</div>
-                </div>
-              </div>
-            </div>
-            </div>
-            <!--  -->
-            
-            <!-- 게시글이 없을 경우 -->
-            <!-- <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div> -->
-            <!--  -->
-
+              </th:block>
+            </th:block>
           </div>
+          
         </div>
 
         <div id="DIV-WRITE-WRAP">

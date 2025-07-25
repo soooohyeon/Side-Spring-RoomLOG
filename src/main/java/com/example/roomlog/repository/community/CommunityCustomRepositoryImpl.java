@@ -1,6 +1,7 @@
 package com.example.roomlog.repository.community;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -62,7 +63,8 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 	    }
 	    
 	    // 정렬 동적 조건 설정
-	    OrderSpecifier<?> order = switch (criteria.getSort()) {
+	    String sort = Optional.ofNullable(criteria.getSort()).orElse("newest");
+	    OrderSpecifier<?> order = switch (sort) {
 			case "newest"-> c.createDate.desc();
 			case "comment" -> cm.commentId.count().desc();
 			case "scrap" -> s.scrapId.count().desc();
@@ -96,7 +98,7 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		    .offset((criteria.getPage() - 1) * criteria.getAmount())
 		    .limit(criteria.getAmount())
 			.fetch();
-
+		
 		return lists;
 	}
 	

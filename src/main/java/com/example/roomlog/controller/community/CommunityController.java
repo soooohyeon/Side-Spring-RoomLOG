@@ -28,6 +28,10 @@ public class CommunityController {
 	//	게시판 - 목록
 	@GetMapping("/community-list")
 	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
+
+		System.out.println("컨트롤러 : " + criteria.getPage());
+		System.out.println("컨트롤러 : " + criteria.getAmount());
+		
 		long userNumber = (long) session.getAttribute("userNumber");
 		int countCommunity = (int) communityService.countAllCommunity();
 		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
