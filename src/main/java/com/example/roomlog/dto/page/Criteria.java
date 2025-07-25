@@ -14,12 +14,12 @@ public class Criteria {
     
     public Criteria() {
         this.page = 1;
-        this.amount = 9;
+        this.amount = 10;
         this.sort = "newest";
     }
     
     public Criteria(String category, String keyword, String sort) {
-        this(1, 9, category, keyword, sort);
+        this(1, 4, category, keyword, sort);
     }
 
 	public Criteria(int page, int amount, String category, String keyword, String sort) {

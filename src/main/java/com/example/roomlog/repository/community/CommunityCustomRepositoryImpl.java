@@ -65,10 +65,10 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 	    // 정렬 동적 조건 설정
 	    String sort = Optional.ofNullable(criteria.getSort()).orElse("newest");
 	    OrderSpecifier<?> order = switch (sort) {
-			case "newest"-> c.createDate.desc();
+			case "newest"-> c.communityId.desc();
 			case "comment" -> cm.commentId.count().desc();
 			case "scrap" -> s.scrapId.count().desc();
-			default -> c.createDate.desc();
+			default -> c.communityId.desc();
 	    };
 			
 		// 해시태그를 제외한 게시글 목록 담기

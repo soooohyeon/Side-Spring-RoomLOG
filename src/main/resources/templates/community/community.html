@@ -142,17 +142,13 @@
         <!-- 페이지네이션 -->
         <div id="DIV-PAGENATION-WRAP">
           <div class="div-page-btn-wrap">
-            <div class="pagenation previous" onclick="">◁</div>
+            <div class="pagenation previous" th:onclick="|location.href='@{/community/community-list}?page=${page.startPage - 1}'|" th:if="${page.prev}">◁</div>
           </div>
-          <ul>
-            <li class="pagenation page selected" onclick="">1</li>
-            <li class="pagenation page" onclick="">2</li>
-            <li class="pagenation page" onclick="">3</li>
-            <li class="pagenation page" onclick="">4</li>
-            <li class="pagenation page" onclick="">5</li>
+          <ul th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+            <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|location.href='@{/community/community-list}?page=${i}'|" th:text="${i}"></li>
           </ul>
           <div class="div-page-btn-wrap">
-            <div class="pagenation next" onclick="">▷</div>
+            <div class="pagenation next" th:onclick="|location.href='@{/community/community-list}?page=${page.endPage + 1}'|" th:if="${page.next}">▷</div>
           </div>
         </div>
 
