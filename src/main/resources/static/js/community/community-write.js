@@ -16,7 +16,7 @@ let tagify = new Tagify(input[0], {
 });
 
 async function showHashtagList(keyword = "") {
-  const res = await fetch(`/community/community-regist/hashtags?keyword=${keyword}`);
+  const res = await fetch(`/hashtag?keyword=${keyword}`);
   return res.json();
 }
 

@@ -29,11 +29,7 @@ public class CommunityController {
 	@GetMapping("/community-list")
 	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
 		Object userNumberObj = session.getAttribute("userNumber");
-		long userNumber = -1;
-
-		if (userNumberObj != null) {
-		    userNumber = (long) userNumberObj;
-		}
+		long userNumber = userNumberObj != null ? (long) userNumberObj : -1;
 		
 		int countCommunity = (int) communityService.countAllCommunity();
 		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);

@@ -2,6 +2,7 @@ package com.example.roomlog.repository.scrap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.roomlog.domain.community.ScrapId;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +35,17 @@ public class ScrapRepositoryTest {
 		// then
 		assertNotNull(lists);
 		assertEquals(lists.size(), 2);
-		
 	}
+	
+	// 스크랩 취소
+	@Test
+	public void deleteByScrapIdTest() {
+		// given
+		ScrapId scrapId = new ScrapId(1L, 32L);
+		// when
+		scrapRepository.deleteByScrapId(scrapId);
+		// then
+		assertNull(scrapRepository.findById(scrapId));
+	}
+	
 }

@@ -88,23 +88,26 @@ $(document).ready(function () {
 });
 
 // ---------------------------------------------------------------
+const userNumber = sessionStorage.getItem("userNumber");
+const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주세요.";
+// -----------------------------------
 
 // 팔로우 - 메인, 게시판 디테일, 유저 개인 페이지
 // 팔로우 하기
-function goFollow(event, element, userNumber) {
+function goFollow(event, element) {
   event.stopPropagation();
 
-  if (userNumber > 0) {
+  if (userNumber > 0 && userNumber != null) {
     element.innerText = "팔로잉";
     element.setAttribute("onclick", "noFollow(event, this, userNumber)");
     element.setAttribute("class", "button-style basic-button");
-  } else {
+  } else if (userNumber == null) {
     openModal("로그인이 필요해요.<br>팔로우는 로그인 후 이용할 수 있어요!");
   }
 }
 
 // 팔로우 해제
-function noFollow(event, element, userNumber) {
+function noFollow(event, element) {
   event.stopPropagation();
 
   deleteFollow(userNumber);
@@ -122,25 +125,50 @@ function deleteFollow(userNumber) {
 
 // 스크랩 - 메인, 게시판 목록 적용
 // 스크랩 하기
-function goScrap(event, element, userNumber) {
+function goScrap(event, element, communityId) {
   event.stopPropagation();
-
-  if (userNumber > 0) {
-    element.src = "/image/layout/scrap_ok.png";
-    element.setAttribute("onclick", `noScrap(event, this, ${userNumber})`);
-    element.setAttribute("alt", "scrap_ok")
-  } else {
+  if (userNumber > 0 && userNumber != null) {
+	fetch(`/scrap/scrap-save/${communityId}`, {
+		method: 'POST'
+	})
+	.then(response => {
+	  if (!response.ok) throw new Error("스크랩 실패");
+      element.src = "/image/layout/scrap_ok.png";
+      element.setAttribute("onclick", `noScrap(event, this, ${communityId})`);
+      element.setAttribute("alt", "scrap_ok");
+	  // 현재 스크랩 수 + 1
+	  const $count = $(element).closest(".div-count-wrap").find(".div-scrap");
+	  const current = parseInt($count.text());
+	  $count.text(current + 1);
+	})
+	.catch(() => {
+	  openModal(errMsg);
+	});
+  } else if (userNumber == null) {
     openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
   };
 }
 
 // 스크랩 해제
-function noScrap(event, element, userNumber) {
+function noScrap(event, element, communityId) {
   event.stopPropagation();
   
-  element.src = "/image/layout/scrap_no.png";
-  element.setAttribute("onclick", `goScrap(event, this, ${userNumber})`);
-  element.setAttribute("alt", "scrap_no");
+  fetch(`/scrap/scrap-cancel/${communityId}`, {
+  	method: 'DELETE'
+  })
+  .then(response => {
+    if (!response.ok) throw new Error("스크랩 취소 실패");
+	element.src = "/image/layout/scrap_no.png";
+	element.setAttribute("onclick", `goScrap(event, this, ${communityId})`);
+	element.setAttribute("alt", "scrap_no");
+	// 현재 스크랩 수 - 1
+	const $count = $(element).closest(".div-count-wrap").find(".div-scrap");
+	const current = parseInt($count.text());
+	$count.text(current - 1);
+  })
+  .catch(() => {
+    openModal(errMsg);
+  });
 }
 
 // ---------------------------------------------------------------

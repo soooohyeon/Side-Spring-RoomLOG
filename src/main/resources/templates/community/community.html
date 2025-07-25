@@ -9,6 +9,17 @@
   <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
   <link rel="stylesheet" th:href="@{/css/community/community.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <th:block th:if="${session.userNumber != null} and ${session.userNumber != -1}">
+    <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
+    <script th:inline="javascript">
+      sessionStorage.setItem("userNumber", [[${session.userNumber}]]);
+    </script>
+  </th:block>
+  <th:block th:unless="${session.userNumber != null} and ${session.userNumber != -1}">
+    <script th:inline="javascript">
+      sessionStorage.removeItem("userNumber");
+    </script>
+  </th:block>
   <script defer th:src="@{/js/basic/basic.js}"></script>
   <script defer th:src="@{/js/community/community.js}"></script>
 </head>
@@ -108,10 +119,10 @@
                       </div>
                       <div class="div-count-wrap">
                       	<th:block th:if="${list.isScrapped}">
-                          <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${session.userNumber})|">
+                          <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${list.communityId})|">
                       	</th:block>
                       	<th:block th:unless="${list.isScrapped}">
-                          <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${session.userNumber})|">
+                          <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${list.communityId})|">
                       	</th:block>
                         <div class="div-scrap" th:text="${list.scrapCount}"></div>
                       </div>

@@ -8,5 +8,8 @@ import com.example.roomlog.domain.community.ScrapId;
 
 @Repository
 public interface ScrapRepository extends JpaRepository<Scrap, ScrapId>, ScrapCustomRepository {
-
+	
+	// 스크랩 취소
+	public void deleteByScrapId(ScrapId scrapId);
+	
 }

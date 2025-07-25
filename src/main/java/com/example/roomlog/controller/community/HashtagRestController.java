@@ -17,7 +17,7 @@ public class HashtagRestController {
 	private final HashtagService hashtagService;
 
 	// 해시태그 목록 (검색 조건 포함)
-	@GetMapping("/community/community-regist/hashtags")
+	@GetMapping("/hashtag")
 	public List<String> selectAllHashtags(@RequestParam String keyword) {
 		keyword = keyword == null ? "" : keyword;
 		List<String> hashtags = hashtagService.findByHashtagList(keyword);
