@@ -89,7 +89,7 @@
 }
 
 .div-two-skip {
-  height: 55px;
+  height: 50px;
   margin-top: 7px;
 
   overflow: hidden;
@@ -101,6 +101,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.div-two-skip > p { line-height: 1.4em; }
 
 /* 해시태그 */
 .div-hashtag-wrap {

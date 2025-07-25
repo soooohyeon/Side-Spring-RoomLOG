@@ -28,11 +28,13 @@ public class CommunityController {
 	//	게시판 - 목록
 	@GetMapping("/community-list")
 	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
+		Object userNumberObj = session.getAttribute("userNumber");
+		long userNumber = -1;
 
-		System.out.println("컨트롤러 : " + criteria.getPage());
-		System.out.println("컨트롤러 : " + criteria.getAmount());
+		if (userNumberObj != null) {
+		    userNumber = (long) userNumberObj;
+		}
 		
-		long userNumber = (long) session.getAttribute("userNumber");
 		int countCommunity = (int) communityService.countAllCommunity();
 		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
         Page page = new Page(criteria, countCommunity);

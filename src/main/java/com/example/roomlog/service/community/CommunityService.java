@@ -1,6 +1,8 @@
 package com.example.roomlog.service.community;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -63,6 +65,18 @@ public class CommunityService {
 		for (CommunityListDTO list : lists) {
 			long commuId = list.getCommunityId();
 
+			// 나이대
+			if (list.getIsAgeVisible() == 1) {
+				list.setUserAge(getAgeLabel(list.getUserBirth()));
+			}
+			
+			// 프로필 등록이 안된 경우 기본 이미지 출력
+			if (list.getProfileImgUuid() == null) {
+				list.setProfileImgPath(("image/layout"));
+				list.setProfileImgUuid("profile_img_basic.png");
+			}
+			
+			// 각 게시글 대표 이미지 출력
 			Map<Long, CommunityImg> imageMap = images.stream()
 				.collect(Collectors.toMap(
 					img -> img.getCommunity().getCommunityId(),
@@ -73,13 +87,24 @@ public class CommunityService {
 			if (commuImg != null) {
 			    list.setCommunityImgPath(commuImg.getCommunityImgPath());
 			    list.setCommunityImgUuid(commuImg.getCommunityImgUuid());
+			    list.setCheckCommunityImg(true);
 			}
 			
+			// 스크랩 여부 및 해시태그
 			list.setScrapped(checkIsScrappedMap.getOrDefault(commuId, false));
 			list.setTags(hashtagMap.getOrDefault(commuId, List.of()));
 		}
 		
 		return lists;
+	}
+	
+	// 나이대 계산
+	public String getAgeLabel(LocalDate birth) {
+	    if (birth == null) return "비공개";
+
+	    int age = Period.between(birth, LocalDate.now()).getYears();
+	    int ageGroup = (age / 10) * 10;
+	    return ageGroup + "대";
 	}
 	
 	// 커뮤니티 게시글 등록

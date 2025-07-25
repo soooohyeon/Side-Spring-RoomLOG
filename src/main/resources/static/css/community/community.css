@@ -9,7 +9,7 @@ select {
   -webkit-appearance: none; /* for chrome */
   -moz-appearance: none; /*for firefox*/
   appearance: none;
-  background: #fff url('../../image/layout/search_arrow.png') no-repeat 97% 50%/15px auto;
+  background: url('../../image/layout/search_arrow.png') no-repeat 97% 50%/15px auto;
   background-position:  right 10px center;
 }
 select:focus { outline: none; }
@@ -23,6 +23,7 @@ select::-ms-expand{ display: none;/*for IE10,11*/ }
   margin-right: 20px;
   padding: 0 30px;
 
+  background-color: #fff;
   border: 1px solid #999999;
   border-radius: 50px;
   font-size: 21px;

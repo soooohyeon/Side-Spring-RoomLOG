@@ -25,8 +25,10 @@ public class CommunityImgService {
 	// 커뮤니티에서 이미지 등록 또는 수정 전 형식변환하여 CommunityImg 객체에 담아 반환
 	public CommunityImg insertCommunityImg(Community community, MultipartFile image) throws IOException {
 		String originalImgName = image.getOriginalFilename();
+		// 확장자 추출
+		String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
 		UUID uuid = UUID.randomUUID();
-		String systemName = uuid.toString() + "_" + originalImgName;
+		String systemName = uuid.toString() + "_" + originalImgName + extension;
 		
 		String setfileDir = "community/" + getUploadDate();
 		File uploadPath = new File(fileDir, setfileDir);
@@ -49,8 +51,8 @@ public class CommunityImgService {
         CommunityImg communityImg = CommunityImg.builder()
 			.community(community)
 			.communityImgOriginal(originalImgName)
-			.communityImgUuid(uuid.toString())
-			.communityImgPath(setfileDir)
+			.communityImgUuid(systemName)
+			.communityImgPath("upload/" + setfileDir)
 			.build();
 		
 		return communityImg;

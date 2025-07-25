@@ -26,36 +26,43 @@ public class CommunityListDTO {
 	private LocalDateTime createDate;
 	private long userId;
 	private String userNickname;
+	private int isAgeVisible;
 	private LocalDate userBirth;
+	private String userAge;
 	private String profileImgPath;
 	private String profileImgUuid;
 	private String communityImgPath;
 	private String communityImgUuid;
+	private boolean checkCommunityImg;
 	private long commentCount;
 	private boolean isScrapped;
 	private long scrapCount;
 	private List<String> tags;
 	
 	@QueryProjection
-	public CommunityListDTO(long communityId, long userId, String userNickname, LocalDate userBirth,
-			String profileImgPath, String profileImgUuid, String communityTitle, String communityContent,
-			String communityImgPath, String communityImgUuid, List<String> tags, long commentCount, long scrapCount,
-			boolean isScrapped, LocalDateTime createDate) {
+	public CommunityListDTO(long communityId, String communityTitle, String communityContent, LocalDateTime createDate,
+			long userId, String userNickname, int isAgeVisible, LocalDate userBirth, String userAge,
+			String profileImgPath, String profileImgUuid, String communityImgPath, String communityImgUuid,
+			boolean checkCommunityImg, long commentCount, boolean isScrapped, long scrapCount, List<String> tags) {
+		super();
 		this.communityId = communityId;
-		this.userId = userId;
-		this.userNickname = userNickname;
-		this.userBirth = userBirth;
-		this.profileImgPath = profileImgPath;
-		this.profileImgUuid = profileImgUuid;
 		this.communityTitle = communityTitle;
 		this.communityContent = communityContent;
+		this.createDate = createDate;
+		this.userId = userId;
+		this.userNickname = userNickname;
+		this.isAgeVisible = isAgeVisible;
+		this.userBirth = userBirth;
+		this.userAge = userAge;
+		this.profileImgPath = profileImgPath;
+		this.profileImgUuid = profileImgUuid;
 		this.communityImgPath = communityImgPath;
 		this.communityImgUuid = communityImgUuid;
-		this.tags = tags;
+		this.checkCommunityImg = checkCommunityImg;
 		this.commentCount = commentCount;
-		this.scrapCount = scrapCount;
 		this.isScrapped = isScrapped;
-		this.createDate = createDate;
+		this.scrapCount = scrapCount;
+		this.tags = tags;
 	}
 	
 }

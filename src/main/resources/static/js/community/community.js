@@ -26,6 +26,23 @@ $("#SELECT-SORT").click(function() {
 
 // ---------------------------------------------------------------
 
+// 유저 페이지 이동
+$(document).ready(function () {
+  // 이미지 클릭 시
+  $(".div-go-user-page img").on("click", goUserPage);
+
+  // 닉네임 클릭 시
+  $(".div-nickname").on("click", goUserPage);
+});
+
+function goUserPage(e) {
+  e.stopPropagation();
+  const userId = $(this).closest(".div-go-user-page").data("user-id");
+  location.href = "/user/userPage?userId=" + userId;
+}
+
+// ---------------------------------------------------------------
+
 // 게시글에 이미지가 존재할 경우 너비 조정
 document.querySelectorAll(".div-post-info-wrap").forEach(wrap => {
   const imgWrap = wrap.querySelector(".div-post-img img");

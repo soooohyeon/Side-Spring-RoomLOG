@@ -81,10 +81,11 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 				u.userId,
 				u.userNickname,
 				u.userBirth,
+				u.isAgeVisible,
 				pi.profileImgPath,
 				pi.profileImgUuid,
-		        cm.commentId.count().as("commentCount"),
-		        s.scrapId.count().as("scrapCount")
+		        cm.commentId.countDistinct().as("commentCount"),
+		        s.scrapId.countDistinct().as("scrapCount")
 				)
 			)
 			.from(c)

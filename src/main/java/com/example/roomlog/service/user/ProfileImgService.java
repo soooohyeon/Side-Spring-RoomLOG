@@ -33,8 +33,10 @@ public class ProfileImgService {
 	// 프로필 사진 등록 또는 수정 전 형식변환하여 ProfileImg 객체에 담아 반환
 	public ProfileImg updateProfileImg(User user, MultipartFile image) throws IOException {
 		String originalImgName = image.getOriginalFilename();
+		// 확장자 추출
+		String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
 		UUID uuid = UUID.randomUUID();
-		String systemName = uuid.toString() + "_" + originalImgName;
+		String systemName = uuid.toString() + "_" + originalImgName + extension;
 		
 		String setfileDir = "profile/" + getUploadDate();
 		File uploadPath = new File(fileDir, setfileDir);
@@ -63,8 +65,8 @@ public class ProfileImgService {
         	profileImg = ProfileImg.builder()
         			.user(user)
         			.profileImgOriginal(originalImgName)
-        			.profileImgUuid(uuid.toString())
-        			.profileImgPath(setfileDir)
+        			.profileImgUuid(systemName)
+        			.profileImgPath("upload/" + setfileDir)
         			.build();
         } else {
         	profileImg = profileImgRepository.findByProfileImgId(profileImgId).get();

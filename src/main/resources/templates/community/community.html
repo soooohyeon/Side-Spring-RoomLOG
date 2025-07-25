@@ -81,36 +81,38 @@
                   <div class="div-post-info-wrap">
                     <div class="div-profile-post-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
-                          <img th:src="@{|${list.profileImgPath}/th_${list.profileImgUuid}|}" th:onclick="|location.href='@{}'|">
-                          <div class="div-nickname div-nick div-one-skip" th:onclick="|location.href='@{}'|">
+                        <div class="div-go-user-page" th:data-user-id="${list.userId}">
+                          <img th:src="@{'/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}">
+                          <div class="div-nickname div-nick div-one-skip">
 						  	<th:block th:text="${list.userNickname}"></th:block>
 						  </div>
                         </div>
-                        <div class="div-age">20대</div>
+                        <div class="div-age" th:if="${list.isAgeVisible == 1}")><span th:text="${list.userAge}"></span></div>
                       </div>
                       <div class="div-one-skip div-title" th:text="${list.communityTitle}"></div>
-                      <div class="div-two-skip div-content" th:text="${list.communityContent}"></div>
+                      <div class="div-two-skip div-content" th:utext="${list.communityContent}"></div>
                     </div>
-                    <div class="div-post-img">
-                      <img src="/image/example/board/work-desk.jpg" alt="postIMG">
+                    <div class="div-post-img" th:if="${list.checkCommunityImg}">
+                      <img th:src="@{'/' + ${list.communityImgPath} + '/th_' + ${list.communityImgUuid}|}" alt="postIMG">
                     </div>
                   </div>
                   <div class="div-hashtag-wrap">
-                    <div class="div-hashtag">#소파</div>
-                    <div class="div-hashtag">#가구</div>
-                    <div class="div-hashtag">#가죽소파</div>
+                      <div class="div-hashtag" th:each="tag : ${list.tags}"><span th:text="'#' + ${tag}"></span></div>
                   </div>
                   <div class="div-time-count-wrap">
-                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                    <div class="div-time time-ago" th:data-timestamp="${list.createDate}"></div>
                     <div class="div-two-counts-wrap">
                       <div class="div-count-wrap">
                         <img th:src="@{/image/layout/comment_count.png}" alt="comment">
                         <div class="div-comment" th:text="${list.commentCount}"></div>
                       </div>
                       <div class="div-count-wrap">
-                        <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" onclick="noScrap(event, this, 1)">
-                        <!-- <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" onclick="goScrap(event, this, userNumber)"> -->
+                      	<th:block th:if="${list.isScrapped}">
+                          <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${session.userNumber})|">
+                      	</th:block>
+                      	<th:block th:unless="${list.isScrapped}">
+                          <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${session.userNumber})|">
+                      	</th:block>
                         <div class="div-scrap" th:text="${list.scrapCount}"></div>
                       </div>
                     </div>
