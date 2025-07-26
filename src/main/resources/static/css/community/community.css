@@ -11,6 +11,7 @@ select {
   appearance: none;
   background: url('../../image/layout/search_arrow.png') no-repeat 97% 50%/15px auto;
   background-position:  right 10px center;
+  cursor: pointer;
 }
 select:focus { outline: none; }
 /* 셀렉트 기본 화살표 없애기 */

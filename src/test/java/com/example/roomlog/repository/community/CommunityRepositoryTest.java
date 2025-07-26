@@ -42,7 +42,7 @@ public class CommunityRepositoryTest {
 	public void countSearchCountTest() {
 		Criteria criteria = new Criteria(null, null, "comment");
 		// when
-		long count = communityRepository.countSearchCount(criteria);
+		long count = communityRepository.countSearchResult(criteria);
 		// then
 		log.info("list count : " + count);
 		assertNotNull(count);

@@ -21,6 +21,7 @@
     </script>
   </th:block>
   <script defer th:src="@{/js/basic/basic.js}"></script>
+  <script defer th:src="@{/js/basic/page.js}"></script>
   <script defer th:src="@{/js/community/community.js}"></script>
 </head>
 <body>
@@ -149,13 +150,15 @@
         <th:block th:if="${!lists.isEmpty()}">
           <div id="DIV-PAGENATION-WRAP">
             <div class="div-page-btn-wrap">
-              <div class="pagenation previous" th:onclick="|location.href='@{/community/community-list}?page=${page.startPage - 1}'|" th:if="${page.prev}">◁</div>
+              <div class="pagenation previous" th:onclick="|goPage(${page.startPage - 1}|)" th:if="${page.prev}">◁</div>
             </div>
-            <ul th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-              <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|location.href='@{/community/community-list}?page=${i}'|" th:text="${i}"></li>
+            <ul>
+           	  <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+                <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|goPage(${i})|" th:text="${i}"></li>
+           	  </th:block>
             </ul>
             <div class="div-page-btn-wrap">
-              <div class="pagenation next" th:onclick="|location.href='@{/community/community-list}?page=${page.endPage + 1}'|" th:if="${page.next}">▷</div>
+              <div class="pagenation next" th:onclick="|goPage(${page.endPage + 1})|" th:if="${page.next}">▷</div>
             </div>
           </div>
         </th:block>
