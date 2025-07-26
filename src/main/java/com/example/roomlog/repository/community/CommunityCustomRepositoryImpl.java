@@ -15,6 +15,7 @@ import com.example.roomlog.dto.page.Criteria;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,6 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 	    
 	    // 정렬 동적 조건 설정
 	    String sort = Optional.ofNullable(criteria.getSort()).orElse("newest");
-	    OrderSpecifier<?> order = setSort(sort, c, cm, s);
 			
 		// 해시태그를 제외한 게시글 목록 담기
 		List<CommunityListDTO> lists = jpaQueryFactory
@@ -68,8 +68,18 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 			.leftJoin(pi).on(pi.user.eq(u))
 		    .leftJoin(cm).on(cm.community.eq(c))
 		    .leftJoin(s).on(s.community.eq(c))
-		    .groupBy(c.communityId)
-			.orderBy(order)
+		    .groupBy(
+				c.communityId,
+				c.communityTitle,
+				c.communityContent,
+				c.createDate,
+				u.userId,
+				u.userNickname,
+				u.userBirth,
+				u.isAgeVisible,
+				pi.profileImgPath,
+				pi.profileImgUuid)
+			.orderBy(setSort(sort, c, cm, s))
 			.where(builder)
 		    .offset((criteria.getPage() - 1) * criteria.getAmount())
 		    .limit(criteria.getAmount())
@@ -133,8 +143,8 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 	public OrderSpecifier<?> setSort(String sort, QCommunity c, QComment cm, QScrap s) {
 		OrderSpecifier<?> order = switch (sort) {
 			case "newest"-> c.communityId.desc();
-			case "comment" -> cm.commentId.count().desc();
-			case "scrap" -> s.scrapId.count().desc();
+			case "comment" -> Expressions.numberPath(Long.class, "commentCount").desc();
+			case "scrap" -> Expressions.numberPath(Long.class, "scrapCount").desc();
 			default -> c.communityId.desc();
 		};
 		
