@@ -55,7 +55,7 @@
             </div>
 
             <!-- 수정 / 삭제 버튼 -->
-            <div id="DIV-BTN-WRAP" th:if="${post.userId} == ${session.userNumber.longValue()}">
+            <div id="DIV-BTN-WRAP" th:if="(${session.userNumber} != null) and (${post.userId} == ${session.userNumber.longValue()})">
               <div class="div-post-btn div-menu-line">
                 <span th:onclick="|location.href='@{/community/community-edit}?communityId=${post.communityId}'|">수정</span>
               </div>
@@ -114,9 +114,12 @@
               <div class="div-info" th:text="${post.userIntro}"></div>
             </div>
           </div>
-          <div id="DIV-USER-FOLLOW-BTN">
-            <button class="button-style basic-button" th:if="${post.isFollowed}" th:onclick="noFollow(event, this, 0)">팔로잉</button>
-            <button class="button-style follow-btn" th:unless="${post.isFollowed}" th:onclick="goFollow(event, this, 1)">팔로우</button>
+          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userNumber} != null) and (${post.userId} != ${session.userNumber.longValue()})">
+            <button class="button-style basic-button" th:if="${post.isFollowed}" th:onclick="|noFollow(event, this, ${post.userId})|">팔로잉</button>
+            <button class="button-style follow-btn" th:unless="${post.isFollowed}" th:onclick="|goFollow(event, this, ${post.userId})|">팔로우</button>
+          </div>
+          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userNumber} == null)">
+            <button class="button-style follow-btn" th:onclick="|goFollow(event, this, ${post.userId})|">팔로우</button>
           </div>
         </div>
 
@@ -140,8 +143,8 @@
     <section class="section-line">
       <!-- 댓글 입력 -->
       <div id="DIV-COMMENT-WRITE-WRAP">
-        <form action="" method="">
-          <textarea name="comment" id="TEXTAREA-COMMENT-TXT" placeholder="댓글을 남겨주세요."></textarea>
+        <form th:action="@{/comment/comment-registOk}?communityId=${post.communityId}" method="post">
+          <textarea name="commentContent" id="TEXTAREA-COMMENT-TXT" placeholder="댓글을 남겨주세요."></textarea>
           <div id="DIV-BTN-COUNT-WRAP">
             <div id="DIV-SAVE-BTN-WRAP">
               <button type="button" class="btn-comment-save" disabled>등록</button>

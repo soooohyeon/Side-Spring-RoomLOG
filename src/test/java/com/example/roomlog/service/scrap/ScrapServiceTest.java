@@ -37,9 +37,9 @@ public class ScrapServiceTest {
 	
 	// 스크랩 취소
 	@Test
-	public void deleteScrapTest() {
+	public void cancelScrapTest() {
 		// when
-		scrapService.deleteScrap(1L, 32L);
+		scrapService.cancelScrap(1L, 32L);
 		// then
 		assertNull(scrapRepository.findById(new ScrapId(1L, 32L)));
 	}

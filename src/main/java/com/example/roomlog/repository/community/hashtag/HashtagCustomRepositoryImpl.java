@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.roomlog.domain.community.QCommunityHashtag;
-import com.example.roomlog.domain.community.QHashtag;
+import com.example.roomlog.domain.community.hashtag.QCommunityHashtag;
+import com.example.roomlog.domain.community.hashtag.QHashtag;
 import com.example.roomlog.dto.community.HashtagDTO;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

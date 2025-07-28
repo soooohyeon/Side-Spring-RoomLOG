@@ -38,8 +38,8 @@ public class Comment extends BaseTimeEntity {
 	private Community community;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_user_id")
-	private User parentUser;
+	@JoinColumn(name = "parent_comment_id")
+	private Comment parentComment;
 
 	@Column(length = 700, nullable = false)
 	private String commentContent;
@@ -47,10 +47,10 @@ public class Comment extends BaseTimeEntity {
 	private int isDeleted = 0;
 	
 	@Builder
-	public Comment(User writerUser, Community community, User parentUser, String commentContent) {
+	public Comment(User writerUser, Community community, Comment parentComment, String commentContent) {
 		this.writerUser = writerUser;
 		this.community = community;
-		this.parentUser = parentUser;
+		this.parentComment = parentComment;
 		this.commentContent = commentContent;
 	}
 

@@ -37,7 +37,7 @@ public class ScrapService {
 	
 	// 스크랩 취소
 	@Transactional
-	public void deleteScrap(Long communityId, Long userNumber) {
+	public void cancelScrap(Long communityId, Long userNumber) {
 		scrapRepository.deleteByScrapId(new ScrapId(userNumber, communityId));
 	}
 

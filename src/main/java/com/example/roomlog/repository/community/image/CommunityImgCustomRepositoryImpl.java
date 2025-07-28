@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.roomlog.domain.community.QCommunityImg;
+import com.example.roomlog.domain.community.image.QCommunityImg;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

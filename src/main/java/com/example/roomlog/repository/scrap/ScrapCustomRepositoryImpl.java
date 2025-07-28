@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.roomlog.domain.community.QCommunity;
-import com.example.roomlog.domain.community.QScrap;
-import com.example.roomlog.domain.user.QUser;
+import com.example.roomlog.domain.scrap.QScrap;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

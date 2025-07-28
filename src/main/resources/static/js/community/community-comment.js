@@ -10,7 +10,7 @@ $reCommentBtn.hover(function() {
   
   // hover 이미지로 바꾸기
   if (src.includes("re_comment_btn.png")) {
-    $img.attr("src", "../../image/community/re_comment_btn_hover.png");
+    $img.attr("src", "/image/community/re_comment_btn_hover.png");
   }
 }, function () {
   const $img = $(this).children("img");
@@ -18,7 +18,7 @@ $reCommentBtn.hover(function() {
 
   // hover에서 벗어날 때 다시 원래 이미지로 복귀
   if (src.includes("re_comment_btn_hover.png")) {
-    $img.attr("src", "../../image/community/re_comment_btn.png");
+    $img.attr("src", "/image/community/re_comment_btn.png");
   }
 });
 
@@ -44,20 +44,20 @@ function setResizeTextArea(textarea) {
 // ---------------------------------------------------------------
 
 $(document).ready(function() {
-  // 새 댓글
+  // 새 댓글 입력 칸
   const $comment = $("#TEXTAREA-COMMENT-TXT");
   
   // 로그아웃 상태면 textarea 비활성화
-  $comment.on("focus", function (e) {
-    // openModal("로그인 후 이용해 주세요.");
-    // $textarea.blur(); // 포커스 다시 제거
-  });
+  if (userNumber == null) {
+    $comment.on("focus", function (e) {
+      openModal("로그인 후 이용해 주세요.");
+    });
+  }
   // 실시간 글자 수 표시, 등록 버튼 활성화
   $comment.on("change input", countComent);
 
   // 댓글 수정 취소 함수 호출
   updateCancel();
-
 });
 
 // 새 댓글 작성 시 - 실시간 글자 수 표시, 등록 버튼 활성화

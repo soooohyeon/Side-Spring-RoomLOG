@@ -29,7 +29,7 @@ public class ScrapRestController {
 	@DeleteMapping("/scrap-cancel/{communityId}")
 	public void cancelScrap(@PathVariable long communityId, HttpSession session) {
 		long userNumber = (long) session.getAttribute("userNumber");
-		scrapService.deleteScrap(communityId, userNumber);
+		scrapService.cancelScrap(communityId, userNumber);
 	}
 	
 }

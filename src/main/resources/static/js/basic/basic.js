@@ -102,31 +102,43 @@ const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주�
 
 // 팔로우 - 메인, 게시판 디테일, 유저 개인 페이지
 // 팔로우 하기
-function goFollow(event, element) {
+function goFollow(event, element, toUserId) {
   event.stopPropagation();
 
   if (userNumber > 0 && userNumber != null) {
-    element.innerText = "팔로잉";
-    element.setAttribute("onclick", "noFollow(event, this, userNumber)");
-    element.setAttribute("class", "button-style basic-button");
+	fetch(`/follow/follow-save/${toUserId}`, {
+	  method: 'POST'
+	})
+	.then(response => {
+	  if (!response.ok) throw new Error("팔로우 실패");
+      element.innerText = "팔로잉";
+      element.setAttribute("onclick", `noFollow(event, this, ${toUserId})`);
+      element.setAttribute("class", "button-style basic-button");
+	})
+	.catch(() => {
+	  openModal(errMsg);
+	});
   } else if (userNumber == null) {
     openModal("로그인이 필요해요.<br>팔로우는 로그인 후 이용할 수 있어요!");
   }
 }
 
 // 팔로우 해제
-function noFollow(event, element) {
+function noFollow(event, element, toUserId) {
   event.stopPropagation();
 
-  deleteFollow(userNumber);
-
-  element.innerText = "팔로우";
-  element.setAttribute("onclick", "goFollow(event, this, userNumber)");
-  element.setAttribute("class", "button-style follow-btn");
-}
-
-function deleteFollow(userNumber) {
-  console.log("팔로우 삭제");
+  fetch(`/follow/follow-cancel/${toUserId}`, {
+  	method: 'DELETE'
+  })
+  .then(response => {
+	if (!response.ok) throw new Error("팔로우 취소 실패");
+    element.innerText = "팔로우";
+    element.setAttribute("onclick", `goFollow(event, this, ${toUserId})`);
+    element.setAttribute("class", "button-style follow-btn");
+  })
+  .catch(() => {
+	openModal(errMsg);
+  })
 }
 
 // ---------------------------------------------------------------

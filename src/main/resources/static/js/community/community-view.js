@@ -100,14 +100,13 @@ function goPostScrap(element, communityId) {
     .catch(() => {
       openModal(errMsg);
     });
-  } else if (userNumber == null) {
-    openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
-  };
+  }	else if (userNumber == null) {
+	openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
+  }
 }
 
 // 스크랩 해제
 function noPostScrap(element, communityId) {
-
   fetch(`/scrap/scrap-cancel/${communityId}`, {
   	method: 'DELETE'
   })

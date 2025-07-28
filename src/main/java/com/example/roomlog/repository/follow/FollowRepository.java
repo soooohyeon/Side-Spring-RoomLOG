@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.roomlog.domain.follow.Follow;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 
@@ -18,6 +20,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
 	
 	// 팔로우 해제
 	@Modifying
+	@Transactional
 	@Query("DELETE FROM Follow f " +
 			"	WHERE f.fromUser.userId = :fromUserId " +
 			"		AND f.toUser.userId = :toUserId")
