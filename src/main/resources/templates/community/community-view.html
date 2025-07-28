@@ -143,11 +143,12 @@
     <section class="section-line">
       <!-- 댓글 입력 -->
       <div id="DIV-COMMENT-WRITE-WRAP">
-        <form th:action="@{/comment/comment-registOk}?communityId=${post.communityId}" method="post">
-          <textarea name="commentContent" id="TEXTAREA-COMMENT-TXT" placeholder="댓글을 남겨주세요."></textarea>
+        <form id="commentForm" method="post">
+    	  <input type="hidden" name="communityId" th:value="${post.communityId}" />
+          <textarea name="commentContent" id="TEXTAREA-COMMENT-TXT" class="txt-comment-content" placeholder="댓글을 남겨주세요."></textarea>
           <div id="DIV-BTN-COUNT-WRAP">
             <div id="DIV-SAVE-BTN-WRAP">
-              <button type="button" class="btn-comment-save" disabled>등록</button>
+              <div class="btn-comment-save">등록</div>
             </div>
             <div id="DIV-TEXT-COUNT">
               <span id="SPAN-COMMENT-COUNT">0</span>/200

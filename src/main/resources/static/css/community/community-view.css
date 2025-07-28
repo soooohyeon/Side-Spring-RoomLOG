@@ -227,13 +227,13 @@ img {
   top: 50%;
   transform: translateY(-50%);
 }
-#DIV-SAVE-BTN-WRAP > button { font-size: 18px; }
 
 .btn-comment-save {
   background-color: transparent;
 
   border: none;
   color: #999999;
+  font-size: 18px;
 }
 
 .btn-active {

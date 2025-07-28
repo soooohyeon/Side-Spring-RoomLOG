@@ -8,6 +8,7 @@ import com.example.roomlog.domain.community.comment.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-	
+	// 댓글 1개 조회
+	Comment findByCommentId(long commentId);
 	
 }

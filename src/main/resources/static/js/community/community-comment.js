@@ -60,7 +60,12 @@ $(document).ready(function() {
   updateCancel();
 });
 
+// --------------------------------
+
 // 새 댓글 작성 시 - 실시간 글자 수 표시, 등록 버튼 활성화
+const $saveBtn = $(".btn-comment-save");
+let checkRegist = false;
+
 function countComent() {
   const $commentCount = $("#SPAN-COMMENT-COUNT");
 
@@ -75,19 +80,61 @@ function countComent() {
   }
 
   const nowLength = Array.from(content).length;
-  const saveBtn = $(this).next().find("button");
   // 글자수 표시
   $commentCount.text(nowLength);
   
   // 1자 이상 입력 시 클래스 부여
   if (nowLength > 0) {
-    saveBtn.addClass("btn-active");
-    saveBtn.prop("disabled", false);
-    saveBtn.attr("type", "submit");
+    $saveBtn.addClass("btn-active");
+    $saveBtn.attr("type", "submit");
+	checkRegist = true;
   } else {
-    saveBtn.removeClass("btn-active");
-    saveBtn.prop("disabled", true);
+    $saveBtn.removeClass("btn-active");
+	checkRegist = false;
   }
+}
+
+$saveBtn.on("click", function() {
+	if (checkRegist) {
+		openModal(commentRegistMsg, 2).then((result) =>	{
+			if (result) {
+				const commentContent = $(".txt-comment-content").val();
+				const communityId = $("input[name='communityId'").val();
+					
+				saveComment(commentContent, communityId);
+			}
+		});
+	}
+});
+
+// ---------------------------------------------------------------
+
+// 댓글 등록
+const commentRegistMsg = "댓글을 등록하시겠습니까?";
+function saveComment(commentContent, communityId, parentCommentId=null) {
+	fetch ("/comment/comment-registOk", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			communityId: communityId,
+			commentContent: commentContent,
+			parentCommentId: parentCommentId
+		})
+	})
+	.then(response => {
+		if (!response.ok) throw new Error("등록 실패");
+		return response.json();
+	})
+	.then((result) => {
+		openModal(result.msg);
+		// 예: 댓글 목록 동적 추가 또는 reload
+		location.reload();
+	})
+	.catch(() => {
+		openModal(errMsg);
+	});
 }
 
 // ---------------------------------------------------------------
@@ -145,7 +192,7 @@ $(document).on("click", ".div-re-comment-btn", function() {
     <div class="div-comment-wrap div-re-comment-write-wrap">
       <form action="">
         <div class="div-re-comment-write">
-          <textarea name="re-comment" class="text-re-content-txt" placeholder="댓글에 답글을 남겨보세요."></textarea>
+          <textarea name="commentContent" class="text-re-content-txt" placeholder="댓글에 답글을 남겨보세요."></textarea>
         </div>
         <div class="div-comment-btn-wrap textarea-btn-wrap">
             <div class="div-comment-btn div-menu-line"><span id="RE-COMMENT-WRITE-BTN">등록</span></div>
@@ -219,7 +266,7 @@ $(document).on("click", ".comment-update-btn", function() {
   const editFrame = `
             <div class="div-comment-update-wrap">
               <div class="div-comment-update">
-                <textarea name="re-comment" class="text-re-content-txt">` + oriCommentText + `</textarea>
+                <textarea name="commentContent" class="text-re-content-txt">` + oriCommentText + `</textarea>
               </div>
               <div class="div-comment-btn-wrap textarea-btn-wrap">
                   <div class="div-comment-btn div-menu-line"><span id="COMMENT-UPDATE-BTN">등록</span></div>
@@ -311,7 +358,7 @@ function renderOriginalComment(wrap, oriText, type) {
   if (type === "comment") {
     oriOther = `
         <div class="div-re-comment-btn">
-          <img src="../../image/community/re_comment_btn.png">답글
+          <img src="/image/community/re_comment_btn.png">답글
         </div>
       </div>
     `;

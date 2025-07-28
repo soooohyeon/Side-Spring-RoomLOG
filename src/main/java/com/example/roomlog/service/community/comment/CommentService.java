@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.comment.Comment;
+import com.example.roomlog.domain.community.comment.Comment.CommentBuilder;
+import com.example.roomlog.dto.community.comment.CommentDTO;
+import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.community.comment.CommentRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
@@ -11,17 +14,25 @@ import com.example.roomlog.repository.user.UserRepository;
 public class CommentService {
 
 	@Autowired
-	CommentRepository commetRepository;
+	CommentRepository commentRepository;
 	@Autowired
 	UserRepository userRepository;
-	
-	public void insertComment(String content, long userNumber) {
+	@Autowired
+	CommunityRepository communityRepository;
+
+	// 댓글 등록
+	public void insertComment(CommentDTO commentDTO) {
+		CommentBuilder builder = Comment.builder()
+				.writerUser(userRepository.findByUserId(commentDTO.getUserId()).get())
+				.community(communityRepository.findByCommunityId(commentDTO.getCommunityId()))
+				.commentContent(commentDTO.getCommentContent());
 		
-		Comment comment = Comment.builder()
-				.commentContent(content)
-				.writerUser(userRepository.findByUserId(userNumber).get())
-				.build();
+		if (commentDTO.getParentCommentId() != null) {
+		    builder.parentComment(commentRepository.findByCommentId(commentDTO.getParentCommentId()));
+		}
 		
+		Comment comment = builder.build();
+		commentRepository.save(comment);
 	}
 	
 }
