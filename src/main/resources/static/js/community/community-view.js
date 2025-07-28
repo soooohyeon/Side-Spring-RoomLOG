@@ -7,13 +7,12 @@ const deleteMsg = "이 글을 정말 지우시겠어요?<br>한 번 삭제하면
 $("#POST-DELETE-BTN").on("click", function() {
   openModal(deleteMsg, 2).then((result) => {
     if (result) {
-      setTimeout(() => {
-        openModal("삭제되었습니다.");
-        // location.href = "삭제경로";
-      }, 50);
+      location.href = "/community/community-delete";
     }
   });
 });
+
+// ---------------------------------------------------------------
 
 // 이미지 관련
 // 메인 이미지 - 높이 자동 조절
@@ -36,7 +35,6 @@ $(window).on("load resize", setMiniBoxHeight);
 
 $(document).ready(function() {
   const $mainImg = $(".div-sub-image > img").attr("src");
-  console.log($mainImg);
   $("#DIV-MAIN-IMAGE > img").attr("src", $mainImg);
 });
 
@@ -52,6 +50,17 @@ function changeImage(element) {
 
 // ---------------------------------------------------------------
 
+// 유저 페이지 이동
+$(document).ready(function () {
+  // 이미지 클릭 시
+  $(".div-go-user-page img").on("click", goUserPage);
+
+  // 닉네임 클릭 시
+  $(".div-nick").on("click", goUserPage);
+});
+
+// ---------------------------------------------------------------
+
 // 스크랩
 // 스크랩이 아닌 상태에서 버튼 호버시
 $('.blue-line-button').hover(function () {
@@ -60,7 +69,7 @@ $('.blue-line-button').hover(function () {
 
   // 현재 이미지가 스크랩된 상태일 때만 hover 이미지로 바꾸기
   if (src.includes("scrap_ok.png")) {
-    $img.attr("src", "../../image/community/scrap_full_hover.png");
+    $img.attr("src", "/image/community/scrap_full_hover.png");
   }
 }, function () {
   const $img = $(this).children("img");
@@ -68,25 +77,51 @@ $('.blue-line-button').hover(function () {
 
   // hover에서 벗어날 때 다시 원래 이미지로 복귀
   if (src.includes("scrap_full_hover.png")) {
-    $img.attr("src", "../../image/layout/scrap_ok.png");
+    $img.attr("src", "/image/layout/scrap_ok.png");
   }
 });
 
 // 스크랩 하기
-function goPostScrap(element, userNumber) {
-  if (userNumber > 0) {
-    element.setAttribute("class", "button-style basic-button");
-    element.setAttribute("onclick", "noPostScrap(this, userNumber)");
-    element.children[0].src = "../../image/community/scrap_white.png";
-  } else {
+function goPostScrap(element, communityId) {
+  if (userNumber > 0 && userNumber != null) {
+    fetch(`/scrap/scrap-save/${communityId}`, {
+  	  method: 'POST'
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("스크랩 실패");
+  	  element.setAttribute("class", "button-style basic-button");
+  	  element.setAttribute("onclick", `noPostScrap(this, ${communityId})`);
+  	  element.children[0].src = "/image/community/scrap_white.png";
+      // 현재 스크랩 수 + 1
+      const $count = $("#DIV-SCRAP");
+      const current = parseInt($count.text());
+      $count.text(current + 1);
+    })
+    .catch(() => {
+      openModal(errMsg);
+    });
+  } else if (userNumber == null) {
     openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
   };
 }
 
 // 스크랩 해제
-function noPostScrap(element, userNumber) {
-  element.setAttribute("class", "button-style blue-line-button");
-  element.setAttribute("onclick", "goPostScrap(this, userNumber)");
-  element.children[0].src = "../../image/layout/scrap_ok.png";
-}
+function noPostScrap(element, communityId) {
 
+  fetch(`/scrap/scrap-cancel/${communityId}`, {
+  	method: 'DELETE'
+  })
+  .then(response => {
+    if (!response.ok) throw new Error("스크랩 취소 실패");
+	element.setAttribute("class", "button-style blue-line-button");
+	element.setAttribute("onclick", `goPostScrap(this, ${communityId})`);
+	element.children[0].src = "/image/layout/scrap_ok.png";
+    // 현재 스크랩 수 - 1
+    const $count = $("#DIV-SCRAP");
+    const current = parseInt($count.text());
+    $count.text(current - 1);
+  })
+  .catch(() => {
+    openModal(errMsg);
+  });
+}

@@ -1,8 +1,9 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.scrap;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.example.roomlog.domain.community.Community;
 import com.example.roomlog.domain.user.User;
 
 import jakarta.persistence.EmbeddedId;

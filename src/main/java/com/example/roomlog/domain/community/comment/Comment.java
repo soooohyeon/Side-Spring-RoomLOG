@@ -1,6 +1,7 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.community.comment;
 
 import com.example.roomlog.domain.common.BaseTimeEntity;
+import com.example.roomlog.domain.community.Community;
 import com.example.roomlog.domain.user.User;
 
 import jakarta.persistence.Column;

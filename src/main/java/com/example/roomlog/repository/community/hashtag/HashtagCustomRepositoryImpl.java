@@ -21,7 +21,7 @@ public class HashtagCustomRepositoryImpl implements HashtagCustomRepository {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	// 커뮤니티 게시글 목록 - 각 게시글의 해시태그
-	public Map<Long, List<String>> selectListHashtag(List<Long> communityIds) {
+	public Map<Long, List<String>> selectAllHashtagList(List<Long> communityIds) {
 		QCommunityHashtag ch = QCommunityHashtag.communityHashtag;
 		QHashtag h = QHashtag.hashtag;
 		
@@ -40,6 +40,22 @@ public class HashtagCustomRepositoryImpl implements HashtagCustomRepository {
 				HashtagDTO::getCommunityId,
 				Collectors.mapping(HashtagDTO::getHashtagName, Collectors.toList())
 			));
+		
+		return lists;
+	}
+	
+	// 커뮤니티 상세 - 해당 커뮤니티 게시글의 모든 해시태그 조회
+	public List<String> selectHashtagList (long communityId) {
+		QCommunityHashtag ch = QCommunityHashtag.communityHashtag;
+		QHashtag h = QHashtag.hashtag;
+		
+		List<String> lists = jpaQueryFactory
+			.select(h.hashtagName)
+			.from(ch)
+			.join(h).on(ch.hashtag.hashtagId.eq(h.hashtagId))
+			.where(ch.community.communityId.eq(communityId))
+			.orderBy(h.hashtagId.asc())
+			.fetch();
 		
 		return lists;
 	}

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-import com.example.roomlog.domain.community.CommunityImg;
+import com.example.roomlog.domain.community.image.CommunityImg;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;

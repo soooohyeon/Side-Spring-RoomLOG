@@ -1,4 +1,4 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.community.hashtag;
 
 import java.io.Serializable;
 
@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Getter
-public class ScrapId implements Serializable {
+public class CommunityHashtagId implements Serializable {
 
-	private Long userId;
 	private Long communityId;
+	private Long hashtagId;
 	
-	public ScrapId(Long userId, Long communityId) {
-		this.userId = userId;
+	public CommunityHashtagId(Long communityId, Long hashtagId) {
 		this.communityId = communityId;
+		this.hashtagId = hashtagId;
 	}
 	
 }

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roomlog.domain.community.Hashtag;
+import com.example.roomlog.domain.community.hashtag.Hashtag;
 import com.example.roomlog.service.community.HashtagService;
 
 import lombok.extern.slf4j.Slf4j;

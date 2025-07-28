@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.roomlog.domain.community.CommunityImg;
+import com.example.roomlog.domain.community.image.CommunityImg;
 
 @Repository
-public interface CommunityImgRepository extends JpaRepository<CommunityImg, Long> {
+public interface CommunityImgRepository extends JpaRepository<CommunityImg, Long>, CommunityImgCustomRepository {
 	
-	// 해당 게시글의 대표 이미지 조회
+	// 커뮤니티 게시글 목록 - 해당 게시글의 대표 이미지 조회
 	@Query("SELECT img FROM CommunityImg img " +
 			"	WHERE img.community.communityId IN :communityIds AND " +
 			"	img.communityImgId IN (" +

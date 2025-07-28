@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.Community;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,17 @@ public class CommunityRepositoryTest {
 		Community commu = communityRepository.findByCommunityId(communityId);
 		// then
 		assertNotNull(commu);
+	}
+	
+	// 커뮤니티 게시글 상세 정보
+	@Test
+	public void selectViewOneTest() {
+		// given
+		long communityId = 32;
+		// when
+		CommunityViewDTO post = communityRepository.selectViewOne(communityId);
+		// then
+		assertNotNull(post);
 	}
 	
 }

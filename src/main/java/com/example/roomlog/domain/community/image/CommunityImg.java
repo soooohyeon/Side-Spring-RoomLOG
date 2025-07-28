@@ -1,7 +1,9 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.community.image;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.example.roomlog.domain.community.Community;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

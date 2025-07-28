@@ -1,46 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/community/community-view.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/community/community-view.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
-  <script defer src="../../js/community/community-view.js"></script>
-  <script defer src="../../js/community/community-comment.js"></script>
+  <th:block th:if="${session.userNumber != null} and ${session.userNumber != -1}">
+    <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
+    <script th:inline="javascript">
+      sessionStorage.setItem("userNumber", [[${session.userNumber}]]);
+    </script>
+  </th:block>
+  <th:block th:unless="${session.userNumber != null} and ${session.userNumber != -1}">
+    <script th:inline="javascript">
+      sessionStorage.removeItem("userNumber");
+    </script>
+  </th:block>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
+  <script defer th:src="@{/js/community/community-view.js}"></script>
+  <script defer th:src="@{/js/community/community-comment.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
-    <div id="DIV-HEADER-TOP">
-      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
-        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
-      </div>
-      <div id="DIV-RIGHT-LOGIN">
-        <div class="div-header-top-link div-menu-line">
-          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">메세지함</a>
-        </div>
-        <div class="div-header-top-link">
-          <a href="../../html/login/login.html">로그인</a>
-        </div>
-      </div>
-    </div>
-    <!--  -->
-
-    <!-- 메뉴바 -->
-    <div id="DIV-HEADER-BOTTOM">
-      <ul id="UL-HEDAER-MENU">
-        <li id="LI-HOME-LINK"><a href="">홈</a></li>
-        <li id="LI-COMMUNITY-LINK"><a href="">커뮤니티</a></li>
-        <li id="LI-NOTICE-LINK"><a href="">공지사항</a></li>
-        <li id="LI-FEEDBACK-LINK"><a href="">건의사항</a></li>
-      </ul>
-    </div>
-    <!--  -->
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
+	<div th:replace="layout/user-header-menu :: headerMenuFragment"></div>
   </header>
   <!--  -->
   
@@ -53,24 +40,24 @@
 
         <!-- 글 내용 출력 영역 -->
         <div id="DIV-POST-WRAP">
-          <div id="DIV-POST-TITLE">오늘 브런치는 간단하게 토스트!!!!!</div>
+          <div id="DIV-POST-TITLE" th:text="${post.communityTitle}"></div>
           <div id="DIV-DATE-BTN-WRAP">
             <!-- 등록 / 수정 날짜 -->
             <div id="DIV-DATE-WRAP">
               <div>
                 <span>등록일</span>
-                <span class="time-ago" data-timestamp="2025-06-27T15:05:00"></span>
+                <span class="time-ago" th:data-timestamp="${post.createDate}"></span>
               </div>
-              <div id="DIV-UPDATE-WRAP">
+              <div id="DIV-UPDATE-WRAP" th:if="${post.createDate != post.modifiedDate}">
                 <span>수정일</span>
-                <span class="time-ago" data-timestamp="2025-06-27T15:01:00"></span>
+                <span class="time-ago" th:data-timestamp="${post.modifiedDate}"></span>
               </div>
             </div>
 
             <!-- 수정 / 삭제 버튼 -->
-            <div id="DIV-BTN-WRAP">
+            <div id="DIV-BTN-WRAP" th:if="${post.userId} == ${session.userNumber.longValue()}">
               <div class="div-post-btn div-menu-line">
-                <span onclick="location.href=''">수정</span>
+                <span th:onclick="|location.href='@{/community/community-edit}?communityId=${post.communityId}'|">수정</span>
               </div>
               <div class="div-post-btn">
                 <span id="POST-DELETE-BTN">삭제</span>
@@ -81,46 +68,31 @@
           <!-- 스크랩 개수 -->
           <div id="DIV-SCRAP-COUNT">
             <span>스크랩</span>
-            <span>117</span>
+            <span th:text="${post.scrapCount}" id="DIV-SCRAP"></span>
           </div>
 
           <!-- 본문 + 이미지 + 해시태그 -->
           <div id="DIV-POST-INFO-WRAP">
             <!-- 본문 -->
-            <div id="DIV-POST-CONTENT">
-              새로 바꾼 식탁에서 간단하게 토스트 해먹었어요.<br>요즘 빠져 있는 토스트인데 바게트에 버터 바르고 구워서 아보카도, 브리치즈, 베이컨, 반숙 계란까지 올려줬어요.<br>
-              짭짤 고소한 조합이 딱 내 취향이라 진짜 자주 해먹게 돼요ㅎㅎ<br><br>
-              같이 곁들인 토스트는 햄이랑 사과, 브리치즈에 견과류 톡톡✨<br>
-              살짝 단맛 도는 게 디저트처럼 먹기 좋았어요.<br><br>
-              그리고 빠질 수 없는 요거트볼🥣<br>
-              그릭요거트에 청포도, 블루베리, 바나나 올리고 나름 꽃 모양도 해봤는데 귀엽죠?<br>
-              아무것도 안 한 거 같은데 기분 좋아지는 한 끼였어요☺️
-            </div>
+            <div id="DIV-POST-CONTENT" th:utext="${post.communityContent}"></div>
 
             <!-- 이미지 -->
-            <div id="DIV-POST-IMAGE-WRAP">
+            <div id="DIV-POST-IMAGE-WRAP" th:if="${!(post.Images).isEmpty()}">
               <!-- 메인 이미지 -->
               <div id="DIV-MAIN-IMAGE">
-                <img src="../../image/example/board/brunch.jpg" alt="image">
+                <img src="" alt="mainImage">
               </div>
               <!-- 이미지 리스트 -->
               <div id="DIV-SUB-IMAGE-WRAP">
-                <div class="div-sub-image">
-                  <img src="../../image/example/board/brunch.jpg" alt="image" onclick="changeImage(this)">
-                </div>
-                <div class="div-sub-image">
-                  <img src="../../image/example/board/desert.jpg" alt="image" onclick="changeImage(this)">
+                <div class="div-sub-image" th:each="image : ${post.Images}">
+                  <img th:src="@{'/' + ${image}}" alt="image" onclick="changeImage(this)">
                 </div>
               </div>
             </div>
 
             <!-- 해시태그 -->
-            <div id="DIV-POST-HASHTAG-WRAP">
-              <div class="div-hashtag-wrap">#브런치</div>
-              <div class="div-hashtag-wrap">#힐링한끼</div>
-              <div class="div-hashtag-wrap">#홈브런치</div>
-              <div class="div-hashtag-wrap">#주말브런치</div>
-              <div class="div-hashtag-wrap">#에그토스트</div>
+            <div id="DIV-POST-HASHTAG-WRAP" th:if="${!(post.tags).isEmpty()}">
+              <div class="div-hashtag-wrap" th:each="tag : ${post.tags}"><span th:text="'#' + ${tag}"></span></div>
             </div>
           </div>
           <!--  -->
@@ -130,21 +102,21 @@
 
         <!-- 프로필 영역 -->
         <div id="DIV-PROFILE-WRAP">
-          <div id="DIV-USER-INFO-WRAP">
+          <div id="DIV-USER-INFO-WRAP" class="div-go-user-page" th:data-user-id="${post.userId}">
             <div id="DIV-POST-USER-PROFILE">
-              <img src="../../image/example/profile_image/profile3.jpg" onclick="location.href=''" alt="profile">
+              <img th:src="@{'/' + ${post.profileImgPath} + '/th_' + ${post.profileImgUuid}|}" th:onclick="|location.href='@{}'|" alt="profile">
             </div>
             <div id="DIV-USER-WRAP">
               <div class="div-user-nick-age-wrap">
-                <div class="div-nick" onclick="location.href=''">작은식탁일기</div>
-                <div class="div-age">30대</div>
+                <div class="div-nick" th:text="${post.userNickname}"></div>
+                <div class="div-age" th:text="${post.userAge}"></div>
               </div>
-              <div class="div-info">식탁 위 작은 것들로 하루를 기록해요</div>
+              <div class="div-info" th:text="${post.userIntro}"></div>
             </div>
           </div>
           <div id="DIV-USER-FOLLOW-BTN">
-            <!-- <button class="button-style basic-button" onclick="noFollow(event, this, 0)">팔로잉</button> -->
-            <button class="button-style follow-btn" onclick="goFollow(event, this, 1)">팔로우</button>
+            <button class="button-style basic-button" th:if="${post.isFollowed}" th:onclick="noFollow(event, this, 0)">팔로잉</button>
+            <button class="button-style follow-btn" th:unless="${post.isFollowed}" th:onclick="goFollow(event, this, 1)">팔로우</button>
           </div>
         </div>
 
@@ -155,12 +127,12 @@
     <!-- 목록 + 스크랩 버튼 영역 -->
     <section class="section-btn-wrap">
       <button class="button-style list-button" onclick="history.back()">목록으로</button>
-      <button class="button-style blue-line-button" onclick="goPostScrap(this, 0)">
-        <img src="../../image/layout/scrap_ok.png">스크랩
+      <button class="button-style basic-button" th:if="${post.isScrapped}" th:onclick="|noPostScrap(this, ${post.communityId})|">
+        <img th:src="@{/image/community/scrap_white.png}">스크랩
       </button>
-      <!-- <button class="button-style basic-button" onclick="noPostScrap(this)">
-        <img src="../../image/community/scrap_white.png">스크랩
-      </button> -->
+      <button class="button-style blue-line-button" th:unless="${post.isScrapped}" th:onclick="|goPostScrap(this, ${post.communityId})|">
+        <img th:src="@{/image/layout/scrap_ok.png}">스크랩
+      </button>
     </section>
     <!--  -->
 
@@ -191,9 +163,9 @@
         <!-- 댓글 1개 -->
         <div class="div-comment-wrap div-parent-comment">
           <div class="div-comment-user-time-wrap">
-            <div class="div-comment-user-profile-wrap" onclick="location.href=''">
+            <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
               <div class="div-comment-profile-wrap">
-                <img src="../../image/example/profile_image/profile3.jpg" alt="profile">
+                <img th:src="@{/image/example/profile_image/profile3.jpg}" alt="profile">
               </div>
               <div class="div-nick">작은식탁일기</div>
               <div class="div-age">30대</div>
@@ -206,7 +178,7 @@
                 이런 글 보면 괜히 나도 글 쓰고 싶어져요. 하루하루 지나가는 순간들이 더 특별하게 느껴지네요.
               </div>
               <div class="div-re-comment-btn">
-                <img src="../../image/community/re_comment_btn.png">답글
+                <img th:src="@{/image/community/re_comment_btn.png}">답글
               </div>
             </div>
             <div class="div-comment-btn-wrap">
@@ -220,9 +192,9 @@
         <!-- 대댓글 1개 -->
         <div class="div-comment-wrap div-re-comment-wrap">
           <div class="div-comment-user-time-wrap">
-            <div class="div-comment-user-profile-wrap" onclick="location.href=''">
+            <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
               <div class="div-comment-profile-wrap">
-                <img src="../../image/example/profile_image/profile1.jpg" alt="profile">
+                <img th:src="@{/image/example/profile_image/profile1.jpg}" alt="profile">
               </div>
               <div class="div-nick">침대밖은위험해</div>
               <div class="div-age">30대</div>
@@ -296,36 +268,12 @@
     <!--  -->
             
   </main>
-      
+
   <!-- 하단 푸터 영역 -->
-  <footer id="FOOTER-CONTAINER">
-    <div id="DIV-FOOTER-WRAP">
-      <div id="DIV-FOOTER-LEGAL-WRAP">
-        <div class="div-footer-legal div-menu-line"><a href="">개인정보처리방침</a></div>
-        <div class="div-footer-legal"><a href="">이용약관</a></div>
-      </div>
-
-      <div id="DIV-ROOMLOG-INFO-WRAP">
-        <p>우선의 공간을 기록하는 사람들.</p>
-        <p>Contact: official@roomlog.com</p>
-        <p>Copyright © RoomLOG. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
+  <footer th:replace="layout/user-footer :: footerFragment"></footer>
+  
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>

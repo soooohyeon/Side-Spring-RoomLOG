@@ -5,7 +5,10 @@ import java.util.Map;
 
 public interface ScrapCustomRepository {
 	
-	// // 해당 게시글의 스크랩 여부
-	public Map<Long, Boolean> checkIsScrapped(List<Long> communityIds, Long userNumber);
+	// 커뮤니티 게시글 목록 - 해당 게시글의 스크랩 여부
+	Map<Long, Boolean> checkIsScrappedList(List<Long> communityIds, Long userNumber);
+
+	// 커뮤니티 게시글 상세 - 해당 게시글의 스크랩 여부
+	Boolean checkIsScrapped(Long userNumber, Long communityId);
 	
 }

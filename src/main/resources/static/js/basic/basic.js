@@ -57,8 +57,16 @@ $(document).ready(function() {
       $(this).text("▷");
     }
   });
-  
 });
+
+// ---------------------------------------------------------------
+
+// 유저 페이지 이동
+function goUserPage(e) {
+  e.stopPropagation();
+  const userId = $(this).closest(".div-go-user-page").data("user-id");
+  location.href = "/user/userPage?userId=" + userId;
+}
 
 // ---------------------------------------------------------------
 

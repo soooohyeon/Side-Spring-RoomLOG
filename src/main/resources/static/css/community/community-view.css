@@ -61,6 +61,7 @@ img {
 
 /* 본문 */
 #DIV-POST-CONTENT {
+  min-height: 70px;
   margin: 20px 0;
 
   color: #555555;

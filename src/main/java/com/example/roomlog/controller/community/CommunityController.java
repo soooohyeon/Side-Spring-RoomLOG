@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.page.Page;
 import com.example.roomlog.service.community.CommunityService;
@@ -43,6 +45,17 @@ public class CommunityController {
 		
 		return "community/community";
 	}
+	
+	@GetMapping("/community-view")
+	public String communityViewPage(@RequestParam long communityId, HttpSession session, Model model) {
+		Object userNumberObj = session.getAttribute("userNumber");
+		long userNumber = userNumberObj != null ? (long) userNumberObj : -1;
+
+		CommunityViewDTO post = communityService.selectViewOne(userNumber, communityId);
+		model.addAttribute("post", post);
+		
+		return "community/community-view";
+	}
 
 	//	게시판 - 글 작성
 	@GetMapping("/community-regist")
@@ -63,6 +76,20 @@ public class CommunityController {
 		}
 		
 		return "redirect:/community/community-list?registOk=true";
+	}
+	
+	// 게시판 - 글 삭제
+	@GetMapping("/community-delete")
+	public String deleteCommunity(long communityId) {
+		
+		return "redirect:/community/community-list?deleteOk=true";
+	}
+	
+	// 게시판 - 글 삭제
+	@GetMapping("/community-edit")
+	public String editCommunity(@RequestParam long communityId) {
+		
+		return "community/community-edit";
 	}
 	
 }

@@ -3,7 +3,6 @@ package com.example.roomlog.service.community;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.CommunityRepository;
 
@@ -48,10 +48,22 @@ public class CommunityServiceTest {
 		// when
 		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
 		// then
-		for (CommunityListDTO list : lists) {
-			log.info("list : " + list);
-		}
+//		for (CommunityListDTO list : lists) {
+//			log.info("list : " + list);
+//		}
 		assertNotNull(lists);
+	}
+
+	// 커뮤니티 상세 게시글 정보
+	@Test
+	public void selectViewOneTest() {
+		// given
+		long userNumber = 1;
+		long communityId = 32;
+		// when
+		CommunityViewDTO post = communityService.selectViewOne(userNumber, communityId);
+		// then
+		assertNotNull(post);
 	}
 	
 	// 커뮤니티 글 등록

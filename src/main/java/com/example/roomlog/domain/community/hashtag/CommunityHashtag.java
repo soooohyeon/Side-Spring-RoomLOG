@@ -1,7 +1,9 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.community.hashtag;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.example.roomlog.domain.community.Community;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

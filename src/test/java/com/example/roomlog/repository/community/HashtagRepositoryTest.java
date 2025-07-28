@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roomlog.domain.community.Hashtag;
+import com.example.roomlog.domain.community.hashtag.Hashtag;
 import com.example.roomlog.repository.community.hashtag.HashtagRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,9 +57,23 @@ public class HashtagRepositoryTest {
 		// given
 		List<Long> communityIds = List.of(9L, 17L, 20L, 21L, 22L, 23L, 24L);
 		// when
-		Map<Long, List<String>> lists = hashtagRepository.selectListHashtag(communityIds);
+		Map<Long, List<String>> lists = hashtagRepository.selectAllHashtagList(communityIds);
 		// then
 		assertNotNull(lists);
+	}
+	
+	// 커뮤니티 상세 - 해당 커뮤니티 게시글의 모든 해시태그 조회
+	@Test
+	public void selectImgListTest() {
+		// given
+		long communityId = 21;
+		// when
+		List<String> tags = hashtagRepository.selectHashtagList(communityId);
+		// then
+		for (String tag : tags) {
+			log.info(tag);
+		}
+		assertNotNull(tags);
 	}
 	
 }

@@ -11,6 +11,7 @@ import com.example.roomlog.domain.community.QScrap;
 import com.example.roomlog.domain.user.QProfileImg;
 import com.example.roomlog.domain.user.QUser;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
@@ -149,6 +150,39 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		};
 		
 		return order;
+	}
+	
+	// 커뮤니티 게시글 상세 정보
+	public CommunityViewDTO selectViewOne(long communityId) {
+		QCommunity c = QCommunity.community;
+		QUser u = QUser.user;
+		QProfileImg pi = QProfileImg.profileImg;
+		QScrap s = QScrap.scrap;
+		
+		CommunityViewDTO post = jpaQueryFactory
+				.select(Projections.fields(CommunityViewDTO.class,
+					c.communityId,
+					c.communityTitle,
+					c.communityContent,
+					c.createDate,
+					c.modifiedDate,
+					u.userId,
+					u.userNickname,
+					u.isAgeVisible,
+					u.userBirth,
+					u.userIntro,
+					pi.profileImgPath,
+					pi.profileImgUuid,
+			        s.scrapId.countDistinct().as("scrapCount")
+				))
+				.from(c)
+				.join(c.user, u)
+				.leftJoin(pi).on(pi.user.eq(u))
+				.leftJoin(s).on(s.community.eq(c))
+				.where(c.communityId.eq(communityId))
+				.fetchOne();
+		
+		return post;
 	}
 	
 }

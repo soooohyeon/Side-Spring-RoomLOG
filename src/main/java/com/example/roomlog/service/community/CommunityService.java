@@ -13,16 +13,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.domain.community.Community;
-import com.example.roomlog.domain.community.CommunityHashtag;
-import com.example.roomlog.domain.community.CommunityImg;
-import com.example.roomlog.domain.community.Hashtag;
+import com.example.roomlog.domain.community.hashtag.CommunityHashtag;
+import com.example.roomlog.domain.community.hashtag.Hashtag;
+import com.example.roomlog.domain.community.image.CommunityImg;
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.community.hashtag.CommunityHashtagRepository;
 import com.example.roomlog.repository.community.hashtag.HashtagRepository;
 import com.example.roomlog.repository.community.image.CommunityImgRepository;
+import com.example.roomlog.repository.follow.FollowRepository;
 import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
@@ -45,6 +47,8 @@ public class CommunityService {
 	ScrapRepository scrapRepository;
 	@Autowired
 	HashtagRepository hashtagRepository;
+	@Autowired
+	FollowRepository followRepository;
 
 	// 커뮤니티 게시글 총 개수
 	public int countAllCommunity() {
@@ -64,16 +68,14 @@ public class CommunityService {
 			.collect(Collectors.toList());
 		
 		List<CommunityImg> images = communityImgRepository.findFirstImagesByCommunityIds(communityIds);
-		Map<Long, Boolean> checkIsScrappedMap = scrapRepository.checkIsScrapped(communityIds, userNumber);
-		Map<Long, List<String>> hashtagMap = hashtagRepository.selectListHashtag(communityIds);
+		Map<Long, Boolean> checkIsScrappedMap = scrapRepository.checkIsScrappedList(communityIds, userNumber);
+		Map<Long, List<String>> hashtagMap = hashtagRepository.selectAllHashtagList(communityIds);
 		
 		for (CommunityListDTO list : lists) {
 			long commuId = list.getCommunityId();
 
 			// 나이대
-			if (list.getIsAgeVisible() == 1) {
-				list.setUserAge(getAgeLabel(list.getUserBirth()));
-			}
+			list.setUserAge(getAgeLabel(list.getIsAgeVisible(), list.getUserBirth()));
 			
 			// 프로필 등록이 안된 경우 기본 이미지 출력
 			if (list.getProfileImgUuid() == null) {
@@ -104,12 +106,38 @@ public class CommunityService {
 	}
 	
 	// 나이대 계산
-	public String getAgeLabel(LocalDate birth) {
-	    if (birth == null) return "비공개";
+	public String getAgeLabel(int isAgeVisible, LocalDate birth) {
+		String result = "";
+	    if (isAgeVisible == 0) {
+	    	result = "비공개";
+	    } else if (isAgeVisible == 1) {
+	    	int age = Period.between(birth, LocalDate.now()).getYears();
+	    	int ageGroup = (age / 10) * 10;
+	    	result = ageGroup + "대";
+	    }
 
-	    int age = Period.between(birth, LocalDate.now()).getYears();
-	    int ageGroup = (age / 10) * 10;
-	    return ageGroup + "대";
+	    return result;
+	}
+	
+	// 커뮤니티 상세 게시글 정보
+	public CommunityViewDTO selectViewOne(long userNumber, long communityId) {
+		CommunityViewDTO post = communityRepository.selectViewOne(communityId);
+
+		// 나이대
+		post.setUserAge(getAgeLabel(post.getIsAgeVisible(), post.getUserBirth()));
+		
+		// 프로필 등록이 안된 경우 기본 이미지 출력
+		if (post.getProfileImgUuid() == null) {
+			post.setProfileImgPath(("image/layout"));
+			post.setProfileImgUuid("profile_img_basic.png");
+		}
+		
+		post.setImages(communityImgRepository.selectImgList(communityId));
+		post.setScrapped(scrapRepository.checkIsScrapped(userNumber, communityId));
+		post.setFollowed(followRepository.checkFollow(userNumber, post.getUserId()) == 1);
+		post.setTags(hashtagRepository.selectHashtagList(communityId));
+		 
+		return post;
 	}
 	
 	// 커뮤니티 게시글 등록

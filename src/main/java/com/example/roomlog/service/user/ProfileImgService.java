@@ -33,10 +33,8 @@ public class ProfileImgService {
 	// 프로필 사진 등록 또는 수정 전 형식변환하여 ProfileImg 객체에 담아 반환
 	public ProfileImg updateProfileImg(User user, MultipartFile image) throws IOException {
 		String originalImgName = image.getOriginalFilename();
-		// 확장자 추출
-		String extension = originalImgName.substring(originalImgName.lastIndexOf("."));
 		UUID uuid = UUID.randomUUID();
-		String systemName = uuid.toString() + "_" + originalImgName + extension;
+		String imgUuid = uuid.toString() + "_" + originalImgName;
 		
 		String setfileDir = "profile/" + getUploadDate();
 		File uploadPath = new File(fileDir, setfileDir);
@@ -46,7 +44,7 @@ public class ProfileImgService {
 			uploadPath.mkdirs();
 		}
 		
-		File uploadImg = new File(uploadPath, systemName);
+		File uploadImg = new File(uploadPath, imgUuid);
 		
 		// 매개변수로 받은 Multipart 객체에 담긴 이미지를 우리가 만든 경로와 이름으로 저장
 		image.transferTo(uploadImg);
@@ -54,7 +52,7 @@ public class ProfileImgService {
 		// 썸네일 이미지 별도 저장
         Thumbnails.of(uploadImg)
         .size(350, 350)
-        .toFile(new File(uploadPath, "th_" + systemName));
+        .toFile(new File(uploadPath, "th_" + imgUuid));
 
         long profileImgId = profileImgRepository.findByUser(user)
         		.map(ProfileImg::getProfileImgId)
@@ -65,7 +63,7 @@ public class ProfileImgService {
         	profileImg = ProfileImg.builder()
         			.user(user)
         			.profileImgOriginal(originalImgName)
-        			.profileImgUuid(systemName)
+        			.profileImgUuid(imgUuid)
         			.profileImgPath("upload/" + setfileDir)
         			.build();
         } else {

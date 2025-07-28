@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.roomlog.domain.community.ScrapId;
+import com.example.roomlog.domain.scrap.ScrapId;
 import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.service.scrap.ScrapService;
 

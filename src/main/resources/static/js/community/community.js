@@ -1,10 +1,19 @@
 // 게시글 등록 완료 후
 const params = new URLSearchParams(window.location.search);
 const writeOkMsg = "글이 정상적으로 업로드되었습니다.<br>많은 사람들이 보게 될 거예요!";
+const deleteOkMsg = "삭제되었습니다.";
+const communityUrl = "/community/community-list";
+
 if (params.get("registOk") === "true") {
     openModal(writeOkMsg).then((result) => {
 	if (result) {
-		location.replace("/community/community-list");
+		location.replace(communityUrl);
+	}
+  });
+} else if (params.get("deleteOk") === "true") {
+    openModal(deleteOkMsg).then((result) => {
+	if (result) {
+	  	location.replace(communityUrl);
 	}
   });
 }
@@ -34,12 +43,6 @@ $(document).ready(function () {
   // 닉네임 클릭 시
   $(".div-nickname").on("click", goUserPage);
 });
-
-function goUserPage(e) {
-  e.stopPropagation();
-  const userId = $(this).closest(".div-go-user-page").data("user-id");
-  location.href = "/user/userPage?userId=" + userId;
-}
 
 // ---------------------------------------------------------------
 

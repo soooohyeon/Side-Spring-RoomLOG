@@ -1,4 +1,4 @@
-package com.example.roomlog.domain.community;
+package com.example.roomlog.domain.community.hashtag;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

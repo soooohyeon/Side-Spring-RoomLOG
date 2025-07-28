@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roomlog.domain.community.CommunityImg;
+import com.example.roomlog.domain.community.image.CommunityImg;
 import com.example.roomlog.repository.community.image.CommunityImgRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class CommunityImgRespositoryTest {
 	@Autowired
 	CommunityImgRepository communityImgRepository;
 	
-	// 해당 게시글의 대표 이미지 조회
+	// 커뮤니티 게시글 목록 - 해당 게시글의 대표 이미지 조회
 	@Test
 	public void findMainThumbnailTest() {
 		// given
@@ -36,6 +36,20 @@ public class CommunityImgRespositoryTest {
 			log.info("대표 이미지 : " + image);
 		}
 		assertNotNull(images);
+	}
+
+	// 커뮤니티 상세 - 해당 커뮤니티 게시글의 모든 이미지 경로 조회
+	@Test
+	public void selectImgListTest() {
+		// given
+		long communityId = 48;
+		// when
+		List<String> imgUrls = communityImgRepository.selectImgList(communityId);
+		// then
+		for (String url : imgUrls) {
+			log.info(url);
+		}
+		assertNotNull(imgUrls);
 	}
 	
 }

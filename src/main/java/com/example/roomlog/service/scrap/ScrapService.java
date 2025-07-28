@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.Community;
-import com.example.roomlog.domain.community.Scrap;
-import com.example.roomlog.domain.community.ScrapId;
+import com.example.roomlog.domain.scrap.Scrap;
+import com.example.roomlog.domain.scrap.ScrapId;
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.scrap.ScrapRepository;
