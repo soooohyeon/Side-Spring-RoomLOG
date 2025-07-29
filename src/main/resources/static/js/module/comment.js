@@ -4,11 +4,10 @@
  */
 
 const communityId = new URLSearchParams(window.location.search).get("communityId");
+// errMsg는 basic.js
 
 // 댓글 등록
 export function registComment(commentContent, parentCommentId=null, callback) {
-	console.log("commentContent : " + commentContent);
-	console.log("parentCommentId123 : " + parentCommentId);
 	fetch ("/comment/comment-registOk", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -22,11 +21,32 @@ export function registComment(commentContent, parentCommentId=null, callback) {
 		if (!response.ok) throw new Error("등록 실패");
 		return response.json();
 	})
-	.then((result) => {
-		callback(result);
+	.then((result) => {	callback(result); })
+	.catch(() => { openModal(errMsg); });
+}
+
+// 부모 댓글 목록
+export function getParentList(callback) {
+	fetch(`/comment/comment-list/${communityId}?page=${page}`, {
+		method: "get"
 	})
-	.catch(() => {
-		// errMsg는 basic.js
-		openModal(errMsg);
-	});
+	.then(response => {
+		if (!response.ok) throw new Error("등록 실패");
+		return response.json();
+	})
+	.then((parentlist) => { callback(parentlist); })
+	.catch(() => { openModal(errMsg); });
+}
+
+// 자식 댓글 목록
+export function getParentList(parentId, callback) {
+	fetch(`/comment/comment-list/child/${parentId}`, {
+		method: "get"
+	})
+	.then(response => {
+		if (!response.ok) throw new Error("등록 실패");
+		return response.json();
+	})
+	.then((childlist) => { callback(childlist); })
+	.catch(() => { openModal(errMsg); });
 }

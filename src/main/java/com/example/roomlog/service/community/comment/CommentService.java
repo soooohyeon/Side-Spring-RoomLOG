@@ -1,11 +1,10 @@
 package com.example.roomlog.service.community.comment;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.comment.Comment;
@@ -46,28 +45,14 @@ public class CommentService {
 		return commentRepository.countByCommunityId(communityId);
 	}
 	
-	// 댓글 목록 조회
-	public List<CommentDTO> selectListAll(long communityId, Criteria criteria) {
-		// 부모 댓글 조회
-		List<CommentDTO> parents = commentRepository.selectParentCommentsWithPaging(communityId, criteria);
-		// 부모 댓글 번호만 빼오기
-		List<Long> parentIds = parents.stream()
-			.map(CommentDTO::getCommentId)
-			.collect(Collectors.toList());
-		// 자식 댓글 조회
-		List<CommentDTO> childs = commentRepository.selectChildComments(communityId, parentIds);
-		
-		// 부모 댓글 번호를 기준으로 묶음
-		Map<Long, List<CommentDTO>> childMap = childs.stream()
-				.collect(Collectors.groupingBy(CommentDTO::getParentCommentId));
-		
-		// 부모 + 자식 댓글
-		for (CommentDTO parent : parents) {
-			List<CommentDTO> childComment = childMap.getOrDefault(parent.getCommentId(), new ArrayList<>());
-			parent.setChildComment(childComment);
-		}
-		
-		return parents;
+	// 부모 댓글 목록 조회
+	public List<CommentDTO> selectParentList(long communityId, Criteria criteria) {
+		return commentRepository.selectParentCommentsWithPaging(communityId, criteria);
+	}
+	
+	// 자식 댓글 목록 조회
+	public Slice<CommentDTO> selectChildList(long parentId, Pageable pageable) {
+		return commentRepository.selectChildComments(parentId, pageable);
 	}
 	
 }

@@ -8,6 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.comment.Comment;
@@ -43,16 +46,29 @@ public class CommentServiceTest {
 		assertNotNull(comment);
 	}
 	
-	// 댓글 목록 조회
+	// 부모 댓글 목록 조회
 	@Test
-	public void selectListAllTest() {
+	public void selectParentListTest() {
 		// given
 		long communityId = 48;
 		Criteria criteria = new Criteria();
 		// when
-		List<CommentDTO> lists = commentService.selectListAll(communityId, criteria);
+		List<CommentDTO> lists = commentService.selectParentList(communityId, criteria);
 		// then
 		assertThat(lists).hasSize(4);
 		assertThat(lists.get(0).getChildComment()).hasSize(3);
+	}
+	
+	// 자식 댓글 목록 조회
+	@Test
+	public void selectChildListTest() {
+		// given
+		long parentId = 48;
+		Pageable pageable = PageRequest.of(0, 5); 
+		// when
+		Slice<CommentDTO> lists = commentService.selectChildList(parentId, pageable);
+		// then
+	    assertThat(lists).isNotNull();
+	    assertThat(lists.getContent());
 	}
 }

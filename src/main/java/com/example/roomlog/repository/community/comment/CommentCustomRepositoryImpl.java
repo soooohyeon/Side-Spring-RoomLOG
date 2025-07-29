@@ -1,8 +1,10 @@
 package com.example.roomlog.repository.community.comment;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 
 import com.example.roomlog.domain.community.comment.QComment;
@@ -56,7 +58,7 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 	};
 	
 	// 자식 댓글 목록 조회
-	public List<CommentDTO> selectChildComments(long communityId, List<Long> parentIds) {
+	public Slice<CommentDTO> selectChildComments(long parentId, Pageable pageable) {
 		QComment c = QComment.comment;
 		QUser u = QUser.user;
 		QProfileImg pi = QProfileImg.profileImg;
@@ -81,11 +83,18 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 			.join(c.writerUser, u)
 			.leftJoin(pi).on(pi.user.eq(u))
 			.orderBy(c.commentId.desc())
-			.where(c.community.communityId.eq(communityId),
-				c.parentComment.commentId.in(parentIds))
+			.where(c.parentComment.commentId.eq(parentId))
+			.offset(pageable.getOffset())
+			.limit(pageable.getPageSize() + 1)
 			.fetch();
-		
-		return childs;
+
+	    boolean hasNext = childs.size() > pageable.getPageSize();
+	    if (hasNext) {
+	    	// 마지막 제거해서 다음 페이지 기준
+	    	childs.remove(childs.size() - 1);
+	    }
+	    
+		return new SliceImpl<>(childs, pageable, hasNext);
 	};
 	
 }

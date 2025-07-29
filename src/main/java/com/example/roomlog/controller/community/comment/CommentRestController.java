@@ -1,8 +1,14 @@
 package com.example.roomlog.controller.community.comment;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +45,16 @@ public class CommentRestController {
 		
 		return ResponseEntity.ok(Map.of("msg", msg));
 	}
-	
-	public void selectListAll(long communityId, Criteria criteria) {
+
+	@GetMapping("/comment-list/{communityId}")
+	public void selectParentList(@PathVariable("communityId") long communityId, Criteria criteria) {
+		List<CommentDTO> parents = commentService.selectParentList(communityId, criteria);
 		
+	}
+	
+	@GetMapping("/comment-list/child/{parentId}")
+	public void selectChildList(@PathVariable("parentId") long parentId, @PageableDefault(size = 5) Pageable pageable) {
+		Slice<CommentDTO> childs = commentService.selectChildList(parentId, pageable);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.example.roomlog.repository.community.comment;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -8,6 +9,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.dto.community.comment.CommentDTO;
@@ -55,15 +59,13 @@ public class CommentRepositoryTest {
 	@Test
 	public void selectChildCommentsTest() {
 		// given
-		long communityId = 48;
-		List<Long> parents = List.of(8L, 9L, 15L, 16L);
+		long parentId = 48;
+		Pageable pageable = PageRequest.of(0, 5); 
 		// when
-		List<CommentDTO> lists = commentRepository.selectChildComments(communityId, parents);
+		Slice<CommentDTO> lists = commentRepository.selectChildComments(parentId, pageable);
 		// then
-//		assertNotNull(lists);
-//		for (CommentDTO comment : lists) {
-//			log.info("댓글 : " + comment);
-//		}
+	    assertThat(lists).isNotNull();
+	    assertThat(lists.getContent());
 	}
 	
 }

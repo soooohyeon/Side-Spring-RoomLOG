@@ -126,7 +126,7 @@ $saveBtn.on("click", function() {
 
 // ---------------------------------------------------------------
 
-// 200자 제한, 내용 존재 여부 검사
+// 댓글 수정, 답글 - 200자 제한, 내용 존재 여부 검사
 function isValidComment($textarea, maxLength = 200) {
   let comment = $textarea.val();
   const trimmed = Array.from(comment).slice(0, maxLength).join("");
@@ -138,6 +138,9 @@ function isValidComment($textarea, maxLength = 200) {
   
   return Array.from(comment).length > 0;
 }
+
+// --------------------------------
+
 // 대댓글(답글 버튼) 작성 버튼 클릭 시 
 $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
   const $reComment = $(this).closest(".div-re-comment-form").find(".text-re-content-txt");
@@ -165,6 +168,8 @@ $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
     openModal("댓글 내용을 입력해 주세요.");
   }
 });
+
+// ---------------------------------------------------------------
 
 // 댓글 수정 버튼 클릭 시
 $(document).on("click", "#COMMENT-UPDATE-BTN", function() {
@@ -234,9 +239,11 @@ $(document).on("click", ".div-re-comment-btn", function() {
   }
 });
 
+// --------------------------------
+
 // 취소 버튼 클릭시 입력 폼 삭제
 $(document).on("click", "#RE-COMMENT-CANCEL-BTN", function() {
-  const reCommentCount = $(this).closest("form").find("textarea").val().length;
+  const reCommentCount = $(this).closest(".div-re-comment-form").find("textarea").val().length;
   if (reCommentCount > 0) {
     openModal(cancelRecommentMsg, 2).then((result) => {
       if (result) {
@@ -259,8 +266,8 @@ const currentEditCommentMsg = "이미 다른 댓글을 수정 중입니다.<br>�
 
 // 댓글 수정 버튼 클릭 시
 $(document).on("click", ".comment-update-btn", function() {
-  $oriCommentWrap = $(this).closest(".div-comment-content-wrap");
-  $oriComment = $oriCommentWrap.find(".div-comment-content");
+  const $oriCommentWrap = $(this).closest(".div-comment-content-wrap");
+  const $oriComment = $oriCommentWrap.find(".div-comment-content");
 
   const oriCommentText = $oriComment.text().trim();
   const editFrame = `
@@ -336,6 +343,8 @@ function updateCancel() {
     renderOriginalComment($currentEditComment, oriComment, type);
   });
 }
+
+// --------------------------------
 
 // 수정 취소한 댓글 화면에 다시 뿌리기
 function renderOriginalComment(wrap, oriText, type) {
