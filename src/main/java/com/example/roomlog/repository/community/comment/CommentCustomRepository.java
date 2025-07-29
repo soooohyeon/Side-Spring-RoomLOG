@@ -11,6 +11,6 @@ public interface CommentCustomRepository {
 	List<CommentDTO> selectParentCommentsWithPaging(long communityId, Criteria criteria);
 
 	// 자식 댓글 목록 조회
-	List<CommentDTO> selectChildCommentsWithPaging(long communityId, List<Long> parentIds);
+	List<CommentDTO> selectChildComments(long communityId, List<Long> parentIds);
 	
 }

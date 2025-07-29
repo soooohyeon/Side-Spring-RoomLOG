@@ -1,6 +1,9 @@
-package com.example.roomlog.service.community;
+package com.example.roomlog.service.community.comment;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.dto.community.comment.CommentDTO;
+import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.comment.CommentRepository;
 import com.example.roomlog.service.community.comment.CommentService;
 
@@ -39,4 +43,16 @@ public class CommentServiceTest {
 		assertNotNull(comment);
 	}
 	
+	// 댓글 목록 조회
+	@Test
+	public void selectListAllTest() {
+		// given
+		long communityId = 48;
+		Criteria criteria = new Criteria();
+		// when
+		List<CommentDTO> lists = commentService.selectListAll(communityId, criteria);
+		// then
+		assertThat(lists).hasSize(4);
+		assertThat(lists.get(0).getChildComment()).hasSize(3);
+	}
 }

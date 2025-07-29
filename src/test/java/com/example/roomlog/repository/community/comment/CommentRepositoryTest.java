@@ -1,4 +1,4 @@
-package com.example.roomlog.repository.community;
+package com.example.roomlog.repository.community.comment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,9 +35,9 @@ public class CommentRepositoryTest {
 		assertEquals(count, 4);
 	}
 
-	// 댓글 목록 조회
+	// 부모 댓글 목록 조회
 	@Test
-	public void selectAllListCommentTest() {
+	public void selectParentCommentsWithPagingTest() {
 		// given
 		long communityId = 48;
 		Criteria criteria = new Criteria();
@@ -46,9 +46,24 @@ public class CommentRepositoryTest {
 		List<CommentDTO> lists = commentRepository.selectParentCommentsWithPaging(communityId, criteria);
 		// then
 		assertNotNull(lists);
-		for (CommentDTO comment : lists) {
-			log.info("댓글 : " + comment);
-		}
+//		for (CommentDTO comment : lists) {
+//			log.info("댓글 : " + comment);
+//		}
+	}
+	
+	// 자식 댓글 목록 조회
+	@Test
+	public void selectChildCommentsTest() {
+		// given
+		long communityId = 48;
+		List<Long> parents = List.of(8L, 9L, 15L, 16L);
+		// when
+		List<CommentDTO> lists = commentRepository.selectChildComments(communityId, parents);
+		// then
+//		assertNotNull(lists);
+//		for (CommentDTO comment : lists) {
+//			log.info("댓글 : " + comment);
+//		}
 	}
 	
 }

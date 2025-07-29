@@ -1,6 +1,8 @@
 package com.example.roomlog.service.community.comment;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,16 +48,26 @@ public class CommentService {
 	
 	// 댓글 목록 조회
 	public List<CommentDTO> selectListAll(long communityId, Criteria criteria) {
-		// 부모 댓글만 조회
+		// 부모 댓글 조회
 		List<CommentDTO> parents = commentRepository.selectParentCommentsWithPaging(communityId, criteria);
 		// 부모 댓글 번호만 빼오기
 		List<Long> parentIds = parents.stream()
 			.map(CommentDTO::getCommentId)
 			.collect(Collectors.toList());
+		// 자식 댓글 조회
+		List<CommentDTO> childs = commentRepository.selectChildComments(communityId, parentIds);
 		
-		List<CommentDTO> childs = commentRepository.selectChildCommentsWithPaging(communityId, parentIds);
+		// 부모 댓글 번호를 기준으로 묶음
+		Map<Long, List<CommentDTO>> childMap = childs.stream()
+				.collect(Collectors.groupingBy(CommentDTO::getParentCommentId));
 		
-		return null;
+		// 부모 + 자식 댓글
+		for (CommentDTO parent : parents) {
+			List<CommentDTO> childComment = childMap.getOrDefault(parent.getCommentId(), new ArrayList<>());
+			parent.setChildComment(childComment);
+		}
+		
+		return parents;
 	}
 	
 }
