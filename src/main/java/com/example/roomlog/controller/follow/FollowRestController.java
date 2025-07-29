@@ -21,14 +21,14 @@ public class FollowRestController {
 	// 팔로우
 	@PostMapping("/follow-save/{toUserId}")
 	public void insertFollow(@PathVariable long toUserId, HttpSession session) {
-		long fromUserId = (long) session.getAttribute("userNumber");
+		long fromUserId = (long) session.getAttribute("userId");
 		followService.insertFollow(fromUserId, toUserId);
 	}
 	
 	// 팔로우 취소
 	@DeleteMapping("/follow-cancel/{toUserId}")
 	public void deleteFollow(@PathVariable long toUserId, HttpSession session) {
-		long fromUserId = (long) session.getAttribute("userNumber");
+		long fromUserId = (long) session.getAttribute("userId");
 		followService.cancelFollow(fromUserId, toUserId);
 	}
 	

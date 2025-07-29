@@ -16,6 +16,7 @@ import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.page.Page;
 import com.example.roomlog.service.community.CommunityService;
+import com.example.roomlog.util.SessionUtils;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,11 @@ public class CommunityController {
 	//	게시판 - 목록
 	@GetMapping("/community-list")
 	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
-		Object userNumberObj = session.getAttribute("userNumber");
-		long userNumber = userNumberObj != null ? (long) userNumberObj : -1;
+		long userId = SessionUtils.getUserId(session);
 		
 		int countCommunity = communityService.countAllCommunity();
 		int countSearchResult = communityService.countSearchResult(criteria);
-		List<CommunityListDTO> lists = communityService.selectListAll(userNumber, criteria);
+		List<CommunityListDTO> lists = communityService.selectListAll(userId, criteria);
         Page page = new Page(criteria, countSearchResult);
         
 		model.addAttribute("countCommunity", countCommunity);
@@ -48,10 +48,9 @@ public class CommunityController {
 	
 	@GetMapping("/community-view")
 	public String communityViewPage(@RequestParam long communityId, HttpSession session, Model model) {
-		Object userNumberObj = session.getAttribute("userNumber");
-		long userNumber = userNumberObj != null ? (long) userNumberObj : -1;
+		long userId = SessionUtils.getUserId(session);
 
-		CommunityViewDTO post = communityService.selectViewOne(userNumber, communityId);
+		CommunityViewDTO post = communityService.selectViewOne(userId, communityId);
 		model.addAttribute("post", post);
 		
 		return "community/community-view";
@@ -66,8 +65,8 @@ public class CommunityController {
 	// 게시판 - 작성 글 저장
 	@PostMapping("/community-registOk")
 	public String insertCommunity(CommunityListDTO communityListDTO, List<MultipartFile> images, HttpSession session) {
-		long userNumber = (long) session.getAttribute("userNumber");
-		communityListDTO.setUserId(userNumber);
+		long userId = SessionUtils.getUserId(session);
+		communityListDTO.setUserId(userId);
 		
 		try {
 			communityService.insertCommunity(communityListDTO, images);

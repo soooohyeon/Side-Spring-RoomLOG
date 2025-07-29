@@ -21,15 +21,15 @@ public class ScrapRestController {
 	// 스크랩 하기
 	@PostMapping("/scrap-save/{communityId}")
 	public void insertScrap(@PathVariable long communityId, HttpSession session) {
-		long userNumber = (long) session.getAttribute("userNumber");
-		scrapService.insertScrap(communityId, userNumber);
+		long userId = (long) session.getAttribute("userId");
+		scrapService.insertScrap(communityId, userId);
 	}
 	
 	// 스크랩 취소
 	@DeleteMapping("/scrap-cancel/{communityId}")
 	public void cancelScrap(@PathVariable long communityId, HttpSession session) {
-		long userNumber = (long) session.getAttribute("userNumber");
-		scrapService.cancelScrap(communityId, userNumber);
+		long userId = (long) session.getAttribute("userId");
+		scrapService.cancelScrap(communityId, userId);
 	}
 	
 }

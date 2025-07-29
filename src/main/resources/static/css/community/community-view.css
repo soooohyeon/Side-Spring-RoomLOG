@@ -345,7 +345,7 @@ img {
 .div-comment-btn > span:hover { color: #006497; }
 
 /* 대댓글 */
-.div-re-comment-write-wrap > form {
+.div-re-comment-write-wrap > .div-re-comment-form {
   display: flex;
   align-items: flex-end;
   margin-left: 65px;

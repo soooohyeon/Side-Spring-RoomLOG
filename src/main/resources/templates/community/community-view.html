@@ -8,15 +8,15 @@
   <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
   <link rel="stylesheet" th:href="@{/css/community/community-view.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <th:block th:if="${session.userNumber != null} and ${session.userNumber != -1}">
+  <th:block th:if="${session.userId != null} and ${session.userId != -1}">
     <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
     <script th:inline="javascript">
-      sessionStorage.setItem("userNumber", [[${session.userNumber}]]);
+      sessionStorage.setItem("userId", [[${session.userId}]]);
     </script>
   </th:block>
-  <th:block th:unless="${session.userNumber != null} and ${session.userNumber != -1}">
+  <th:block th:unless="${session.userId != null} and ${session.userId != -1}">
     <script th:inline="javascript">
-      sessionStorage.removeItem("userNumber");
+      sessionStorage.removeItem("userId");
     </script>
   </th:block>
   <script defer th:src="@{/js/basic/basic.js}"></script>
@@ -55,7 +55,7 @@
             </div>
 
             <!-- 수정 / 삭제 버튼 -->
-            <div id="DIV-BTN-WRAP" th:if="(${session.userNumber} != null) and (${post.userId} == ${session.userNumber.longValue()})">
+            <div id="DIV-BTN-WRAP" th:if="(${session.userId} != null) and (${post.userId} == ${session.userId.longValue()})">
               <div class="div-post-btn div-menu-line">
                 <span th:onclick="|location.href='@{/community/community-edit}?communityId=${post.communityId}'|">수정</span>
               </div>
@@ -114,11 +114,11 @@
               <div class="div-info" th:text="${post.userIntro}"></div>
             </div>
           </div>
-          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userNumber} != null) and (${post.userId} != ${session.userNumber.longValue()})">
+          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userId} != null) and (${post.userId} != ${session.userId.longValue()})">
             <button class="button-style basic-button" th:if="${post.isFollowed}" th:onclick="|noFollow(event, this, ${post.userId})|">팔로잉</button>
             <button class="button-style follow-btn" th:unless="${post.isFollowed}" th:onclick="|goFollow(event, this, ${post.userId})|">팔로우</button>
           </div>
-          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userNumber} == null)">
+          <div id="DIV-USER-FOLLOW-BTN" th:if="(${session.userId} == null)">
             <button class="button-style follow-btn" th:onclick="|goFollow(event, this, ${post.userId})|">팔로우</button>
           </div>
         </div>
@@ -144,7 +144,6 @@
       <!-- 댓글 입력 -->
       <div id="DIV-COMMENT-WRITE-WRAP">
         <form id="commentForm" method="post">
-    	  <input type="hidden" name="communityId" th:value="${post.communityId}" />
           <textarea name="commentContent" id="TEXTAREA-COMMENT-TXT" class="txt-comment-content" placeholder="댓글을 남겨주세요."></textarea>
           <div id="DIV-BTN-COUNT-WRAP">
             <div id="DIV-SAVE-BTN-WRAP">
@@ -219,7 +218,6 @@
         </div>
         <!--  -->
 
-        
         <div class="div-comment-wrap div-parent-comment">
           <div class="div-comment-user-time-wrap">
             <div class="div-comment-user-profile-wrap">

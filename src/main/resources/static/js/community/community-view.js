@@ -83,7 +83,7 @@ $('.blue-line-button').hover(function () {
 
 // 스크랩 하기
 function goPostScrap(element, communityId) {
-  if (userNumber > 0 && userNumber != null) {
+  if (userId > 0 && userId != null) {
     fetch(`/scrap/scrap-save/${communityId}`, {
   	  method: 'POST'
     })
@@ -100,7 +100,7 @@ function goPostScrap(element, communityId) {
     .catch(() => {
       openModal(errMsg);
     });
-  }	else if (userNumber == null) {
+  }	else if (userId == null) {
 	openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
   }
 }

@@ -25,9 +25,9 @@ public class CommentRestController {
 	public ResponseEntity<?> insertComment(@RequestBody CommentDTO commentDTO, HttpSession session) {
 		System.out.println();
 		System.out.println(commentDTO);
-		Long userNumber = (long) session.getAttribute("userNumber");
-		if (userNumber != null && userNumber > 0) {
-			commentDTO.setUserId(userNumber);
+		Long userId = (long) session.getAttribute("userId");
+		if (userId != null && userId > 0) {
+			commentDTO.setUserId(userId);
 			commentService.insertComment(commentDTO);
 		}
 		

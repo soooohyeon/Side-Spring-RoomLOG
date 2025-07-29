@@ -9,11 +9,14 @@ import com.example.roomlog.repository.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -63,13 +66,26 @@ public class SecurityConfig {
 	        	    	response.sendRedirect("/login/join-required");
 	        	    } else if (isNewUser != null && !isNewUser) {
 	        	        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-	        	        String email = oauth2User.getAttribute("email");
+	        	        String email = "";
 	        	        String socialTypeName = (String) session.getAttribute("oauthSocialType");
+	        	        
+	        	        // 이메일 가져오기
+	        	        if ("KAKAO".equals(socialTypeName)) {
+	        	            Map<String, Object> kakaoAccount = (Map<String, Object>) oauth2User.getAttribute("kakao_account");
+	        	            email = (String) kakaoAccount.get("email");
+	        	        } else if ("GOOGLE".equals(socialTypeName)) {
+	        	            email = (String) oauth2User.getAttribute("email");
+	        	        } else {
+	        	            throw new OAuth2AuthenticationException("Unsupported provider: " + socialTypeName);
+	        	        }
 
 	        	        SocialType socialType = socialTypeRepository.findBySocialTypeName(socialTypeName);
+	        	        System.out.println("email : " + email);
+	        	        System.out.println("socialType : " + socialType);
 	        	        User user = userRepository.findByUserEmailAndSocialType(email, socialType).get();
 
-	        	        session.setAttribute("userNumber", user.getUserId());
+	        	        session.setAttribute("userId", user.getUserId());
+	        	        session.setAttribute("userRole", user.getUserRole());
 	        	    	response.sendRedirect("/main");
 	        	    }
 	        	})

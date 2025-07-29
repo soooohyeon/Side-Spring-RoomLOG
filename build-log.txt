@@ -1,0 +1,97 @@
+Initialized native services in: C:\Users\soohyeon\.gradle\native
+Initialized jansi services in: C:\Users\soohyeon\.gradle\native
+Found daemon DaemonInfo{pid=22220, address=[81540b2d-a9cb-4dfe-8ce5-e18c4a4439b1 port:51697, addresses:[/127.0.0.1]], state=Idle, lastBusy=1751797707066, context=DefaultDaemonContext[uid=efcdac27-36f0-499e-a09d-edc72c112fa0,javaHome=C:\Users\soohyeon\Downloads\spring-tools-for-eclipse-4.31.0.RELEASE-e4.36.0-win32.win32.x86_64\sts-4.31.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.7.v20250502-0916\jre,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\soohyeon\.gradle\daemon,pid=22220,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=384m,-XX:+HeapDumpOnOutOfMemoryError,-Xms256m,-Xmx512m,-Dfile.encoding=UTF-8,-Duser.country=KR,-Duser.language=ko,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=D:\springBoot\resource\sts-4.31.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.7.v20250502-0916\jre (no JDK specified, using current Java home), daemonOpts=[-XX:MaxMetaspaceSize=384m, -XX:+HeapDumpOnOutOfMemoryError, -Xms256m, -Xmx512m, -Dfile.encoding=UTF-8, -Duser.country=KR, -Duser.language=ko, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=efcdac27-36f0-499e-a09d-edc72c112fa0,javaHome=C:\Users\soohyeon\Downloads\spring-tools-for-eclipse-4.31.0.RELEASE-e4.36.0-win32.win32.x86_64\sts-4.31.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.7.v20250502-0916\jre,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\soohyeon\.gradle\daemon,pid=22220,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=384m,-XX:+HeapDumpOnOutOfMemoryError,-Xms256m,-Xmx512m,-Dfile.encoding=UTF-8,-Duser.country=KR,-Duser.language=ko,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 6416). The daemon log file: C:\Users\soohyeon\.gradle\daemon\8.14.2\daemon-6416.out.log
+Starting 24th build in daemon [uptime: 34 mins 22.6 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 512 MiB, non-heap usage: 23% of 384 MiB]
+Using 8 worker leases.
+Now considering [D:\springBoot\workspace\roomlog] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'D:\springBoot\workspace\roomlog\settings.gradle'.
+Projects loaded. Root project using build file 'D:\springBoot\workspace\roomlog\build.gradle'.
+Included projects: [root project 'roomlog']
+
+> Configure project :
+Evaluating root project 'roomlog' using build file 'D:\springBoot\workspace\roomlog\build.gradle'.
+Resolved plugin [id: 'java']
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.3']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'roomlog'
+Applying dependency management to configuration 'apiElements' in project 'roomlog'
+Applying dependency management to configuration 'archives' in project 'roomlog'
+Applying dependency management to configuration 'bootArchives' in project 'roomlog'
+Applying dependency management to configuration 'compileClasspath' in project 'roomlog'
+Applying dependency management to configuration 'compileOnly' in project 'roomlog'
+Applying dependency management to configuration 'default' in project 'roomlog'
+Applying dependency management to configuration 'developmentOnly' in project 'roomlog'
+Applying dependency management to configuration 'implementation' in project 'roomlog'
+Applying dependency management to configuration 'mainSourceElements' in project 'roomlog'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'roomlog'
+Applying dependency management to configuration 'runtimeClasspath' in project 'roomlog'
+Applying dependency management to configuration 'runtimeElements' in project 'roomlog'
+Applying dependency management to configuration 'runtimeOnly' in project 'roomlog'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'roomlog'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'roomlog'
+Applying dependency management to configuration 'testCompileClasspath' in project 'roomlog'
+Applying dependency management to configuration 'testCompileOnly' in project 'roomlog'
+Applying dependency management to configuration 'testImplementation' in project 'roomlog'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'roomlog'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'roomlog'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'roomlog'
+All projects evaluated.
+Task name matched 'clean'
+Task name matched 'build'
+Selected primary task 'clean' from project :
+Selected primary task 'build' from project :
+Resolving global dependency management for project 'roomlog'
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Tasks to be executed: [task ':clean', task ':compileJava', task ':processResources', task ':classes', task ':resolveMainClassName', task ':bootJar', task ':jar', task ':assemble', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':check', task ':build']
+Tasks that were excluded: []
+Resolve mutations for :clean (Thread[#2401,Execution worker,5,main]) started.
+:clean (Thread[#2406,Execution worker Thread 6,5,main]) started.
+destroyer locations for task group 0 (Thread[#2407,Execution worker Thread 7,5,main]) started.
+
+> Task :clean
+Caching disabled for task ':clean' because:
+  Build cache is disabled
+Task ':clean' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :compileJava (Thread[#2400,included builds,5,main]) started.
+:compileJava (Thread[#2400,included builds,5,main]) started.
+
+> Task :compileJava
+Custom actions are attached to task ':compileJava'.
+Caching disabled for task ':compileJava' because:
+  Build cache is disabled
+Task ':compileJava' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':compileJava'.
+Compilation mode: default, forking compiler
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain 'C:\Program Files\Java'.
+Compiling with JDK Java compiler API.
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///D:/springBoot/workspace/roomlog/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+2 actionable tasks: 2 executed
+Watched directory hierarchies: [D:\springBoot\workspace\roomlog]

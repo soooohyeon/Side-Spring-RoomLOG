@@ -1,5 +1,6 @@
 package com.example.roomlog.dto.community.comment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
@@ -17,8 +18,14 @@ import lombok.ToString;
 public class CommentDTO {
 
 	private long commentId;
-	private long userId;
 	private long communityId;
+	private long userId;
+	private String userNickname;
+	private int isAgeVisible;
+	private LocalDate userBirth;
+	private String userAge;
+	private String profileImgPath;
+	private String profileImgUuid;
 	private Long parentCommentId;
 	private String commentContent;
 	private int isDeleted = 0;

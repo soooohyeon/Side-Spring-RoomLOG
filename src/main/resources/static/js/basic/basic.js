@@ -3,9 +3,7 @@
 
 // 메세지함 버튼 클릭 시
 $("#GO-MESSAGE-PAGE").on("click", function() {
-  const userNumber = 0;
-
-  if (userNumber > 0) {
+  if (userId != null && userId > 0) {
     // 페이지 이동
     location.href = "" ;
   } else {
@@ -96,7 +94,7 @@ $(document).ready(function () {
 });
 
 // ---------------------------------------------------------------
-const userNumber = sessionStorage.getItem("userNumber");
+const userId = sessionStorage.getItem("userId");
 const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주세요.";
 // -----------------------------------
 
@@ -105,7 +103,7 @@ const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주�
 function goFollow(event, element, toUserId) {
   event.stopPropagation();
 
-  if (userNumber > 0 && userNumber != null) {
+  if (userId > 0 && userId != null) {
 	fetch(`/follow/follow-save/${toUserId}`, {
 	  method: 'POST'
 	})
@@ -118,7 +116,7 @@ function goFollow(event, element, toUserId) {
 	.catch(() => {
 	  openModal(errMsg);
 	});
-  } else if (userNumber == null) {
+  } else if (userId == null) {
     openModal("로그인이 필요해요.<br>팔로우는 로그인 후 이용할 수 있어요!");
   }
 }
@@ -147,7 +145,7 @@ function noFollow(event, element, toUserId) {
 // 스크랩 하기
 function goScrap(event, element, communityId) {
   event.stopPropagation();
-  if (userNumber > 0 && userNumber != null) {
+  if (userId > 0 && userId != null) {
 	fetch(`/scrap/scrap-save/${communityId}`, {
 		method: 'POST'
 	})
@@ -164,7 +162,7 @@ function goScrap(event, element, communityId) {
 	.catch(() => {
 	  openModal(errMsg);
 	});
-  } else if (userNumber == null) {
+  } else if (userId == null) {
     openModal("로그인이 필요해요.<br>스크랩은 로그인 후 이용할 수 있어요!");
   };
 }

@@ -48,7 +48,8 @@ $(document).ready(function() {
   const $comment = $("#TEXTAREA-COMMENT-TXT");
   
   // 로그아웃 상태면 textarea 비활성화
-  if (userNumber == null) {
+  if (userId == null) {
+	console.log("zzz");
     $comment.on("focus", function (e) {
       openModal("로그인 후 이용해 주세요.");
     });
@@ -99,43 +100,13 @@ $saveBtn.on("click", function() {
 		openModal(commentRegistMsg, 2).then((result) =>	{
 			if (result) {
 				const commentContent = $(".txt-comment-content").val();
-				const communityId = $("input[name='communityId'").val();
-					
-				saveComment(commentContent, communityId);
+				
+				// 댓글 등록 함수 호출
+				saveComment(commentContent);
 			}
 		});
 	}
 });
-
-// ---------------------------------------------------------------
-
-// 댓글 등록
-const commentRegistMsg = "댓글을 등록하시겠습니까?";
-function saveComment(commentContent, communityId, parentCommentId=null) {
-	fetch ("/comment/comment-registOk", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			communityId: communityId,
-			commentContent: commentContent,
-			parentCommentId: parentCommentId
-		})
-	})
-	.then(response => {
-		if (!response.ok) throw new Error("등록 실패");
-		return response.json();
-	})
-	.then((result) => {
-		openModal(result.msg);
-		// 예: 댓글 목록 동적 추가 또는 reload
-		location.reload();
-	})
-	.catch(() => {
-		openModal(errMsg);
-	});
-}
 
 // ---------------------------------------------------------------
 
@@ -154,11 +125,15 @@ function isValidComment($textarea, maxLength = 200) {
 
 // 대댓글 작성 버튼(답글 버튼) 클릭 시 
 $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
-  const $reComment = $(this).closest("form").find("#TEXTAREA-RE-COMMENT-TXT");
+  const $reComment = $(this).closest(".div-re-comment-form").find(".text-re-content-txt");
   const result = isValidComment($reComment);
 
   if (result) {
-    console.log("댓글 저장");
+	  const recommnetContent = $reComment.val();
+	  const parentId = $(this).closest(".div-re-comment-form").data("parent-id");
+
+	  // 댓글 등록 함수 호출
+	  saveComment(recommnetContent, parentId);
   } else {
     openModal("댓글 내용을 입력해 주세요.");
   }
@@ -170,7 +145,7 @@ $(document).on("click", "#COMMENT-UPDATE-BTN", function() {
   const result = isValidComment($commentEdit);
 
   if (result) {
-    console.log("댓글 수정");
+	console.log("댓글 수정");
   } else {
     openModal("댓글 내용을 입력해 주세요.");
   }
@@ -190,7 +165,7 @@ $(document).on("click", ".div-re-comment-btn", function() {
   // 대댓글 입력 폼
   const reCommentForm = `
     <div class="div-comment-wrap div-re-comment-write-wrap">
-      <form action="">
+      <div class="div-re-comment-form" data-parent-id=${15}>
         <div class="div-re-comment-write">
           <textarea name="commentContent" class="text-re-content-txt" placeholder="댓글에 답글을 남겨보세요."></textarea>
         </div>
@@ -198,11 +173,10 @@ $(document).on("click", ".div-re-comment-btn", function() {
             <div class="div-comment-btn div-menu-line"><span id="RE-COMMENT-WRITE-BTN">등록</span></div>
             <div class="div-comment-btn"><span id="RE-COMMENT-CANCEL-BTN">취소</span></div>
         </div>
-      </form>
+      </div>
     </div>
   `;
 
-  console.log($currentEditComment);
   if ($currentEditComment) {
     // 이미 수정 중인 댓글이 있다면
     openModal(changeRecommentMsg, 2).then((result) => {
@@ -232,7 +206,6 @@ $(document).on("click", ".div-re-comment-btn", function() {
     reCommentCheck = true;
   }
 });
-
 
 // 취소 버튼 클릭시 입력 폼 삭제
 $(document).on("click", "#RE-COMMENT-CANCEL-BTN", function() {
@@ -404,5 +377,39 @@ $(document).on("click", ".comment-delete-btn", function (){
     });
   }
 });
+
+// ---------------------------------------------------------------
+
+// 댓글 등록
+const commentRegistMsg = "댓글을 등록하시겠습니까?";
+const communityId = new URLSearchParams(window.location.search).get("communityId");
+function saveComment(commentContent, parentCommentId=null) {
+	fetch ("/comment/comment-registOk", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			communityId: communityId,
+			commentContent: commentContent,
+			parentCommentId: parentCommentId
+		})
+	})
+	.then(response => {
+		if (!response.ok) throw new Error("등록 실패");
+		return response.json();
+	})
+	.then((result) => {
+		openModal(result.msg).then((result) => {
+			if (result) {
+	  		  // 예: 댓글 목록 동적 추가 또는 reload
+			  location.reload();
+			}
+		});
+	})
+	.catch(() => {
+		openModal(errMsg);
+	});
+}
 
 // ---------------------------------------------------------------

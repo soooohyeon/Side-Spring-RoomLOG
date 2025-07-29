@@ -61,14 +61,14 @@ public class CommunityService {
 	}
 	
 	// 커뮤니티 게시글 목록
-	public List<CommunityListDTO> selectListAll(long userNumber, Criteria criteria) {
+	public List<CommunityListDTO> selectListAll(long userId, Criteria criteria) {
 		List<CommunityListDTO> lists = communityRepository.selectListWithPaging(criteria);
 		List<Long> communityIds = lists.stream()
 			.map(CommunityListDTO::getCommunityId)
 			.collect(Collectors.toList());
 		
 		List<CommunityImg> images = communityImgRepository.findFirstImagesByCommunityIds(communityIds);
-		Map<Long, Boolean> checkIsScrappedMap = scrapRepository.checkIsScrappedList(communityIds, userNumber);
+		Map<Long, Boolean> checkIsScrappedMap = scrapRepository.checkIsScrappedList(communityIds, userId);
 		Map<Long, List<String>> hashtagMap = hashtagRepository.selectAllHashtagList(communityIds);
 		
 		for (CommunityListDTO list : lists) {
@@ -120,7 +120,7 @@ public class CommunityService {
 	}
 	
 	// 커뮤니티 상세 게시글 정보
-	public CommunityViewDTO selectViewOne(long userNumber, long communityId) {
+	public CommunityViewDTO selectViewOne(long userId, long communityId) {
 		CommunityViewDTO post = communityRepository.selectViewOne(communityId);
 
 		// 나이대
@@ -133,8 +133,8 @@ public class CommunityService {
 		}
 		
 		post.setImages(communityImgRepository.selectImgList(communityId));
-		post.setScrapped(scrapRepository.checkIsScrapped(userNumber, communityId));
-		post.setFollowed(followRepository.checkFollow(userNumber, post.getUserId()) == 1);
+		post.setScrapped(scrapRepository.checkIsScrapped(userId, communityId));
+		post.setFollowed(followRepository.checkFollow(userId, post.getUserId()) == 1);
 		post.setTags(hashtagRepository.selectHashtagList(communityId));
 		 
 		return post;
