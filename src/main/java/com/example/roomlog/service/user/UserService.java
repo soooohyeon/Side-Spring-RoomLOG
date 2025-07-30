@@ -45,18 +45,19 @@ public class UserService {
 	public boolean checkNickname(String nickname) {
 		return userRepository.existsByUserNickname(nickname);
 	}
-	
+
 	// 프로필 사진, 닉네임, 한 줄 소개, 나이 공개 여부 수정 (회원가입시 선택정보 입력, 마이페이지 수정)
 	public void updateUserInfo(UserDTO userDTO, MultipartFile image, String pageType) throws IOException {
 		String userNickname = userDTO.getUserNickname();
 		int isAgeVisible = userDTO.getIsAgeVisible();
 		String userIntro = userDTO.getUserIntro();
 		
+		ProfileImg profileImg = null;
 		User user = userRepository.findByUserId(userDTO.getUserId()).get();
 		if (image != null && !image.isEmpty()) {
-			ProfileImg profileImg = profileImgService.updateProfileImg(user, image);
-			profileImgRepository.save(profileImg);
+			profileImg = profileImgService.updateProfileImg(user, image);
 		}
+		profileImgRepository.save(profileImg);
 		
 		if (pageType.equals("JOIN")) {
 			user.saveUserIntro(userIntro);

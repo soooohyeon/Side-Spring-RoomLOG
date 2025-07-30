@@ -3,7 +3,10 @@
 // 댓글 기능 모듈 가져오기
 import * as comment from "../module/comment.js";
 
+const userId = Number(sessionStorage.getItem("userId"));
 const commentRegistMsg = "댓글을 등록하시겠습니까?";
+// 댓글 목록 기본 페이지
+let page = 1;
 
 // ---------------------------------------------------------------
 // 댓글
@@ -50,12 +53,158 @@ function setResizeTextArea(textarea) {
 
 // ---------------------------------------------------------------
 
+// 유저 페이지 이동 - basic.js
+// 이미지 클릭 시
+$(document).on("click", ".div-go-user-page img", goUserPage);
+
+// 닉네임 클릭 시
+$(document).on("click", ".div-nick", goUserPage);
+
+// ---------------------------------------------------------------
+
+// 댓글 목록 보여주는 callback 함수
+function hadleCommentList(data) {
+	let $pageWrap = $("#DIV-PAGENATION-WRAP");
+	// 댓글 보여주기
+	showCommentList($pageWrap, data);
+	// 페이징 처리
+	showPage($pageWrap, data.page);
+}
+
+// 처음 부모 댓글 보여주기
+comment.getParentList(1, hadleCommentList);
+
+// --------------------------------
+
+// 부모 댓글 보여주기
+function showCommentList($pageWrap, data) {
+	let $commentWrap = $("#DIV-COMMENT-CONTAINER");
+	let $comments = '';
+
+	// 댓글 수
+	let $countWrap = $("#DIV-COMMENT-COUNT-WRAP");
+	let $commentCount = `댓글 수 <span>${data.totalCount}</span>`;
+	$countWrap.html($commentCount);
+	
+	// 댓글이 없을 경우
+	if (data.totalCount === 0 || data.parents.length === 0) {
+		$comments = `<div class="div-post-none">아직 작성된 댓글이 없습니다.<br>첫 댓글을 남겨주세요!</div>`;
+		$commentWrap.html($comments);
+		$pageWrap.remove();
+		return;
+	}
+	
+	// 댓글이 있을 경우
+	(data.parents).forEach(c => {
+		$comments += `
+		  <div class="div-comment-wrap div-parent-comment">
+		    <div class="div-comment-user-time-wrap">
+		      <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${c.userId}">
+		        <div class="div-comment-profile-wrap">
+				${c.profileImgPath == null
+				  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
+			  	  : `<img src="/${c.profileImgPath}/${c.profileImgUuid}" alt="profile">`}
+		        </div>
+		        <div class="div-nick">${c.userNickname}</div>
+		        <div class="div-age">${c.userAge}</div>
+		      </div>
+		      <div class="div-comment-date time-ago" data-timestamp="${c.createDate}"></div>
+		    </div>
+		    <div class="div-comment-content-wrap parent-comment-wrap">
+		      <div class="div-re-comment-btn-wrap">
+		        <div class="div-comment-content">
+				  ${c.isDeleted == 0 ? c.commentContent.replaceAll('\n', '<br>') : `삭제된 댓글입니다.`}
+				</div>
+		        <div class="div-re-comment-btn" data-parent=${c.commentId}>
+		          <img src="/image/community/re_comment_btn.png">답글
+		        </div>
+		      </div>
+			  ${userId !== null && userId === c.userId 
+		      ? `<div class="div-comment-btn-wrap">
+		        <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+		        <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+		      </div>`
+			  : ``}
+		    </div>
+		  </div>
+		`;
+	});
+	$commentWrap.html($comments);
+	// basic.js에 함수 호출 - 시간 형식 포맷
+	updateTimeAgo();
+}
+
+// --------------------------------
+
+// 부모 댓글 목록 페이징 처리
+function showPage($pageWrap, page) {
+	let $prevWrap = $pageWrap.find(".previous").parent();
+	let $nextWrap = $pageWrap.find(".next").parent();
+	let $ul = $pageWrap.find("ul");
+	
+	// 이전 ◁
+	if (page.prev) {
+		$prevWrap.show();
+		$prevWrap.find(".previous").data('page', (page.startPage - 1));
+	} else {
+		$prevWrap.hide();	
+	}
+	// 페이지 번호
+	$ul.empty();
+	for(let i = page.startPage; i <= page.endPage; i++) {
+		const $li = $(`<li class="pagenation page" data-page="${i}">${i}</li>`);
+		if (i === page.criteria.page) {
+			$li.addClass("selected");
+		}
+		$ul.append($li);
+	}
+	// 다음 ▷
+	if (page.next) {
+		$nextWrap.show();
+		$nextWrap.find(".next").data('page', (page.endPage + 1));
+	} else {
+		$nextWrap.hide();	
+	}
+}
+
+// --------------------------------
+
+// 페이지 이동 이벤트
+$(document).off().on("click", ".pagenation", function() {
+	const pageNum = $(this).data("page");
+	
+	if (reCommentCheck) {
+	// 답글 입력 폼이 있는 경우
+	  openModal(cancelRecommentMsg, 2).then((result) => {
+	    if (result) {
+		  reCommentCheck = false;
+		  comment.getParentList(pageNum, hadleCommentList);
+		}
+	  });
+	  return;
+	} else if ($currentEditComment) {
+  	// 이미 수정 중인 댓글이 있는 경우
+  	  openModal(changeRecommentMsg, 2).then((result) => {
+    	if (result) {
+		  $currentEditComment = null;
+		  comment.getParentList(pageNum, hadleCommentList);
+		}
+	  });
+	  return;
+	}
+	
+	// 아무 문제 없으면 바로 페이지 이동
+	comment.getParentList(pageNum, hadleCommentList);
+});
+
+// ---------------------------------------------------------------
+
+// 새 댓글 입력 칸
+const $comment = $("#TEXTAREA-COMMENT-TXT");
 $(document).ready(function() {
-  // 새 댓글 입력 칸
-  const $comment = $("#TEXTAREA-COMMENT-TXT");
-  
   // 로그아웃 상태면 textarea 비활성화
-  if (userId == null) {
+  if (userId == null || userId <= 0) {
+    $comment.prop("readonly", true);
     $comment.on("focus", function (e) {
       openModal("로그인 후 이용해 주세요.");
     });
@@ -67,7 +216,7 @@ $(document).ready(function() {
   updateCancel();
 });
 
-// --------------------------------
+// ---------------------------------------------------------------
 
 // 새 댓글 작성 시 - 실시간 글자 수 표시, 등록 버튼 활성화
 const $saveBtn = $(".btn-comment-save");
@@ -101,29 +250,6 @@ function countComent() {
   }
 }
 
-// --------------------------------
-
-// 댓글 등록 버튼 클릭 시
-$saveBtn.on("click", function() {
-	if (checkRegist) {
-		openModal(commentRegistMsg, 2).then((answer) =>	{
-			if (answer) {
-				const commentContent = $(".txt-comment-content").val();
-				const parentId = null;
-				// 댓글 등록 함수 호출
-				comment.registComment(commentContent, parentId, function(result) {
-					openModal(result.msg).then((ok) => {
-						if (ok) {
-						  // 예: 댓글 목록 동적 추가 또는 reload
-						  location.reload();
-						}
-					});
-				});
-			}
-		});
-	}
-});
-
 // ---------------------------------------------------------------
 
 // 댓글 수정, 답글 - 200자 제한, 내용 존재 여부 검사
@@ -139,9 +265,32 @@ function isValidComment($textarea, maxLength = 200) {
   return Array.from(comment).length > 0;
 }
 
-// --------------------------------
+// ---------------------------------------------------------------
 
-// 대댓글(답글 버튼) 작성 버튼 클릭 시 
+// 부모 댓글 등록
+$(".btn-comment-save").on("click", function() {
+	if (checkRegist) {
+		openModal(commentRegistMsg, 2).then((answer) =>	{
+			if (answer) {
+				const commentContent = $(".txt-comment-content").val();
+				const parentId = null;
+				// 댓글 등록 함수 호출
+				comment.registComment(commentContent, parentId, function(result) {
+					openModal(result.msg).then((ok) => {
+						if (ok) {
+							comment.getParentList(1, hadleCommentList);
+							$comment.val("");
+						}
+					});
+				});
+			}
+		});
+	}
+});
+
+// ---------------------------------------------------------------
+
+// 대댓글(답글 버튼) 등록
 $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
   const $reComment = $(this).closest(".div-re-comment-form").find(".text-re-content-txt");
   const result = isValidComment($reComment);
@@ -150,20 +299,18 @@ $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
 	  openModal(commentRegistMsg, 2).then((answer) =>	{
 	  	if (answer) {
 			const recommnetContent = $reComment.val();
-			const parentId = $(this).closest(".div-re-comment-form").data("parent-id");
+			const parentId = $(this).closest(".div-re-comment-form").data("parent");
 
 			// 댓글 등록 함수 호출
 			comment.registComment(recommnetContent, parentId, function(result) {
 				openModal(result.msg).then((ok) => {
 					if (ok) {
-					  // 예: 댓글 목록 동적 추가 또는 reload
-					  location.reload();
+						comment.getParentList(page, showCommentList);
 					}
 				});
 			});
 	  	}
 	  });
-	  
   } else {
     openModal("댓글 내용을 입력해 주세요.");
   }
@@ -171,7 +318,7 @@ $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
 
 // ---------------------------------------------------------------
 
-// 댓글 수정 버튼 클릭 시
+// 댓글 수정
 $(document).on("click", "#COMMENT-UPDATE-BTN", function() {
   const $commentEdit = $(this).closest(".div-comment-update-wrap").find("#TEXTAREA-RE-COMMENT-TXT");
   const result = isValidComment($commentEdit);
@@ -197,9 +344,9 @@ $(document).on("click", ".div-re-comment-btn", function() {
   // 대댓글 입력 폼
   const reCommentForm = `
     <div class="div-comment-wrap div-re-comment-write-wrap">
-      <div class="div-re-comment-form" data-parent-id=${15}>
+      <div class="div-re-comment-form">
         <div class="div-re-comment-write">
-          <textarea name="commentContent" class="text-re-content-txt" placeholder="댓글에 답글을 남겨보세요."></textarea>
+          <textarea name="commentContent" class="text-re-content-txt regist-recomment" placeholder="댓글에 답글을 남겨보세요."></textarea>
         </div>
         <div class="div-comment-btn-wrap textarea-btn-wrap">
             <div class="div-comment-btn div-menu-line"><span id="RE-COMMENT-WRITE-BTN">등록</span></div>
@@ -210,7 +357,7 @@ $(document).on("click", ".div-re-comment-btn", function() {
   `;
 
   if ($currentEditComment) {
-    // 이미 수정 중인 댓글이 있다면
+    // 이미 수정 중인 댓글이 있는데 답글 입력 버튼 클릭 시
     openModal(changeRecommentMsg, 2).then((result) => {
       if (result) {
         const oriComment = $currentEditComment.data("original-text");
@@ -226,7 +373,7 @@ $(document).on("click", ".div-re-comment-btn", function() {
       }
     });
   } else if (reCommentCheck) {
-    // 다른 입력 폼이 있을 경우 삭제
+    // 다른 답글 입력 폼이 있는데 다른 답글 입력 버튼 클릭 시
     openModal(cancelRecommentMsg, 2).then((result) => {
       if (result) {
         $(".div-re-comment-write-wrap").remove();
@@ -237,11 +384,12 @@ $(document).on("click", ".div-re-comment-btn", function() {
     $divWrap.after(reCommentForm);
     reCommentCheck = true;
   }
+  $(".div-re-comment-form").data("parent", $(this).data("parent"));
 });
 
 // --------------------------------
 
-// 취소 버튼 클릭시 입력 폼 삭제
+// 답글 취소 버튼 클릭시 입력 폼 삭제
 $(document).on("click", "#RE-COMMENT-CANCEL-BTN", function() {
   const reCommentCount = $(this).closest(".div-re-comment-form").find("textarea").val().length;
   if (reCommentCount > 0) {
@@ -251,7 +399,6 @@ $(document).on("click", "#RE-COMMENT-CANCEL-BTN", function() {
         reCommentCheck = false;
       }
     });
-    
   } else {
     $(this).closest(".div-re-comment-write-wrap").remove();
     reCommentCheck = false;
@@ -273,7 +420,7 @@ $(document).on("click", ".comment-update-btn", function() {
   const editFrame = `
             <div class="div-comment-update-wrap">
               <div class="div-comment-update">
-                <textarea name="commentContent" class="text-re-content-txt">` + oriCommentText + `</textarea>
+                <textarea name="commentContent" class="text-re-content-txt edit-comment">` + oriCommentText + `</textarea>
               </div>
               <div class="div-comment-btn-wrap textarea-btn-wrap">
                   <div class="div-comment-btn div-menu-line"><span id="COMMENT-UPDATE-BTN">등록</span></div>
@@ -283,6 +430,7 @@ $(document).on("click", ".comment-update-btn", function() {
   `;
 
   if (reCommentCheck) {
+	// 
     openModal(cancelRecommentMsg, 2).then((result) => {
       if (result) {
         $(".div-re-comment-write-wrap").remove();
@@ -297,8 +445,7 @@ $(document).on("click", ".comment-update-btn", function() {
       }
     });
   } else if ($currentEditComment && !$oriCommentWrap.is($currentEditComment)) {
-    // 이미 수정 중인 댓글이 있다면
-    // 최근 수정 중인 댓글에 담긴 값이 있거나 현재 누른 댓글과 일치하지 않는다면
+    // 최근 수정 중인 댓글과 다른 댓글의 수정 버튼을 누르면
     openModal(currentEditCommentMsg, 2).then((result) => {
       if (result) {
         const oriComment = $currentEditComment.data("original-text");
@@ -383,9 +530,8 @@ function renderOriginalComment(wrap, oriText, type) {
 
 // ---------------------------------------------------------------
 
-// 댓글 삭제 버튼 클릭 시
+// 댓글 삭제
 $(document).on("click", ".comment-delete-btn", function (){
-
   const $wrap = $(this).closest(".div-comment-content-wrap");
   const className = $wrap.attr("class");
 

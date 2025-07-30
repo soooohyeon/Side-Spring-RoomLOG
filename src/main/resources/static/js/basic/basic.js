@@ -266,9 +266,9 @@ function setOnePreview(file) {
 
 // 이미지 등록 버튼 호버
 $(".img-regist-btn").hover(function() {
-  $(this).attr("src", "../../image/layout/image_regist_btn_hover.png");
+  $(this).attr("src", "/image/layout/image_regist_btn_hover.png");
 }, function(){
-  $(this).attr("src", "../../image/layout/image_regist_btn.png");
+  $(this).attr("src", "/image/layout/image_regist_btn.png");
 });
 
 // --------------------------------------------
@@ -434,9 +434,9 @@ $(document).on("click", ".modal-close", function() {
 
 // 모달 닫기(x) 버튼 호버 시 - 마이페이지, 유저 페이지, 메세지함
 $(document).on("mouseenter", ".modal-close-img", function() {
-    $(this).attr("src", "../../image/layout/close_btn_black.png");
+    $(this).attr("src", "/image/layout/close_btn_black.png");
 });
 
 $(document).on("mouseleave", ".modal-close-img", function() {
-    $(this).attr("src", "../../image/layout/close_btn_grey.png");
+    $(this).attr("src", "/image/layout/close_btn_grey.png");
 });

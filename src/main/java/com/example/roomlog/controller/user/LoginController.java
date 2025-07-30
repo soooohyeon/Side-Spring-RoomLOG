@@ -61,6 +61,21 @@ public class LoginController {
 		return "login/join-optional";
 	}
 
+	// 회원 가입 - 선택 정보 건너띄기
+	@GetMapping("/pass-join-optional")
+	public String passUserInfo(HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("joinUserId");
+		// 예외 처리 : 세션 만료 시 로그인 페이지로 이동
+	    if (userId == null) {
+	        return "redirect:/login";
+	    }
+	    
+		session.removeAttribute("joinUserId");
+		session.removeAttribute("nickname");
+	    session.setAttribute("userId", userId);
+		return "redirect:/main";
+	}
+	
 	// 회원 가입 - 선택 정보 저장
 	@PostMapping("/join-optional-data")
 	public String updateUserInfo(@RequestParam("one-image") MultipartFile image, HttpSession session, UserDTO userDTO) {

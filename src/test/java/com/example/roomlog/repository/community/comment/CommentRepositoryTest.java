@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.dto.community.comment.CommentDTO;
 import com.example.roomlog.dto.page.Criteria;
-import com.example.roomlog.repository.community.comment.CommentRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +27,7 @@ public class CommentRepositoryTest {
 	@Autowired
 	CommentRepository commentRepository;
 	
-	// 해당 게시글의 댓글 개수 조회
+	// 해당 게시글의 모든 댓글 개수 조회
 	@Test
 	public void countByCommunityIdTest() {
 		// given
@@ -37,6 +36,18 @@ public class CommentRepositoryTest {
 		int count = commentRepository.countByCommunityId(communityId);
 		// then
 		assertEquals(count, 4);
+	}
+	
+	// 해당 게시글의 부모 댓글 개수 조회
+	@Test
+	public void countParentCommentTest() {
+		// given
+		long communityId = 48;
+		// when
+		int count = commentRepository.countParentComment(communityId);
+		// then
+		log.info("count : " + count);
+		assertEquals(count, 17);
 	}
 
 	// 부모 댓글 목록 조회

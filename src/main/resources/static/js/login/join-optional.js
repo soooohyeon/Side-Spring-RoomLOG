@@ -44,7 +44,7 @@ $(document).on("click", ".join-btn", function() {
   openModal(joinMsg).then((result) => {
 	if (result) {
 		if (className.includes("btn-jump")) {
-			location.href = "/main";
+			location.href = "/login/pass-join-optional";
 		} else {
 			$("#optionalForm").submit();
 		}

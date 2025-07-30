@@ -50,7 +50,7 @@ function changeImage(element) {
 
 // ---------------------------------------------------------------
 
-// 유저 페이지 이동
+// 유저 페이지 이동 - basic.js
 $(document).ready(function () {
   // 이미지 클릭 시
   $(".div-go-user-page img").on("click", goUserPage);

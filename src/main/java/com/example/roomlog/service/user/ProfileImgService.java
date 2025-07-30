@@ -61,11 +61,11 @@ public class ProfileImgService {
 		
         if (profileImgId < 0) {
         	profileImg = ProfileImg.builder()
-        			.user(user)
-        			.profileImgOriginal(originalImgName)
-        			.profileImgUuid(imgUuid)
-        			.profileImgPath("upload/" + setfileDir)
-        			.build();
+        		.user(user)
+	        	.profileImgOriginal(originalImgName)
+	        	.profileImgUuid(imgUuid)
+	        	.profileImgPath("upload/" + setfileDir)
+	        	.build();
         } else {
         	profileImg = profileImgRepository.findByProfileImgId(profileImgId).get();
         	profileImg.updateProfileImg(uuid.toString(), originalImgName, setfileDir);
@@ -73,7 +73,7 @@ public class ProfileImgService {
 		
 		return profileImg;
 	}
-
+	
 	// 이미지 업로드시 업로드 날짜별 이미지 저장
     private String getUploadDate(){
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());

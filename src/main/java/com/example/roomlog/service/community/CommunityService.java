@@ -1,8 +1,6 @@
 package com.example.roomlog.service.community;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -27,6 +25,7 @@ import com.example.roomlog.repository.community.image.CommunityImgRepository;
 import com.example.roomlog.repository.follow.FollowRepository;
 import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.UserRepository;
+import com.example.roomlog.util.AgeUtils;
 
 @Service
 public class CommunityService {
@@ -75,13 +74,7 @@ public class CommunityService {
 			long commuId = list.getCommunityId();
 
 			// 나이대
-			list.setUserAge(getAgeLabel(list.getIsAgeVisible(), list.getUserBirth()));
-			
-			// 프로필 등록이 안된 경우 기본 이미지 출력
-			if (list.getProfileImgUuid() == null) {
-				list.setProfileImgPath(("image/layout"));
-				list.setProfileImgUuid("profile_img_basic.png");
-			}
+			list.setUserAge(AgeUtils.getAgeLabel(list.getIsAgeVisible(), list.getUserBirth()));
 			
 			// 각 게시글 대표 이미지 출력
 			Map<Long, CommunityImg> imageMap = images.stream()
@@ -105,32 +98,12 @@ public class CommunityService {
 		return lists;
 	}
 	
-	// 나이대 계산
-	public String getAgeLabel(int isAgeVisible, LocalDate birth) {
-		String result = "";
-	    if (isAgeVisible == 0) {
-	    	result = "비공개";
-	    } else if (isAgeVisible == 1) {
-	    	int age = Period.between(birth, LocalDate.now()).getYears();
-	    	int ageGroup = (age / 10) * 10;
-	    	result = ageGroup + "대";
-	    }
-
-	    return result;
-	}
-	
 	// 커뮤니티 상세 게시글 정보
 	public CommunityViewDTO selectViewOne(long userId, long communityId) {
 		CommunityViewDTO post = communityRepository.selectViewOne(communityId);
 
 		// 나이대
-		post.setUserAge(getAgeLabel(post.getIsAgeVisible(), post.getUserBirth()));
-		
-		// 프로필 등록이 안된 경우 기본 이미지 출력
-		if (post.getProfileImgUuid() == null) {
-			post.setProfileImgPath(("image/layout"));
-			post.setProfileImgUuid("profile_img_basic.png");
-		}
+		post.setUserAge(AgeUtils.getAgeLabel(post.getIsAgeVisible(), post.getUserBirth()));
 		
 		post.setImages(communityImgRepository.selectImgList(communityId));
 		post.setScrapped(scrapRepository.checkIsScrapped(userId, communityId));

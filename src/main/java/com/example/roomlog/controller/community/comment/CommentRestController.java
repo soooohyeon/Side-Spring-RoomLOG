@@ -1,5 +1,6 @@
 package com.example.roomlog.controller.community.comment;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.roomlog.dto.community.comment.CommentDTO;
 import com.example.roomlog.dto.page.Criteria;
+import com.example.roomlog.dto.page.Page;
 import com.example.roomlog.service.community.comment.CommentService;
 import com.example.roomlog.util.SessionUtils;
 
@@ -39,22 +41,33 @@ public class CommentRestController {
 		commentDTO.setUserId(userId);
 		commentService.insertComment(commentDTO);
 		
-	    String msg = commentDTO.getParentCommentId() == null
-	        ? "댓글이 등록되었습니다."
-	        : "대댓글이 등록되었습니다.";
-		
+	    String msg = 
+	    	userId != null && userId > 0
+	    		? commentDTO.getParentCommentId() == null
+			        ? "댓글이 등록되었습니다."
+			        : "대댓글이 등록되었습니다."
+	    		: "로그인 후 이용해 주세요.";
 		return ResponseEntity.ok(Map.of("msg", msg));
 	}
 
 	@GetMapping("/comment-list/{communityId}")
-	public void selectParentList(@PathVariable("communityId") long communityId, Criteria criteria) {
-		List<CommentDTO> parents = commentService.selectParentList(communityId, criteria);
-		
+	public Map<String, Object> selectParentList(@PathVariable("communityId") long communityId, Criteria criteria) {
+	    Map<String, Object> result = new HashMap<>();
+	    List<CommentDTO> parents = commentService.selectParentList(communityId, criteria);
+	    int totalCount = commentService.countComment(communityId);
+	    int patentCount = commentService.countParentComment(communityId);
+	    Page page = new Page(criteria, patentCount);
+	    
+	    result.put("parents", parents);
+	    result.put("totalCount", totalCount);
+	    result.put("page", page);
+	    
+		return result;
 	}
 	
 	@GetMapping("/comment-list/child/{parentId}")
-	public void selectChildList(@PathVariable("parentId") long parentId, @PageableDefault(size = 5) Pageable pageable) {
-		Slice<CommentDTO> childs = commentService.selectChildList(parentId, pageable);
+	public Slice<CommentDTO> selectChildList(@PathVariable("parentId") long parentId, @PageableDefault(size = 5) Pageable pageable) {
+		return  commentService.selectChildList(parentId, pageable);
 	}
 	
 }

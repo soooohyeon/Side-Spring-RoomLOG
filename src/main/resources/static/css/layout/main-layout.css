@@ -179,7 +179,7 @@ textarea::placeholder,
 
 /* 게시글이 없을 경우 */
 .div-post-none {
-  height: 200px;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;

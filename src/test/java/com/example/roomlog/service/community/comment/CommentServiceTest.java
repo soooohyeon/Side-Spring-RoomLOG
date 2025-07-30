@@ -1,6 +1,7 @@
 package com.example.roomlog.service.community.comment;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -17,7 +18,6 @@ import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.dto.community.comment.CommentDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.comment.CommentRepository;
-import com.example.roomlog.service.community.comment.CommentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +44,29 @@ public class CommentServiceTest {
 		// then
 		Comment comment = commentRepository.findByCommentId(commentDTO.getCommunityId());
 		assertNotNull(comment);
+	}
+	
+	// 해당 게시글의 모든 댓글 개수 조회
+	@Test
+	public void countCommentTest() {
+		// given
+		long communityId = 48;
+		// when
+		int count = commentService.countComment(communityId);
+		// then
+		assertEquals(count, 4);
+	}
+	
+	// 해당 게시글의 부모 댓글 개수 조회
+	@Test
+	public void countParentCommentTest() {
+		// given
+		long communityId = 48;
+		// when
+		int count = commentService.countParentComment(communityId);
+		// then
+		log.info("count : " + count);
+		assertEquals(count, 17);
 	}
 	
 	// 부모 댓글 목록 조회

@@ -7,7 +7,7 @@ const communityId = new URLSearchParams(window.location.search).get("communityId
 // errMsg는 basic.js
 
 // 댓글 등록
-export function registComment(commentContent, parentCommentId=null, callback) {
+export function registComment(commentContent, parentCommentId, callback) {
 	fetch ("/comment/comment-registOk", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -22,11 +22,13 @@ export function registComment(commentContent, parentCommentId=null, callback) {
 		return response.json();
 	})
 	.then((result) => {	callback(result); })
-	.catch(() => { openModal(errMsg); });
+	.catch((err) => { 
+		console.log(err);
+		openModal(errMsg); });
 }
 
 // 부모 댓글 목록
-export function getParentList(callback) {
+export function getParentList(page, callback) {
 	fetch(`/comment/comment-list/${communityId}?page=${page}`, {
 		method: "get"
 	})
@@ -39,7 +41,7 @@ export function getParentList(callback) {
 }
 
 // 자식 댓글 목록
-export function getParentList(parentId, callback) {
+export function getChildList(callback) {
 	fetch(`/comment/comment-list/child/${parentId}`, {
 		method: "get"
 	})

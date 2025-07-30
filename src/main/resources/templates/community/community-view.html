@@ -105,7 +105,8 @@
         <div id="DIV-PROFILE-WRAP">
           <div id="DIV-USER-INFO-WRAP" class="div-go-user-page" th:data-user-id="${post.userId}">
             <div id="DIV-POST-USER-PROFILE">
-              <img th:src="@{'/' + ${post.profileImgPath} + '/th_' + ${post.profileImgUuid}|}" th:onclick="|location.href='@{}'|" alt="profile">
+              <img th:if="${post.profileImgUuid == null}" th:src="@{/image/layout/profile_img_basic.png}" alt="profile">
+              <img th:unless="${post.profileImgUuid == null}" th:src="@{'/' + ${post.profileImgPath} + '/th_' + ${post.profileImgUuid}|}" alt="profile">
             </div>
             <div id="DIV-USER-WRAP">
               <div class="div-user-nick-age-wrap">
@@ -164,108 +165,110 @@
         </div>
 
         <!-- 댓글이 있을 경우 -->
-        <!-- 댓글 1개 -->
-        <div class="div-comment-wrap div-parent-comment">
-          <div class="div-comment-user-time-wrap">
-            <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
-              <div class="div-comment-profile-wrap">
-                <img th:src="@{/image/example/profile_image/profile3.jpg}" alt="profile">
+        <div id="DIV-COMMENT-CONTAINER">
+        
+          <!-- 댓글 1개 -->
+          <div class="div-comment-wrap div-parent-comment">
+            <div class="div-comment-user-time-wrap">
+              <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
+                <div class="div-comment-profile-wrap">
+                  <img th:src="@{/image/example/profile_image/profile3.jpg}" alt="profile">
+                </div>
+                <div class="div-nick">작은식탁일기</div>
+                <div class="div-age">30대</div>
               </div>
-              <div class="div-nick">작은식탁일기</div>
-              <div class="div-age">30대</div>
+              <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
             </div>
-            <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
+            <div class="div-comment-content-wrap parent-comment-wrap">
+              <div class="div-re-comment-btn-wrap">
+                <div class="div-comment-content">
+                  이런 글 보면 괜히 나도 글 쓰고 싶어져요. 하루하루 지나가는 순간들이 더 특별하게 느껴지네요.
+                </div>
+                <div class="div-re-comment-btn">
+                  <img th:src="@{/image/community/re_comment_btn.png}">답글
+                </div>
+              </div>
+              <div class="div-comment-btn-wrap">
+                <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+                <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+              </div>
+            </div>
           </div>
-          <div class="div-comment-content-wrap parent-comment-wrap">
-            <div class="div-re-comment-btn-wrap">
-              <div class="div-comment-content">
-                이런 글 보면 괜히 나도 글 쓰고 싶어져요. 하루하루 지나가는 순간들이 더 특별하게 느껴지네요.
+          <!--  -->
+          
+          <!-- 대댓글 1개 -->
+          <div class="div-comment-wrap div-re-comment-wrap">
+            <div class="div-comment-user-time-wrap">
+              <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
+                <div class="div-comment-profile-wrap">
+                  <img th:src="@{/image/example/profile_image/profile1.jpg}" alt="profile">
+                </div>
+                <div class="div-nick">침대밖은위험해</div>
+                <div class="div-age">30대</div>
               </div>
-              <div class="div-re-comment-btn">
-                <img th:src="@{/image/community/re_comment_btn.png}">답글
-              </div>
+              <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
             </div>
-            <div class="div-comment-btn-wrap">
-              <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
-              <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+            <div class="div-comment-content-wrap child-comment-wrap">
+              <div class="div-re-comment-btn-wrap">
+                <div class="div-comment-content">
+                  맞아요. 표현 너무 예뻐요…
+                </div>
+              </div>
+              <div class="div-comment-btn-wrap">
+                <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+                <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+              </div>
             </div>
           </div>
+          <!--  -->
+          
+          <div class="div-comment-wrap div-parent-comment">
+            <div class="div-comment-user-time-wrap">
+              <div class="div-comment-user-profile-wrap">
+                <div class="div-comment-profile-wrap" onclick="location.href=''">
+                  <img src="/image/example/profile_image/profile3.jpg" alt="profile">
+                </div>
+                <div class="div-nick" onclick="location.href=''">작은식탁일기</div>
+                <div class="div-age">30대</div>
+              </div>
+              <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
+            </div>
+            <div class="div-comment-content-wrap parent-comment-wrap">
+              <div class="div-re-comment-btn-wrap">
+                <div class="div-comment-content">사진도 글도 모두 예쁘네요. 감성적인 분위기 덕분에 하루의 끝에서 힐링하고 갑니다.<br>괜히 괜찮은 하루였다고 느껴지게 만드는 힘이 있어요.</div>
+                <div class="div-re-comment-btn">
+                  <img src="/image/community/re_comment_btn.png">답글
+                </div>
+              </div>
+              <div class="div-comment-btn-wrap">
+                <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+                <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 댓글이 없을 경우 -->
+          <!-- <div class="div-post-none">아직 작성된 댓글이 없습니다.<br>첫 댓글을 남겨주세요!</div> -->
+          <!--  -->
         </div>
-        <!--  -->
-
-        <!-- 대댓글 1개 -->
-        <div class="div-comment-wrap div-re-comment-wrap">
-          <div class="div-comment-user-time-wrap">
-            <div class="div-comment-user-profile-wrap" th:onclick="|location.href='@{}'|">
-              <div class="div-comment-profile-wrap">
-                <img th:src="@{/image/example/profile_image/profile1.jpg}" alt="profile">
-              </div>
-              <div class="div-nick">침대밖은위험해</div>
-              <div class="div-age">30대</div>
-            </div>
-            <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
-          </div>
-          <div class="div-comment-content-wrap child-comment-wrap">
-            <div class="div-re-comment-btn-wrap">
-              <div class="div-comment-content">
-                맞아요. 표현 너무 예뻐요…
-              </div>
-            </div>
-            <div class="div-comment-btn-wrap">
-              <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
-              <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
-            </div>
-          </div>
-        </div>
-        <!--  -->
-
-        <div class="div-comment-wrap div-parent-comment">
-          <div class="div-comment-user-time-wrap">
-            <div class="div-comment-user-profile-wrap">
-              <div class="div-comment-profile-wrap" onclick="location.href=''">
-                <img src="../../image/example/profile_image/profile3.jpg" alt="profile">
-              </div>
-              <div class="div-nick" onclick="location.href=''">작은식탁일기</div>
-              <div class="div-age">30대</div>
-            </div>
-            <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
-          </div>
-          <div class="div-comment-content-wrap parent-comment-wrap">
-            <div class="div-re-comment-btn-wrap">
-              <div class="div-comment-content">사진도 글도 모두 예쁘네요. 감성적인 분위기 덕분에 하루의 끝에서 힐링하고 갑니다.<br>괜히 괜찮은 하루였다고 느껴지게 만드는 힘이 있어요.</div>
-              <div class="div-re-comment-btn">
-                <img src="../../image/community/re_comment_btn.png">답글
-              </div>
-            </div>
-            <div class="div-comment-btn-wrap">
-              <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
-              <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 댓글이 없을 경우 -->
-        <!-- <div class="div-post-none">아직 작성된 댓글이 없습니다.<br>첫 댓글을 남겨주세요!</div> -->
-        <!--  -->
 
         <!-- 페이지네이션 -->
         <div id="DIV-PAGENATION-WRAP">
           <div class="div-page-btn-wrap">
-            <div class="pagenation previous" onclick="">◁</div>
+            <div class="pagenation previous">◁</div>
           </div>
           <ul>
-            <li class="pagenation page selected" onclick="">1</li>
-            <li class="pagenation page" onclick="">2</li>
-            <li class="pagenation page" onclick="">3</li>
-            <li class="pagenation page" onclick="">4</li>
-            <li class="pagenation page" onclick="">5</li>
+            <li class="pagenation page selected">1</li>
+            <li class="pagenation page">2</li>
+            <li class="pagenation page">3</li>
+            <li class="pagenation page">4</li>
+            <li class="pagenation page">5</li>
           </ul>
           <div class="div-page-btn-wrap">
-            <div class="pagenation next" onclick="">▷</div>
+            <div class="pagenation next">▷</div>
           </div>
         </div>
       </div>
-
     
     </section>
     <!--  -->

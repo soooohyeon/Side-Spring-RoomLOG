@@ -29,7 +29,7 @@ public class CommentDTO {
 	private String profileImgUuid;
 	private Long parentCommentId;
 	private String commentContent;
-	private int isDeleted = 0;
+	private int isDeleted;
 	private LocalDateTime createDate;
 	private LocalDateTime modifiedDate;
 	private List<CommentDTO> childComment;

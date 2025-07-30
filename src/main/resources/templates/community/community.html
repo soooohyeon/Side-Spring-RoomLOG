@@ -99,10 +99,11 @@
                     <div class="div-profile-post-wrap">
                       <div class="div-profile-wrap">
                         <div class="div-go-user-page" th:data-user-id="${list.userId}">
-                          <img th:src="@{'/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}">
+                          <img th:if="${list.profileImgUuid == null}" th:src="@{/image/layout/profile_img_basic.png}" alt="profile">
+						  <img th:unless="${list.profileImgUuid == null}" th:src="@{'/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}" alt="profile">
                           <div class="div-nickname div-nick div-one-skip">
-		  			  	<th:block th:text="${list.userNickname}"></th:block>
-		  			  </div>
+			  			  	<th:block th:text="${list.userNickname}"></th:block>
+			  			  </div>
                         </div>
                         <div class="div-age" th:if="${list.isAgeVisible == 1}")><span th:text="${list.userAge}"></span></div>
                       </div>

@@ -14,6 +14,7 @@ import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.community.comment.CommentRepository;
 import com.example.roomlog.repository.user.UserRepository;
+import com.example.roomlog.util.AgeUtils;
 
 @Service
 public class CommentService {
@@ -40,19 +41,34 @@ public class CommentService {
 		commentRepository.save(comment);
 	}
 	
-	// 해당 게시글의 댓글 개수 조회
+	// 해당 게시글의 모든 댓글 개수 조회
 	public int countComment(long communityId) {
 		return commentRepository.countByCommunityId(communityId);
 	}
 	
+	// 해당 게시글의 부모 댓글 개수 조회
+	public int countParentComment(long communityId) {
+		return commentRepository.countParentComment(communityId);
+	}
+	
 	// 부모 댓글 목록 조회
 	public List<CommentDTO> selectParentList(long communityId, Criteria criteria) {
-		return commentRepository.selectParentCommentsWithPaging(communityId, criteria);
+		List<CommentDTO> parents = commentRepository.selectParentCommentsWithPaging(communityId, criteria);
+		for (CommentDTO parent : parents) {
+			parent.setUserAge(AgeUtils.getAgeLabel(parent.getIsAgeVisible(), parent.getUserBirth()));
+		}
+		
+		return parents;
 	}
 	
 	// 자식 댓글 목록 조회
 	public Slice<CommentDTO> selectChildList(long parentId, Pageable pageable) {
-		return commentRepository.selectChildComments(parentId, pageable);
+		Slice<CommentDTO> childs = commentRepository.selectChildComments(parentId, pageable);
+		for (CommentDTO child : childs) {
+			child.setUserAge(AgeUtils.getAgeLabel(child.getIsAgeVisible(), child.getUserBirth()));
+		}
+		
+		return childs;
 	}
 	
 }
