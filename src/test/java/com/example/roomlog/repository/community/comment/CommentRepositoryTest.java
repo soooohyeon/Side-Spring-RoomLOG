@@ -49,6 +49,18 @@ public class CommentRepositoryTest {
 		log.info("count : " + count);
 		assertEquals(count, 17);
 	}
+	
+	// 해당 게시글의 자식 댓글 개수 조회
+	@Test
+	public void countChildCommentTest() {
+		// given
+		long parentId = 36;
+		// when
+		int count = commentRepository.countChildComment(parentId);
+		// then
+		log.info("count : " + count);
+		assertEquals(count, 9);
+	}
 
 	// 부모 댓글 목록 조회
 	@Test

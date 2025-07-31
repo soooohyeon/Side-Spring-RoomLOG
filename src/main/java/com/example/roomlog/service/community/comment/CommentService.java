@@ -51,6 +51,11 @@ public class CommentService {
 		return commentRepository.countParentComment(communityId);
 	}
 	
+	// 해당 게시글의 자식 댓글 개수 조회
+	public int countChildComment(long parentId) {
+		return commentRepository.countChildComment(parentId);
+	}
+	
 	// 부모 댓글 목록 조회
 	public List<CommentDTO> selectParentList(long communityId, Criteria criteria) {
 		List<CommentDTO> parents = commentRepository.selectParentCommentsWithPaging(communityId, criteria);

@@ -55,8 +55,8 @@ public class CommentRestController {
 	    Map<String, Object> result = new HashMap<>();
 	    List<CommentDTO> parents = commentService.selectParentList(communityId, criteria);
 	    int totalCount = commentService.countComment(communityId);
-	    int patentCount = commentService.countParentComment(communityId);
-	    Page page = new Page(criteria, patentCount);
+	    int partentCount = commentService.countParentComment(communityId);
+	    Page page = new Page(criteria, partentCount);
 	    
 	    result.put("parents", parents);
 	    result.put("totalCount", totalCount);
@@ -66,8 +66,15 @@ public class CommentRestController {
 	}
 	
 	@GetMapping("/comment-list/child/{parentId}")
-	public Slice<CommentDTO> selectChildList(@PathVariable("parentId") long parentId, @PageableDefault(size = 5) Pageable pageable) {
-		return  commentService.selectChildList(parentId, pageable);
+	public Map<String, Object> selectChildList(@PathVariable("parentId") long parentId, @PageableDefault(size = 5) Pageable pageable) {
+		Map<String, Object> result = new HashMap<>();
+		Slice<CommentDTO> childs = commentService.selectChildList(parentId, pageable);
+		int childCount = commentService.countChildComment(parentId);
+		
+		result.put("childs", childs);
+		result.put("totalCount", childCount);
+		
+		return result;
 	}
 	
 }

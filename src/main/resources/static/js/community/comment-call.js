@@ -82,17 +82,23 @@ function showParentCommentList($pageWrap, data) {
 
 	  // 자식 댓글 보여주기
 	  comment.getChildList(pl.commentId, 0, (data) => {
-		const $parent = $(`.div-parent-comment[data-parent-id="${pl.commentId}"]`);
+		let $lastChild = $(`.div-parent-comment[data-parent-id="${pl.commentId}"]`);
 		
-		data.content.forEach(cl => {
+		data.childs.content.forEach(cl => {
 			const $recomment = showChildCommentList(cl);
-			$parent.after($recomment);
+			$lastChild.after($recomment);
+			// 마지막 자식 댓글 위치로 갱신
+			$lastChild = $recomment;
 	    });
 
-		if (!data.last) {
+		if (!data.childs.last) {
+			const moreCommentCount = data.totalCount - data.childs.size;
 			const $moreBtn = $(`
-			`);
-			$parent.after($moreBtn);
+				<div class="div-more-btn-wrap" data-parent-id="${pl.commentId}">
+				  더보기 (<span class="span-reComment-count">${moreCommentCount}</span>)
+				  <span class="span-plus">&plus;</span>
+				</div>`);
+			$lastChild.after($moreBtn);
 		}
 		
 		// basic.js에 함수 호출 - 부모/자식 댓글 시간 형식 포맷
@@ -194,6 +200,34 @@ $(document).off().on("click", ".pagenation", function() {
 	
 	// 아무 문제 없으면 바로 페이지 이동
 	comment.getParentList(pageNum, hadleCommentList);
+});
+
+// --------------------------------
+
+// 자식 댓글 더보기 버튼 클릭 시
+$(document).on("click", ".div-more-btn-wrap", function() {
+	const parentId = $(this).data("parent-id");
+	let nextPage = $(this).data("page") || 1;
+	
+	comment.getChildList(parentId, nextPage, (data) => {
+		let $last = $(this);
+
+		data.childs.content.forEach(cl => {
+		  const $reComment = showChildCommentList(cl);
+		  $last.before($reComment);
+		  $last = $reComment;
+		});
+
+		if (data.childs.last) {
+		  $(this).remove();
+		} else {
+		  const moreCommentCount = data.totalCount - (data.childs.number + 1) * data.childs.size;
+		  $(this).find(".span-reComment-count").html(moreCommentCount);
+		  $(this).data("page", nextPage + 1);
+		}
+		
+		updateTimeAgo();
+	});
 });
 
 // ---------------------------------------------------------------

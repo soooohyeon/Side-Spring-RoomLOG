@@ -22,9 +22,7 @@ export function registComment(commentContent, parentCommentId, callback) {
 		return response.json();
 	})
 	.then((result) => {	callback(result); })
-	.catch((err) => { 
-		console.log(err);
-		openModal(errMsg); });
+	.catch(() => { openModal(errMsg); });
 }
 
 // 부모 댓글 목록
@@ -37,9 +35,7 @@ export function getParentList(parentPage, callback) {
 		return response.json();
 	})
 	.then((parentlist) => { callback(parentlist); })
-	.catch((err) => { 
-		console.log(err);
-		openModal(errMsg); });
+	.catch(() => { openModal(errMsg); });
 }
 
 // 자식 댓글 목록
@@ -52,7 +48,5 @@ export function getChildList(parentId, childPage, callback) {
 		return response.json();
 	})
 	.then((childlist) => { callback(childlist); })
-	.catch((err) => {
-		console.log(err);
-		openModal(errMsg); });
+	.catch(() => { openModal(errMsg); });
 }
