@@ -371,6 +371,19 @@ img {
   line-height: 1.4;
 }
 
+/* 대댓글 더보기 버튼 */
+.div-more-btn-wrap {
+  padding: 12px 0;
+  /* border-bottom: 1px solid #cccccc; */
+
+  color: #999999;
+  text-align: center;
+  cursor: pointer;
+}
+.div-more-btn-wrap:hover { color: #006497; }
+
+.span-plus { margin-left: 15px; }
+
 /* 댓글 수정 시 */
 .div-comment-update-wrap {
   width: 100%;

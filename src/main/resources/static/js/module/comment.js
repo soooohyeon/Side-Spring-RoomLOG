@@ -28,27 +28,31 @@ export function registComment(commentContent, parentCommentId, callback) {
 }
 
 // 부모 댓글 목록
-export function getParentList(page, callback) {
-	fetch(`/comment/comment-list/${communityId}?page=${page}`, {
+export function getParentList(parentPage, callback) {
+	fetch(`/comment/comment-list/${communityId}?page=${parentPage}`, {
 		method: "get"
 	})
 	.then(response => {
-		if (!response.ok) throw new Error("등록 실패");
+		if (!response.ok) throw new Error("부모 댓글 렌더링 실패");
 		return response.json();
 	})
 	.then((parentlist) => { callback(parentlist); })
-	.catch(() => { openModal(errMsg); });
+	.catch((err) => { 
+		console.log(err);
+		openModal(errMsg); });
 }
 
 // 자식 댓글 목록
-export function getChildList(callback) {
-	fetch(`/comment/comment-list/child/${parentId}`, {
+export function getChildList(parentId, childPage, callback) {
+	fetch(`/comment/comment-list/child/${parentId}?page=${childPage}`, {
 		method: "get"
 	})
 	.then(response => {
-		if (!response.ok) throw new Error("등록 실패");
+		if (!response.ok) throw new Error("자식 댓글 렌더링 실패");
 		return response.json();
 	})
 	.then((childlist) => { callback(childlist); })
-	.catch(() => { openModal(errMsg); });
+	.catch((err) => {
+		console.log(err);
+		openModal(errMsg); });
 }

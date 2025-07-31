@@ -86,12 +86,16 @@ public class CommentServiceTest {
 	@Test
 	public void selectChildListTest() {
 		// given
-		long parentId = 48;
+		long parentId = 15;
 		Pageable pageable = PageRequest.of(0, 5); 
 		// when
 		Slice<CommentDTO> lists = commentService.selectChildList(parentId, pageable);
 		// then
 	    assertThat(lists).isNotNull();
 	    assertThat(lists.getContent());
+	    
+	    for (CommentDTO list : lists) {
+	    	log.info("자식 댓글 : " + list);
+	    }
 	}
 }

@@ -14,7 +14,7 @@ let page = 1;
 function hadleCommentList(data) {
 	let $pageWrap = $("#DIV-PAGENATION-WRAP");
 	// 댓글 보여주기
-	showCommentList($pageWrap, data);
+	showParentCommentList($pageWrap, data);
 	// 페이징 처리
 	showPage($pageWrap, data.page);
 }
@@ -25,7 +25,7 @@ comment.getParentList(1, hadleCommentList);
 // --------------------------------
 
 // 부모 댓글 보여주기
-function showCommentList($pageWrap, data) {
+function showParentCommentList($pageWrap, data) {
 	let $commentWrap = $("#DIV-COMMENT-CONTAINER");
 	let $comments = '';
 
@@ -43,31 +43,31 @@ function showCommentList($pageWrap, data) {
 	}
 	
 	// 댓글이 있을 경우
-	(data.parents).forEach(c => {
+	(data.parents).forEach(pl => {
 		$comments += `
-		  <div class="div-comment-wrap div-parent-comment">
+		  <div class="div-comment-wrap div-parent-comment" data-parent-id=${pl.commentId}>
 		    <div class="div-comment-user-time-wrap">
-		      <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${c.userId}">
+		      <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${pl.userId}">
 		        <div class="div-comment-profile-wrap">
-				${c.profileImgPath == null
+				${pl.profileImgPath == null
 				  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
-			  	  : `<img src="/${c.profileImgPath}/${c.profileImgUuid}" alt="profile">`}
+			  	  : `<img src="/${pl.profileImgPath}/${pl.profileImgUuid}" alt="profile">`}
 		        </div>
-		        <div class="div-nick">${c.userNickname}</div>
-		        <div class="div-age">${c.userAge}</div>
+		        <div class="div-nick">${pl.userNickname}</div>
+		        <div class="div-age">${pl.userAge}</div>
 		      </div>
-		      <div class="div-comment-date time-ago" data-timestamp="${c.createDate}"></div>
+		      <div class="div-comment-date time-ago" data-timestamp="${pl.createDate}"></div>
 		    </div>
 		    <div class="div-comment-content-wrap parent-comment-wrap">
 		      <div class="div-re-comment-btn-wrap">
 		        <div class="div-comment-content">
-				  ${c.isDeleted == 0 ? c.commentContent.replaceAll('\n', '<br>') : `삭제된 댓글입니다.`}
+				  ${pl.isDeleted == 0 ? pl.commentContent.replaceAll('\n', '<br>') : `삭제된 댓글입니다.`}
 				</div>
-		        <div class="div-re-comment-btn" data-parent=${c.commentId}>
+		        <div class="div-re-comment-btn">
 		          <img src="/image/community/re_comment_btn.png">답글
 		        </div>
 		      </div>
-			  ${userId !== null && userId === c.userId 
+			  ${userId !== null && userId === pl.userId 
 		      ? `<div class="div-comment-btn-wrap">
 		        <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
 		        <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
@@ -76,13 +76,64 @@ function showCommentList($pageWrap, data) {
 		    </div>
 		  </div>
 		`;
+	
+	  // 부모 댓글 보여주기
+	  $commentWrap.html($comments);
+
+	  // 자식 댓글 보여주기
+	  comment.getChildList(pl.commentId, 0, (data) => {
+		const $parent = $(`.div-parent-comment[data-parent-id="${pl.commentId}"]`);
+		
+		data.content.forEach(cl => {
+			const $recomment = showChildCommentList(cl);
+			$parent.after($recomment);
+	    });
+
+		if (!data.last) {
+			const $moreBtn = $(`
+			`);
+			$parent.after($moreBtn);
+		}
+		
+		// basic.js에 함수 호출 - 부모/자식 댓글 시간 형식 포맷
+		updateTimeAgo();
+	  });
 	});
-	$commentWrap.html($comments);
-	// basic.js에 함수 호출 - 시간 형식 포맷
-	updateTimeAgo();
 }
 
 // --------------------------------
+
+// 자식 댓글 보여주기
+function showChildCommentList(data) {
+	const $recomment = $(`
+		<div class="div-comment-wrap div-re-comment-wrap">
+		  <div class="div-comment-user-time-wrap">
+		    <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${data.userId}">
+		      <div class="div-comment-profile-wrap">
+			  	${data.profileUuid == null
+			  	  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
+			      : `<img src="/${data.profileImgPath}/${data.profileImgUuid}" alt="profile">` }
+		      </div>
+		      <div class="div-nick">${data.userNickname}</div>
+		      <div class="div-age">${data.userAge}</div>
+		    </div>
+		    <div class="div-comment-date time-ago" data-timestamp="${data.createDate}"></div>
+		  </div>
+		  <div class="div-comment-content-wrap child-comment-wrap">
+		    <div class="div-re-comment-btn-wrap">
+		      <div class="div-comment-content">${data.commentContent}</div>
+		    </div>
+		    <div class="div-comment-btn-wrap">
+		      <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+		      <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+		    </div>
+		  </div>
+		</div>`);
+	
+	return $recomment;
+}
+
+// ---------------------------------------------------------------
 
 // 부모 댓글 목록 페이징 처리
 function showPage($pageWrap, page) {
@@ -247,13 +298,15 @@ $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
 	  openModal(commentRegistMsg, 2).then((answer) =>	{
 	  	if (answer) {
 			const recommnetContent = $reComment.val();
-			const parentId = $(this).closest(".div-re-comment-form").data("parent");
-
+			const parentId = $(this).closest(".div-comment-wrap").prev().data("parent-id");
 			// 댓글 등록 함수 호출
 			comment.registComment(recommnetContent, parentId, function(result) {
 				openModal(result.msg).then((ok) => {
 					if (ok) {
-						comment.getParentList(page, showCommentList);
+						comment.getParentList(page, hadleCommentList);
+						// 자식 댓글 등록 후 자식 댓글 작성 확인 플래그 변수 초기화
+						reCommentCheck = false;
+						reCommentCount = 0;
 					}
 				});
 			});
@@ -297,6 +350,10 @@ const changeRecommentMsg = "수정 중인 댓글은 저장되지 않습니다.<b
 
 // 답글 버튼 클릭 시 입력 폼 생성
 $(document).on("click", ".div-re-comment-btn", function() {
+  if (userId === null || userId <= 0) {
+	openModal("로그인 후 이용해 주세요.");
+	return;
+  }
   // 누른 답글 버튼의 댓글을 감싸는 마지막 div
   const $divWrap = $(this).closest(".div-parent-comment");
   // 대댓글 입력 폼
@@ -347,7 +404,6 @@ $(document).on("click", ".div-re-comment-btn", function() {
     $divWrap.after(reCommentForm);
     reCommentCheck = true;
   }
-  $(".div-re-comment-form").data("parent", $(this).data("parent"));
 });
 
 // --------------------------------
