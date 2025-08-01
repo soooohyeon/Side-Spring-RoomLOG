@@ -100,18 +100,19 @@
                       <div class="div-profile-wrap">
                         <div class="div-go-user-page" th:data-user-id="${list.userId}">
                           <img th:if="${list.profileImgUuid == null}" th:src="@{/image/layout/profile_img_basic.png}" alt="profile">
-						  <img th:unless="${list.profileImgUuid == null}" th:src="@{'/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}" alt="profile">
+						  <img th:unless="${list.profileImgUuid == null}" th:src="@{'/upload/' + ${list.profileImgPath} + '/th_' + ${list.profileImgUuid}|}" alt="profile">
                           <div class="div-nickname div-nick div-one-skip">
 			  			  	<th:block th:text="${list.userNickname}"></th:block>
 			  			  </div>
                         </div>
                         <div class="div-age" th:if="${list.isAgeVisible == 1}")><span th:text="${list.userAge}"></span></div>
+                        <div class="div-age" th:unless="${list.isAgeVisible == 1}")><span>비공개</span></div>
                       </div>
                       <div class="div-one-skip div-title" th:text="${list.communityTitle}"></div>
                       <div class="div-two-skip div-content" th:utext="${list.communityContent}"></div>
                     </div>
                     <div class="div-post-img" th:if="${list.checkCommunityImg}">
-                      <img th:src="@{'/' + ${list.communityImgPath} + '/th_' + ${list.communityImgUuid}|}" alt="postIMG">
+                      <img th:src="@{'/upload/' + ${list.communityImgPath} + '/th_' + ${list.communityImgUuid}|}" alt="postIMG">
                     </div>
                   </div>
                   <div class="div-hashtag-wrap">

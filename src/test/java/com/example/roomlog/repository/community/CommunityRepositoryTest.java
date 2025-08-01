@@ -1,6 +1,7 @@
 package com.example.roomlog.repository.community;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -69,6 +70,17 @@ public class CommunityRepositoryTest {
 		CommunityViewDTO post = communityRepository.selectViewOne(communityId);
 		// then
 		assertNotNull(post);
+	}
+	
+	// 게시글 삭제
+	@Test
+	public void deleteByCommunityIdTest() {
+		// given
+		long communityId = 1;
+		// when
+		communityRepository.deleteByCommunityId(communityId);
+		// then
+		assertNull(communityRepository.findByCommunityId(communityId));
 	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.hashtag.Hashtag;
+import com.example.roomlog.repository.community.hashtag.CommunityHashtagRepository;
 import com.example.roomlog.repository.community.hashtag.HashtagRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ public class HashtagRepositoryTest {
 
 	@Autowired
 	HashtagRepository hashtagRepository;
+	@Autowired
+	CommunityHashtagRepository communityHashtagRepository;
 	
 	// 해시태그 목록 (검색 조건 포함)
 	@Test
@@ -74,6 +77,18 @@ public class HashtagRepositoryTest {
 			log.info(tag);
 		}
 		assertNotNull(tags);
+	}
+
+	// 해당 게시글의 해시태그 삭제
+	@Test
+	public void deleteByCommunityIdTest() {
+		// given
+		long communityId = 18;
+		// when
+		communityHashtagRepository.deleteByCommunityId(communityId);
+		// then
+		List<String> tags = hashtagRepository.selectHashtagList(communityId);
+		assertNull("삭제됨 ? : " + tags);
 	}
 	
 }

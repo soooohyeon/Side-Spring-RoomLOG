@@ -7,7 +7,8 @@ const deleteMsg = "이 글을 정말 지우시겠어요?<br>한 번 삭제하면
 $("#POST-DELETE-BTN").on("click", function() {
   openModal(deleteMsg, 2).then((result) => {
     if (result) {
-      location.href = "/community/community-delete";
+	  const communityId = $(this).data("post-id");
+      location.href = "/community/community-deleteOk?communityId=" + communityId;
     }
   });
 });

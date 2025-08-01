@@ -1,6 +1,5 @@
 package com.example.roomlog.service.scrap;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.Community;
@@ -12,16 +11,15 @@ import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ScrapService {
 
-	@Autowired
-	ScrapRepository scrapRepository;
-	@Autowired
-	CommunityRepository communityRepository;
-	@Autowired
-	UserRepository userRepository;
+	private final ScrapRepository scrapRepository;
+	private final CommunityRepository communityRepository;
+	private final UserRepository userRepository;
 	
 	// 스크랩 하기
 	public void insertScrap(Long communityId, Long userNumber) {

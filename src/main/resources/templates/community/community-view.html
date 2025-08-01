@@ -62,7 +62,7 @@
                 <span th:onclick="|location.href='@{/community/community-edit}?communityId=${post.communityId}'|">수정</span>
               </div>
               <div class="div-post-btn">
-                <span id="POST-DELETE-BTN">삭제</span>
+                <span id="POST-DELETE-BTN" th:data-post-id="${post.communityId}">삭제</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
               <!-- 이미지 리스트 -->
               <div id="DIV-SUB-IMAGE-WRAP">
                 <div class="div-sub-image" th:each="image : ${post.Images}">
-                  <img th:src="@{'/' + ${image}}" alt="image" onclick="changeImage(this)">
+                  <img th:src="@{'/upload/' + ${image}}" alt="image" onclick="changeImage(this)">
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@
           <div id="DIV-USER-INFO-WRAP" class="div-go-user-page" th:data-user-id="${post.userId}">
             <div id="DIV-POST-USER-PROFILE">
               <img th:if="${post.profileImgUuid == null}" th:src="@{/image/layout/profile_img_basic.png}" alt="profile">
-              <img th:unless="${post.profileImgUuid == null}" th:src="@{'/' + ${post.profileImgPath} + '/th_' + ${post.profileImgUuid}|}" alt="profile">
+              <img th:unless="${post.profileImgUuid == null}" th:src="@{'/upload/' + ${post.profileImgPath} + '/th_' + ${post.profileImgUuid}|}" alt="profile">
             </div>
             <div id="DIV-USER-WRAP">
               <div class="div-user-nick-age-wrap">
@@ -133,12 +133,19 @@
     <!-- 목록 + 스크랩 버튼 영역 -->
     <section class="section-btn-wrap">
       <button class="button-style list-button" onclick="history.back()">목록으로</button>
-      <button class="button-style basic-button" th:if="${post.isScrapped}" th:onclick="|noPostScrap(this, ${post.communityId})|">
-        <img th:src="@{/image/community/scrap_white.png}">스크랩
-      </button>
-      <button class="button-style blue-line-button" th:unless="${post.isScrapped}" th:onclick="|goPostScrap(this, ${post.communityId})|">
-        <img th:src="@{/image/layout/scrap_ok.png}">스크랩
-      </button>
+      <th:block th:if="(${session.userId} != null) and (${post.userId} != ${session.userId.longValue()})">
+        <button class="button-style basic-button" th:if="${post.isScrapped}" th:onclick="|noPostScrap(this, ${post.communityId})|">
+          <img th:src="@{/image/community/scrap_white.png}">스크랩
+        </button>
+        <button class="button-style blue-line-button" th:unless="${post.isScrapped}" th:onclick="|goPostScrap(this, ${post.communityId})|">
+          <img th:src="@{/image/layout/scrap_ok.png}">스크랩
+        </button>
+      </th:block>
+      <th:block th:if="(${session.userId} == null)">
+        <button class="button-style blue-line-button" th:onclick="|goPostScrap(this, ${post.communityId})|">
+          <img th:src="@{/image/layout/scrap_ok.png}">스크랩
+        </button>
+      </th:block>
     </section>
     <!--  -->
 
@@ -222,31 +229,6 @@
             </div>
           </div>
           <!--  -->
-          
-          <div class="div-comment-wrap div-parent-comment">
-            <div class="div-comment-user-time-wrap">
-              <div class="div-comment-user-profile-wrap">
-                <div class="div-comment-profile-wrap" onclick="location.href=''">
-                  <img src="/image/example/profile_image/profile3.jpg" alt="profile">
-                </div>
-                <div class="div-nick" onclick="location.href=''">작은식탁일기</div>
-                <div class="div-age">30대</div>
-              </div>
-              <div class="div-comment-date time-ago" data-timestamp="2025-06-27T15:01:00"></div>
-            </div>
-            <div class="div-comment-content-wrap parent-comment-wrap">
-              <div class="div-re-comment-btn-wrap">
-                <div class="div-comment-content">사진도 글도 모두 예쁘네요. 감성적인 분위기 덕분에 하루의 끝에서 힐링하고 갑니다.<br>괜히 괜찮은 하루였다고 느껴지게 만드는 힘이 있어요.</div>
-                <div class="div-re-comment-btn">
-                  <img src="/image/community/re_comment_btn.png">답글
-                </div>
-              </div>
-              <div class="div-comment-btn-wrap">
-                <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
-                <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
-              </div>
-            </div>
-          </div>
           
           <!-- 댓글이 없을 경우 -->
           <!-- <div class="div-post-none">아직 작성된 댓글이 없습니다.<br>첫 댓글을 남겨주세요!</div> -->

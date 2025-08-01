@@ -2,6 +2,8 @@ package com.example.roomlog.domain.follow;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,10 +38,12 @@ public class Follow {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "from_user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private User fromUser;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "to_user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private User toUser;
 	
 	@Column(nullable = false)

@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +14,11 @@ import com.example.roomlog.domain.community.hashtag.CommunityHashtag;
 import com.example.roomlog.domain.community.hashtag.Hashtag;
 import com.example.roomlog.domain.community.image.CommunityImg;
 import com.example.roomlog.domain.user.User;
+import com.example.roomlog.dto.community.CommunityEditDTO;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityRegistDTO;
 import com.example.roomlog.dto.community.CommunityViewDTO;
+import com.example.roomlog.dto.community.image.CommunityImgDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.community.hashtag.CommunityHashtagRepository;
@@ -27,27 +29,21 @@ import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.UserRepository;
 import com.example.roomlog.util.AgeUtils;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CommunityService {
 
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	CommunityRepository communityRepository;
-	@Autowired
-	HashtagService hashtagService;
-	@Autowired
-	CommunityHashtagRepository communityHashtagRepository;
-	@Autowired
-	CommunityImgService communityImgService;
-	@Autowired
-	CommunityImgRepository communityImgRepository;
-	@Autowired
-	ScrapRepository scrapRepository;
-	@Autowired
-	HashtagRepository hashtagRepository;
-	@Autowired
-	FollowRepository followRepository;
+	private final UserRepository userRepository;
+	private final CommunityRepository communityRepository;
+	private final HashtagService hashtagService;
+	private final CommunityHashtagRepository communityHashtagRepository;
+	private final CommunityImgService communityImgService;
+	private final CommunityImgRepository communityImgRepository;
+	private final ScrapRepository scrapRepository;
+	private final HashtagRepository hashtagRepository;
+	private final FollowRepository followRepository;
 
 	// 커뮤니티 게시글 총 개수
 	public int countAllCommunity() {
@@ -114,21 +110,21 @@ public class CommunityService {
 	}
 	
 	// 커뮤니티 게시글 등록
-	public long insertCommunity(CommunityListDTO communityListDTO, List<MultipartFile> images) throws IOException {
-		User user = userRepository.findByUserId(communityListDTO.getUserId()).get();
+	public long insertCommunity(CommunityRegistDTO communityRegistDTO, List<MultipartFile> images) throws IOException {
+		User user = userRepository.findByUserId(communityRegistDTO.getUserId()).get();
 		
 		Community community = Community.builder()
 				.user(user)
-				.communityTitle(communityListDTO.getCommunityTitle())
-				.communityContent(communityListDTO.getCommunityContent())
+				.communityTitle(communityRegistDTO.getCommunityTitle())
+				.communityContent(communityRegistDTO.getCommunityContent())
 				.build();
 		communityRepository.save(community);
 		
 		Long communityId = community.getCommunityId();
 		
 		// 태그 등록 처리
-		List<String> tags = communityListDTO.getTags();
-		if (tags != null && !tags.isEmpty()) {
+		List<String> tags = communityRegistDTO.getTags();
+		if (tags != null) {
 			for (String tag : tags) {
 				Hashtag hashtag = hashtagService.selectHashtag(tag);
 				communityHashtagRepository.save(new CommunityHashtag(community, hashtag));
@@ -139,15 +135,71 @@ public class CommunityService {
 		for (MultipartFile image : images) {
 			if (image.isEmpty()) { break; }
 			
-			CommunityImg communityImg = communityImgService.insertCommunityImg(community, image);
+			CommunityImg communityImg = communityImgService.formatCommunityImg(community, image);
 			communityImgRepository.save(communityImg);
 		}
 
 		return communityId;
 	}
-	
-	
-	
 
+	// 커뮤니티 수정 전 게시글 정보 보기
+	public CommunityEditDTO selectViewOneBeforeEdit (long communityId) {
+		CommunityEditDTO post = communityRepository.selectViewOneBeforeEdit(communityId);
+		
+		post.setCommunityImages(communityImgRepository.findCommunityImg(communityId));
+		post.setTags(hashtagRepository.selectHashtagList(communityId));
+		 
+		return post;
+	}
+	
+	// 커뮤니티 게시글 수정
+	public void editCommunity(CommunityEditDTO communityEditDTO, List<MultipartFile> images) throws IOException {
+		Community community = communityRepository.findByCommunityId(communityEditDTO.getCommunityId());
+		community.updateCommunity(communityEditDTO.getCommunityTitle(), communityEditDTO.getCommunityContent());
+		
+		communityRepository.save(community);
+
+		// 기존 DB에 등록된 해시태그가 있다면 삭제
+		List<String> dbTags = hashtagService.selectAllHashtagsByEdit(communityEditDTO.getCommunityId());
+		if (dbTags != null && !dbTags.isEmpty()) {
+			hashtagService.deleteHashtag(communityEditDTO.getCommunityId());
+		}
+		
+		// 변경된 태그로 등록
+		List<String> tags = communityEditDTO.getTags();
+		if (tags != null) {
+			for (String tag : tags) {
+				Hashtag hashtag = hashtagService.selectHashtag(tag);
+				communityHashtagRepository.save(new CommunityHashtag(community, hashtag));
+			}
+		}
+		
+		// 리스트에 담긴 삭제한 이미지 번호를 사용하여 이미지 삭제
+		List<String> deleteImgIds = communityEditDTO.getDeleteImgId();
+		if (deleteImgIds != null) {
+			for (String imgId : deleteImgIds) {
+				communityImgService.deleteCommunityImg(Long.parseLong(imgId));
+			}
+		}
+		
+		// 추가로 등록한 이미지 저장
+		for (MultipartFile image : images) {
+			if (image.isEmpty()) { break; }
+			
+			CommunityImg communityImg = communityImgService.formatCommunityImg(community, image);
+			communityImgRepository.save(communityImg);
+		}
+	}
+	
+	// 게시글 삭제
+	public void deleteCommunity(long communityId) {
+		List<CommunityImgDTO> images = communityImgRepository.findCommunityImg(communityId);
+		
+		// 실제 폴더 경로에서 이미지 삭제
+		for (CommunityImgDTO img : images) {
+			communityImgService.deleteCommunityImgFile(img);
+		}
+		communityRepository.deleteByCommunityId(communityId);
+	}
 	
 }

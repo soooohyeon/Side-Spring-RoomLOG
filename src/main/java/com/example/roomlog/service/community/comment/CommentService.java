@@ -2,11 +2,9 @@ package com.example.roomlog.service.community.comment;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.domain.community.comment.Comment.CommentBuilder;
@@ -17,15 +15,15 @@ import com.example.roomlog.repository.community.comment.CommentRepository;
 import com.example.roomlog.repository.user.UserRepository;
 import com.example.roomlog.util.AgeUtils;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
-	@Autowired
-	CommentRepository commentRepository;
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	CommunityRepository communityRepository;
+	private final CommentRepository commentRepository;
+	private final UserRepository userRepository;
+	private final CommunityRepository communityRepository;
 	
 	// 해당 게시글의 모든 댓글 개수 조회
 	public int countComment(long communityId) {
@@ -87,20 +85,29 @@ public class CommentService {
 	// 댓글 삭제
 	public void deleteComment(long commentId) {
 		Comment comment = commentRepository.findByCommentId(commentId);
-		int childCount = commentRepository.countChildComment(commentId);
-		System.out.println("자식 개수 : " + childCount);
+		int commentCount = commentRepository.countChildComment(commentId);
+		int childCount = 0; // 자식 댓글
 		
-		if (childCount == 0) {
-			System.out.println("대댓글이 없는 경우");
-			// 대댓글이 없을 경우 삭제
+		if (commentCount == 0 && comment.getParentComment() != null) {
+			// 자식 댓글의 삭제를 눌렀을 경우
+			childCount = commentRepository.countChildComment(comment.getParentComment().getCommentId());
+			int deleteStatus = comment.getParentComment().getIsDeleted();
+			
+			if (childCount == 1 && (deleteStatus == 1 || deleteStatus == 2)) {
+				// 현재 자식 댓글이 자신 1개이고 부모 댓글이 삭제 상태인 경우 부모 댓글도 삭제
+				commentRepository.deleteByCommentId(comment.getParentComment().getCommentId());
+			} else {
+				// 자식 댓글이 1개보다 많을 경우 해당 자식 댓글만 삭제
+				commentRepository.deleteByCommentId(commentId);
+			}
+		} else if (commentCount == 0) {
+			// 부모 댓글에 자식 댓글이 없을 때 삭제를 누른 경우
 			commentRepository.deleteByCommentId(commentId);
-		} else {
-			System.out.println("대댓글 있음");
-			// 대댓글이 있을 경우 삭제 상태로 변경
+		} else if (commentCount > 0) {
+			// 부모 댓글에 자식 댓글이 있을 때 삭제를 누른 경우
 			comment.deleteParentComment();
 			commentRepository.save(comment);
 		}
-		
 	}
 	
 }

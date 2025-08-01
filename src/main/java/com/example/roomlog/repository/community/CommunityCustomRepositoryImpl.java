@@ -10,6 +10,7 @@ import com.example.roomlog.domain.community.comment.QComment;
 import com.example.roomlog.domain.scrap.QScrap;
 import com.example.roomlog.domain.user.QProfileImg;
 import com.example.roomlog.domain.user.QUser;
+import com.example.roomlog.dto.community.CommunityEditDTO;
 import com.example.roomlog.dto.community.CommunityListDTO;
 import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
@@ -184,5 +185,22 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		
 		return post;
 	}
+	
+	// 커뮤니티 수정 전 게시글 정보 보기
+	public CommunityEditDTO selectViewOneBeforeEdit(long communityId) {
+		QCommunity c = QCommunity.community;
+		
+		CommunityEditDTO post = jpaQueryFactory
+				.select(Projections.fields(CommunityEditDTO.class,
+					c.communityId,
+					c.communityTitle,
+					c.communityContent
+				))
+				.from(c)
+				.where(c.communityId.eq(communityId))
+				.fetchOne();
+		
+		return post;
+	};
 	
 }

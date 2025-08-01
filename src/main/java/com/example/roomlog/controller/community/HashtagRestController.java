@@ -3,6 +3,7 @@ package com.example.roomlog.controller.community;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,12 @@ public class HashtagRestController {
 		List<String> hashtags = hashtagService.findByHashtagList(keyword);
 		
 		return hashtags;
+	}
+	
+	// 해당 게시글의 해시태그 조회
+	@GetMapping("/hashtag/selectAll/{communityId}")
+	public List<String> selectAllHashtagsByEdit(@PathVariable long communityId) {
+		return hashtagService.selectAllHashtagsByEdit(communityId);
 	}
 	
 }

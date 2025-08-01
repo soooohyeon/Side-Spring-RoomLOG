@@ -2,6 +2,7 @@ package com.example.roomlog.service.community;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -47,6 +48,32 @@ public class HashtagServiceTest {
 		// then
 		assertNotNull(hashtag);
 		assertThat(hashtag.getHashtagName()).isEqualTo(tag);
+	}
+	
+	// 해당 게시글의 해시태그 조회
+	@Test
+	public void selectHashtagListTest() {
+		// given
+		long communityId = 18;
+		// when
+		List<String> tags = hashtagService.selectAllHashtagsByEdit(communityId);
+		// then
+		assertNotNull(tags);
+//		for (String tag : tags) {
+//			log.info("tag : " + tag);
+//		}
+	}
+	
+	// 해당 게시글의 해시태그 삭제
+	@Test
+	public void deleteByCommunityIdTest() {
+		// given
+		long communityId = 18;
+		// when
+		hashtagService.deleteHashtag(communityId);
+		// then
+		List<String> tags = hashtagService.selectAllHashtagsByEdit(communityId);
+		assertNull("삭제됨 ? : " + tags);
 	}
 	
 }

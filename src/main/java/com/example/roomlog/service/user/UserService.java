@@ -2,7 +2,6 @@ package com.example.roomlog.service.user;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.roomlog.domain.user.ProfileImg;
@@ -13,17 +12,16 @@ import com.example.roomlog.repository.user.ProfileImgRepository;
 import com.example.roomlog.repository.user.SocialTypeRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	SocialTypeRepository socialTypeRepository;
-	@Autowired
-	ProfileImgService profileImgService;
-	@Autowired
-	ProfileImgRepository profileImgRepository;
+	private final UserRepository userRepository;
+	private final SocialTypeRepository socialTypeRepository;
+	private final ProfileImgService profileImgService;
+	private final ProfileImgRepository profileImgRepository;
 
 	// 회원가입 - 필수 정보
 	public int insertUser(UserDTO userDTO, String socialTypeName) {

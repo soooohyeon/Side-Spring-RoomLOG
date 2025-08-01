@@ -51,7 +51,7 @@ function showParentCommentList($pageWrap, data) {
 		        <div class="div-comment-profile-wrap">
 				${pl.profileImgPath == null
 				  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
-			  	  : `<img src="/${pl.profileImgPath}/th_${pl.profileImgUuid}" alt="profile">`}
+			  	  : `<img src="/upload/${pl.profileImgPath}/th_${pl.profileImgUuid}" alt="profile">`}
 		        </div>
 		        <div class="div-nick">${pl.userNickname}</div>
 		        <div class="div-age">${pl.userAge}</div>
@@ -67,7 +67,7 @@ function showParentCommentList($pageWrap, data) {
 		          <img src="/image/community/re_comment_btn.png">답글
 		        </div>
 		      </div>
-			  ${userId !== null && userId === pl.userId 
+			  ${userId !== null && userId === pl.userId && pl.isDeleted == 0
 		      ? `<div class="div-comment-btn-wrap">
 		        <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
 		        <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
@@ -118,7 +118,7 @@ function showChildCommentList(cl) {
 		      <div class="div-comment-profile-wrap">
 			  	${cl.profileImgUuid == null
 			  	  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
-			      : `<img src="/${cl.profileImgPath}/th_${cl.profileImgUuid}" alt="profile">` }
+			      : `<img src="/upload/${cl.profileImgPath}/th_${cl.profileImgUuid}" alt="profile">` }
 		      </div>
 		      <div class="div-nick">${cl.userNickname}</div>
 		      <div class="div-age">${cl.userAge}</div>

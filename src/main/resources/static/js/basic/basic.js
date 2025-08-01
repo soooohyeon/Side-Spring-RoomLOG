@@ -77,8 +77,15 @@ function getTimeAgo(timestamp) {
   if (diff < 60) return "방금 전";
   if (diff < 3600) return Math.floor(diff / 60) + "분 전";
   if (diff < 86400) return Math.floor(diff / 3600) + "시간 전";
-  if (diff < 172800) return "어제";
-  return Math.floor(diff / 86400) + "일 전";
+  
+  // 24시간 이상: yyyy.MM.dd HH:mm 형식으로 출력
+  const year = past.getFullYear();
+  const month = String(past.getMonth() + 1).padStart(2, "0");
+  const day = String(past.getDate()).padStart(2, "0");
+  const hour = String(past.getHours()).padStart(2, "0");
+  const minute = String(past.getMinutes()).padStart(2, "0");
+
+  return `${year}.${month}.${day} ${hour}:${minute}`;
 }
 
 function updateTimeAgo() {
@@ -270,111 +277,6 @@ $(".img-regist-btn").hover(function() {
 }, function(){
   $(this).attr("src", "/image/layout/image_regist_btn.png");
 });
-
-// --------------------------------------------
-
-// 다중 이미지 첨부
-// 전역 변수로 선언하여 이미지 누적
-let imageFiles = [];
-let currentCount = $(".div-thumbnail-wrap").length;
-
-// 이미지 첨부시 미리보기
-$(document).ready(function() {
-  $("#input-image").on("change", setPreview);
-});
-
-function setPreview(e) {
-  let files = Array.from(e.target.files);
-  let filesList = Array.prototype.slice.call(files);
-  let maxCount = 5;
-
-  for (const file of filesList) {
-    // 현재까지 저장된 파일 수 + 새로 선택한 수가 5 초과면 차단
-    if (currentCount >= maxCount) {
-      openModal("이미지는 최대 5개까지만 업로드할 수 있어요.");
-      return;
-    }
-    
-    if (!file.type.match("image.*")) {
-      openModal("이미지 파일만 업로드할 수 있어요.");
-      continue;
-    }
-
-    imageFiles.push(file);
-    
-    let reader = new FileReader(); 
-    reader.onload = function(e) {
-      let $img = $(`
-        <div class="div-thumbnail-wrap" style="display:none;">
-          <img src="${e.target.result}" class="img-thumbnail">
-        </div>
-      `);
-      $("#DIV-THUMBNAIL-IMAGE-WRAP").append($img);
-      $img.fadeIn(150);
-    }
-    reader.readAsDataURL(file);
-    currentCount++;
-    updateUploadButton();
-  }
-}
-
-// --------------------------------------------
-
-// 마우스 호버에 따른 이미지 삭제 버튼
-$(document).on("mouseenter", ".div-thumbnail-wrap", function() {
-  const cancelBtn = `
-  <span class="span-thumbnail-close-btn">
-    <img src="../../image/layout/close_btn_white.png" alt="close">
-  </span>
-  `;
-  $(this).append(cancelBtn);
-});
-
-$(document).on("mouseleave", ".div-thumbnail-wrap", function() {
-  $(this).find(".span-thumbnail-close-btn").remove();
-});
-
-// 이미지 삭제
-$(document).on("click", ".span-thumbnail-close-btn", deletePreview);
-
-function deletePreview() {
-  const $previewWrap = $(this).closest(".div-thumbnail-wrap");
-  const index = $previewWrap.index();
-  $previewWrap.fadeOut(150, function() {
-    imageFiles.splice(index - 1, 1);
-    $previewWrap.remove();
-    currentCount--;
-
-    updateUploadButton();
-    updateInputFiles();
-    updateBackBlock();
-  });
-}
-
-// --------------------------------------------
-
-// input[type="file"]의 이미지 삭제시 value값 정리
-// 페이지 이동 탐지를 위함
-function updateInputFiles() {
-  const dataTransfer = new DataTransfer();
-  for (let i = 0; i < imageFiles.length; i++) {
-    dataTransfer.items.add(imageFiles[i]);
-  }
-  $("input[name='images']")[0].files = dataTransfer.files;
-}
-
-// --------------------------------------------
-
-// 이미지 업로드 버튼 숨김, 표시
-function updateUploadButton() {
-  if (currentCount >= 5) {
-    $(".image-column").css("height", "auto")
-    $('#LABEL-IMAGE-BTN').hide();
-  } else {
-    $(".image-column").removeAttr("style");
-    $('#LABEL-IMAGE-BTN').show();
-  }
-}
 
 // --------------------------------------------------------------- 
 

@@ -3,6 +3,7 @@ package com.example.roomlog.service.community;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.roomlog.domain.community.Community;
+import com.example.roomlog.dto.community.CommunityEditDTO;
 import com.example.roomlog.dto.community.CommunityListDTO;
 import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
@@ -90,6 +93,42 @@ public class CommunityServiceTest {
 //		}
 		// then
 		assertNotNull(communityRepository.findAll());
+	}
+
+	// 커뮤니티 수정 전 게시글 정보 보기
+	@Test
+	public void selectPostBeforeEditTest() {
+		// given
+		long communityId = 22;
+		// when
+		CommunityEditDTO post = communityService.selectViewOneBeforeEdit(communityId);
+		// then
+		assertNotNull(post);
+	}
+	
+	// 커뮤니티 글 수정
+	@Test
+	public void editCommunityTest() {
+		// when
+		long communityId = 22;
+		CommunityEditDTO communityEditDTO = new CommunityEditDTO();
+		communityEditDTO.setCommunityId(communityId);
+		communityEditDTO.setCommunityTitle("제목 Test");
+		communityEditDTO.setCommunityContent("내용 Test");
+//		List<String> tags = new ArrayList<>(List.of("소파", "test"));
+//		communityEditDTO.setTags(tags);
+		
+		List<MultipartFile> images = new ArrayList<>();
+		// when
+		try {
+			communityService.editCommunity(communityEditDTO, images);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// then
+		Community post = communityRepository.findByCommunityId(communityId);
+		log.info("수정 확인 : " + post);
+		assertNotNull(post);
 	}
 	
 }

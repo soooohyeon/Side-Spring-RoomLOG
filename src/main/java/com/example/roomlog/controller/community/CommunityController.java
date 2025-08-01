@@ -6,12 +6,15 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.roomlog.dto.community.CommunityEditDTO;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.community.CommunityRegistDTO;
 import com.example.roomlog.dto.community.CommunityViewDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.page.Page;
@@ -28,7 +31,7 @@ public class CommunityController {
 	
 	private final CommunityService communityService;
 	
-	//	게시판 - 목록
+	// 게시판 - 목록
 	@GetMapping("/community-list")
 	public String communityListPage(Criteria criteria, Model model, HttpSession session) {
 		long userId = SessionUtils.getUserId(session);
@@ -46,6 +49,7 @@ public class CommunityController {
 		return "community/community";
 	}
 	
+	// 게시판 - 상세 보기
 	@GetMapping("/community-view")
 	public String communityViewPage(@RequestParam long communityId, HttpSession session, Model model) {
 		long userId = SessionUtils.getUserId(session);
@@ -56,7 +60,7 @@ public class CommunityController {
 		return "community/community-view";
 	}
 
-	//	게시판 - 글 작성
+	// 게시판 - 글 작성
 	@GetMapping("/community-regist")
 	public String communityWritePage() {
 		return "community/community-write";
@@ -64,31 +68,54 @@ public class CommunityController {
 	
 	// 게시판 - 작성 글 저장
 	@PostMapping("/community-registOk")
-	public String insertCommunity(CommunityListDTO communityListDTO, List<MultipartFile> images, HttpSession session) {
+	public String insertCommunity(CommunityRegistDTO communityRegistDTO, List<MultipartFile> images, HttpSession session) {
 		long userId = SessionUtils.getUserId(session);
-		communityListDTO.setUserId(userId);
+		communityRegistDTO.setUserId(userId);
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(communityRegistDTO);
 		
 		try {
-			communityService.insertCommunity(communityListDTO, images);
+			communityService.insertCommunity(communityRegistDTO, images);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		return "redirect:/community/community-list?registOk=true";
 	}
-	
-	// 게시판 - 글 삭제
-	@GetMapping("/community-delete")
-	public String deleteCommunity(long communityId) {
+
+	// 게시판 - 글 수정
+	@GetMapping("/community-edit")
+	public String editCommunity(@RequestParam long communityId, Model model) {
+		CommunityEditDTO post = communityService.selectViewOneBeforeEdit(communityId);
+		model.addAttribute("post", post);
 		
-		return "redirect:/community/community-list?deleteOk=true";
+		return "community/community-edit";
+	}
+	
+	// 게시판 - 글 수정
+	@PostMapping("/community-editOk/{communityId}")
+	public String editCommunity(@PathVariable long communityId, CommunityEditDTO communityEditDTO, List<MultipartFile> images) {
+		System.out.println("--------------------------------------------------");
+		System.out.println(communityEditDTO);
+		System.out.println("--------------------------------------------------");
+		
+		communityEditDTO.setCommunityId(communityId);
+		
+		try {
+			communityService.editCommunity(communityEditDTO, images);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/community/community-list?editOk=true";
 	}
 	
 	// 게시판 - 글 삭제
-	@GetMapping("/community-edit")
-	public String editCommunity(@RequestParam long communityId) {
+	@GetMapping("/community-deleteOk")
+	public String deleteCommunity(long communityId) {
+		communityService.deleteCommunity(communityId);
 		
-		return "community/community-edit";
+		return "redirect:/community/community-list?deleteOk=true";
 	}
 	
 }

@@ -9,6 +9,6 @@ public interface HashtagCustomRepository {
 	Map<Long, List<String>> selectAllHashtagList (List<Long> communityIds);
 	
 	// 커뮤니티 상세 - 해당 커뮤니티 게시글의 모든 해시태그 조회
-	List<String> selectHashtagList (long communityIds);
+	List<String> selectHashtagList (long communityId);
 	
 }

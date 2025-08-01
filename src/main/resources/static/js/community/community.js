@@ -1,13 +1,20 @@
-// 게시글 등록 완료 후
+// 게시글 작성, 수정, 삭제 후 처리
 const params = new URLSearchParams(window.location.search);
 const writeOkMsg = "글이 정상적으로 업로드되었습니다.<br>많은 사람들이 보게 될 거예요!";
-const deleteOkMsg = "삭제되었습니다.";
+const editOkMsg = "게시글이 성공적으로 수정되었습니다.";
+const deleteOkMsg = "게시글이 삭제되었습니다.";
 const communityUrl = "/community/community-list";
 
 if (params.get("registOk") === "true") {
     openModal(writeOkMsg).then((result) => {
 	if (result) {
 		location.replace(communityUrl);
+	}
+  });
+} else if (params.get("editOk") === "true") {
+    openModal(editOkMsg).then((result) => {
+	if (result) {
+	  	location.replace(communityUrl);
 	}
   });
 } else if (params.get("deleteOk") === "true") {

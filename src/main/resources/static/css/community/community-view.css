@@ -292,7 +292,12 @@ img {
 .div-comment-profile-wrap > img:hover { border: 1px, solid #006497; }
 .div-nick { font-size: 20px; }
 .div-comment-profile-wrap, .div-nick { cursor: pointer; }
-.div-comment-date { color: #999999; }
+.div-comment-date {
+  color: #999999;
+  display: flex;
+  height: 55px;
+  align-items: center;
+}
 
 .div-comment-content-wrap {
   margin-left: 65px;

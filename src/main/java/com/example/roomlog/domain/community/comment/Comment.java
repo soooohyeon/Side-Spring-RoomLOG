@@ -1,5 +1,8 @@
 package com.example.roomlog.domain.community.comment;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.roomlog.domain.common.BaseTimeEntity;
 import com.example.roomlog.domain.community.Community;
 import com.example.roomlog.domain.user.User;
@@ -30,15 +33,17 @@ public class Comment extends BaseTimeEntity {
 	private long commentId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = true)
 	private User writerUser;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "community_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private Community community;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_comment_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private Comment parentComment;
 
 	@Column(length = 700, nullable = false)

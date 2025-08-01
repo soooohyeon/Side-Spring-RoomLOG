@@ -1,5 +1,8 @@
 package com.example.roomlog.domain.community;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.roomlog.domain.common.BaseTimeEntity;
 import com.example.roomlog.domain.user.User;
 
@@ -29,6 +32,7 @@ public class Community extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	
 	@Column(nullable = false)

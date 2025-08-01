@@ -3,8 +3,10 @@ package com.example.roomlog.repository.community.image;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.image.CommunityImg;
 
@@ -20,5 +22,12 @@ public interface CommunityImgRepository extends JpaRepository<CommunityImg, Long
 			"   	WHERE img2.community.communityId IN :communityIds " +
 			"   	GROUP BY img2.community.communityId)")
 	List<CommunityImg> findFirstImagesByCommunityIds(List<Long> communityIds);
+	
+	// 해당 게시글의 해시태그 삭제
+	@Modifying
+	@Transactional
+	@Query("DELETE FROM CommunityImg img " +
+			"	WHERE img.communityImgId = :imageId")
+	void deleteByCommunityId(long imageId);
 	
 }

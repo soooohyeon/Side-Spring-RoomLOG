@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.roomlog.service.scrap.ScrapService;
+import com.example.roomlog.util.SessionUtils;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +22,14 @@ public class ScrapRestController {
 	// 스크랩 하기
 	@PostMapping("/scrap-save/{communityId}")
 	public void insertScrap(@PathVariable long communityId, HttpSession session) {
-		long userId = (long) session.getAttribute("userId");
+		long userId = SessionUtils.getUserId(session);
 		scrapService.insertScrap(communityId, userId);
 	}
 	
 	// 스크랩 취소
 	@DeleteMapping("/scrap-cancel/{communityId}")
 	public void cancelScrap(@PathVariable long communityId, HttpSession session) {
-		long userId = (long) session.getAttribute("userId");
+		long userId = SessionUtils.getUserId(session);
 		scrapService.cancelScrap(communityId, userId);
 	}
 	

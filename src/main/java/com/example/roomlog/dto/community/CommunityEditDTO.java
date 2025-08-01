@@ -1,11 +1,10 @@
 package com.example.roomlog.dto.community;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+import com.example.roomlog.dto.community.image.CommunityImgDTO;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;
@@ -16,28 +15,24 @@ import lombok.ToString;
 @Component
 @Getter @Setter @ToString
 @NoArgsConstructor
-public class CommunityRegistDTO {
+public class CommunityEditDTO {
 	
 	private long communityId;
-	private long userId;
 	private String communityTitle;
 	private String communityContent;
 	private List<String> tags;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime createDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime modifiedDate;
+	private List<String> deleteImgId;
+	private List<CommunityImgDTO> communityImages;
 	
 	@QueryProjection
-	public CommunityRegistDTO(long communityId, long userId, String communityTitle, String communityContent,
-			LocalDateTime createDate, LocalDateTime modifiedDate) {
+	public CommunityEditDTO(long communityId, String communityTitle, String communityContent,
+			List<CommunityImgDTO> communityImages, List<String> tags) {
 		super();
 		this.communityId = communityId;
-		this.userId = userId;
 		this.communityTitle = communityTitle;
 		this.communityContent = communityContent;
-		this.createDate = createDate;
-		this.modifiedDate = modifiedDate;
+		this.communityImages = communityImages;
+		this.tags = tags;
 	}
 	
 }
