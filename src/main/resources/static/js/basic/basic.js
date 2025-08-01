@@ -77,8 +77,15 @@ function getTimeAgo(timestamp) {
   if (diff < 60) return "방금 전";
   if (diff < 3600) return Math.floor(diff / 60) + "분 전";
   if (diff < 86400) return Math.floor(diff / 3600) + "시간 전";
-  if (diff < 172800) return "어제";
-  return Math.floor(diff / 86400) + "일 전";
+  
+  // 24시간 이상: yyyy.MM.dd HH:mm 형식으로 출력
+  const year = past.getFullYear();
+  const month = String(past.getMonth() + 1).padStart(2, "0");
+  const day = String(past.getDate()).padStart(2, "0");
+  const hour = String(past.getHours()).padStart(2, "0");
+  const minute = String(past.getMinutes()).padStart(2, "0");
+
+  return `${year}.${month}.${day} ${hour}:${minute}`;
 }
 
 function updateTimeAgo() {
