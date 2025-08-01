@@ -45,13 +45,13 @@ function showParentCommentList($pageWrap, data) {
 	// 댓글이 있을 경우
 	(data.parents).forEach(pl => {
 		$comments += `
-		  <div class="div-comment-wrap div-parent-comment" data-parent-id=${pl.commentId}>
+		  <div class="div-comment-wrap div-parent-comment" data-comment-id=${pl.commentId} data-parent-id=${pl.commentId}>
 		    <div class="div-comment-user-time-wrap">
 		      <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${pl.userId}">
 		        <div class="div-comment-profile-wrap">
 				${pl.profileImgPath == null
 				  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
-			  	  : `<img src="/${pl.profileImgPath}/${pl.profileImgUuid}" alt="profile">`}
+			  	  : `<img src="/${pl.profileImgPath}/th_${pl.profileImgUuid}" alt="profile">`}
 		        </div>
 		        <div class="div-nick">${pl.userNickname}</div>
 		        <div class="div-age">${pl.userAge}</div>
@@ -110,29 +110,31 @@ function showParentCommentList($pageWrap, data) {
 // --------------------------------
 
 // 자식 댓글 보여주기
-function showChildCommentList(data) {
+function showChildCommentList(cl) {
 	const $recomment = $(`
-		<div class="div-comment-wrap div-re-comment-wrap">
+		<div class="div-comment-wrap div-re-comment-wrap" data-comment-id=${cl.commentId}>
 		  <div class="div-comment-user-time-wrap">
-		    <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${data.userId}">
+		    <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${cl.userId}">
 		      <div class="div-comment-profile-wrap">
-			  	${data.profileUuid == null
+			  	${cl.profileImgUuid == null
 			  	  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
-			      : `<img src="/${data.profileImgPath}/${data.profileImgUuid}" alt="profile">` }
+			      : `<img src="/${cl.profileImgPath}/th_${cl.profileImgUuid}" alt="profile">` }
 		      </div>
-		      <div class="div-nick">${data.userNickname}</div>
-		      <div class="div-age">${data.userAge}</div>
+		      <div class="div-nick">${cl.userNickname}</div>
+		      <div class="div-age">${cl.userAge}</div>
 		    </div>
-		    <div class="div-comment-date time-ago" data-timestamp="${data.createDate}"></div>
+		    <div class="div-comment-date time-ago" data-timestamp="${cl.createDate}"></div>
 		  </div>
 		  <div class="div-comment-content-wrap child-comment-wrap">
 		    <div class="div-re-comment-btn-wrap">
-		      <div class="div-comment-content">${data.commentContent}</div>
+		      <div class="div-comment-content">${cl.commentContent}</div>
 		    </div>
-		    <div class="div-comment-btn-wrap">
-		      <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
-		      <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
-		    </div>
+			${userId !== null && userId === cl.userId 
+			  ? `<div class="div-comment-btn-wrap">
+			    <div class="div-comment-btn div-menu-line"><span class="comment-update-btn">수정</span></div>
+			    <div class="div-comment-btn"><span class="comment-delete-btn">삭제</span></div>
+			  </div>`
+			  : ``}
 		  </div>
 		</div>`);
 	
@@ -232,6 +234,21 @@ $(document).on("click", ".div-more-btn-wrap", function() {
 
 // ---------------------------------------------------------------
 
+// 댓글, 대댓글 수정 / 대댓글 작성 - 200자 제한, 내용 존재 여부 검사
+function isValidComment($textarea, maxLength = 200) {
+  let comment = $textarea.val();
+  const trimmed = Array.from(comment).slice(0, maxLength).join("");
+  
+  if (comment !== trimmed) {
+    $textarea.val(trimmed);
+    comment = trimmed;
+  }
+  
+  return Array.from(comment).length > 0;
+}
+
+// ---------------------------------------------------------------
+
 // 새 댓글 입력 칸
 const $comment = $("#TEXTAREA-COMMENT-TXT");
 $(document).ready(function() {
@@ -281,21 +298,6 @@ function countComent() {
     $saveBtn.removeClass("btn-active");
 	checkRegist = false;
   }
-}
-
-// ---------------------------------------------------------------
-
-// 댓글 수정, 답글 - 200자 제한, 내용 존재 여부 검사
-function isValidComment($textarea, maxLength = 200) {
-  let comment = $textarea.val();
-  const trimmed = Array.from(comment).slice(0, maxLength).join("");
-  
-  if (comment !== trimmed) {
-    $textarea.val(trimmed);
-    comment = trimmed;
-  }
-  
-  return Array.from(comment).length > 0;
 }
 
 // ---------------------------------------------------------------
@@ -355,11 +357,23 @@ $(document).on("click", "#RE-COMMENT-WRITE-BTN", function() {
 
 // 댓글 수정
 $(document).on("click", "#COMMENT-UPDATE-BTN", function() {
-  const $commentEdit = $(this).closest(".div-comment-update-wrap").find("#TEXTAREA-RE-COMMENT-TXT");
+  const $commentEdit = $(this).closest(".div-comment-update-wrap").find(".text-re-content-txt");
   const result = isValidComment($commentEdit);
 
   if (result) {
-	console.log("댓글 수정");
+    openModal("수정하시겠습니까?", 2).then((ok) => {
+	  if (ok) {
+		const commentId = $(this).closest(".div-comment-wrap").data("comment-id");
+	    comment.editComment(commentId, $commentEdit.val(), function() {
+	      openModal("수정되었습니다.").then((ok) => {
+	        if (ok) {
+			  $currentEditComment = null;
+	 	      comment.getParentList(page, hadleCommentList);
+	    	}
+	      });
+	    });
+	  }
+	});
   } else {
     openModal("댓글 내용을 입력해 주세요.");
   }
@@ -476,7 +490,7 @@ $(document).on("click", ".comment-update-btn", function() {
                 <textarea name="commentContent" class="text-re-content-txt edit-comment">` + oriCommentText + `</textarea>
               </div>
               <div class="div-comment-btn-wrap textarea-btn-wrap">
-                  <div class="div-comment-btn div-menu-line"><span id="COMMENT-UPDATE-BTN">등록</span></div>
+                  <div class="div-comment-btn div-menu-line"><span id="COMMENT-UPDATE-BTN">저장</span></div>
                   <div class="div-comment-btn"><span id="COMMENT-UPDATE-CANCEL-BTN">취소</span></div>
               </div>
             </div>
@@ -594,30 +608,40 @@ function renderOriginalComment(wrap, oriText, type) {
 $(document).on("click", ".comment-delete-btn", function (){
   const $wrap = $(this).closest(".div-comment-content-wrap");
   const className = $wrap.attr("class");
+  const commentId = $(this).closest(".div-comment-wrap").data("comment-id");
 
   // 댓글에 대댓글 존재 여부에 따라 알람 문구 구별
   const hasReComment =  $wrap.closest(".div-parent-comment").next(".div-re-comment-wrap").length > 0;
   const deleteCommentMsg = hasReComment
-    ? "이 댓글에는 답글이 달려 있어요.<br>삭제 시, 모든 답글도 함께 삭제됩니다.<br>정말 삭제하시겠어요?"
+    ? "이 댓글은 삭제 후 '삭제된 메시지입니다'로 표시됩니다.<br>답글은 삭제되지 않으며 계속 표시됩니다.<br>삭제하시겠어요?"
     : "이 댓글을 정말 삭제하시겠어요?<br>한 번 삭제하면 복구할 수 없어요.";
   const deleteReCommentMsg = "이 답글을 정말 지우시겠어요?<br>삭제하면 복구가 불가능해요.";
   
   // 클래스명으로 댓글, 대댓글 구분
   if (className.includes("parent-comment-wrap")) {
     // 댓글
-    openModal(deleteCommentMsg, 2).then((result) => {
-      if (result) {
-        location.href = "삭제경로";
-      }
-    });
+	deleteComment(deleteCommentMsg, commentId)
   } else if (className.includes("child-comment-wrap")) {
     // 대댓글
-    openModal(deleteReCommentMsg, 2).then((result) => {
-      if (result) {
-        location.href = "삭제경로";
-      }
-    });
+	deleteComment(deleteReCommentMsg, commentId)
   }
 });
+
+// --------------------------------
+
+// 댓글, 대댓글 삭제
+function deleteComment(deleteMsg, commentId) {
+  openModal(deleteMsg, 2).then((result) => {
+    if (result) {
+        comment.deleteComment(commentId, function(){
+  	    openModal("삭제되었습니다.").then((ok) => {
+  	      if (ok) {
+  	       comment.getParentList(page, hadleCommentList);
+  	      }
+  	    });
+  	  });
+    }
+  });
+}
 
 // ---------------------------------------------------------------

@@ -15,5 +15,5 @@ public interface CommentCustomRepository {
 
 	// 자식 댓글 목록 조회
 	Slice<CommentDTO> selectChildComments(long parentId, Pageable pageable);
-	
+
 }

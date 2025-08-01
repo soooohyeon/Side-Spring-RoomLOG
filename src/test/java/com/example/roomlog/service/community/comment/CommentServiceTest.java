@@ -3,6 +3,7 @@ package com.example.roomlog.service.community.comment;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -30,21 +31,6 @@ public class CommentServiceTest {
 	CommentService commentService;
 	@Autowired
 	CommentRepository commentRepository;
-	
-	// 댓글 등록
-	@Test
-	public void insertComment() {
-		// given
-		CommentDTO commentDTO = new CommentDTO();
-		commentDTO.setUserId(1L);
-		commentDTO.setCommunityId(48L);
-		commentDTO.setCommentContent("TEST");
-		// when
-		commentService.insertComment(commentDTO);
-		// then
-		Comment comment = commentRepository.findByCommentId(commentDTO.getCommunityId());
-		assertNotNull(comment);
-	}
 	
 	// 해당 게시글의 모든 댓글 개수 조회
 	@Test
@@ -106,8 +92,50 @@ public class CommentServiceTest {
 	    assertThat(lists).isNotNull();
 	    assertThat(lists.getContent());
 	    
-	    for (CommentDTO list : lists) {
-	    	log.info("자식 댓글 : " + list);
-	    }
+//	    for (CommentDTO list : lists) {
+//	    	log.info("자식 댓글 : " + list);
+//	    }
+	}
+	
+	// 댓글 등록
+	@Test
+	public void insertCommentTest() {
+		// given
+		CommentDTO commentDTO = new CommentDTO();
+		commentDTO.setUserId(1L);
+		commentDTO.setCommunityId(48L);
+		commentDTO.setCommentContent("TEST");
+		// when
+		commentService.insertComment(commentDTO);
+		// then
+		Comment comment = commentRepository.findByCommentId(commentDTO.getCommunityId());
+		assertNotNull(comment);
+	}
+	
+	// 댓글 수정
+	@Test
+	public void editCommentTest() {
+		// given
+		CommentDTO commentDTO = new CommentDTO();
+		commentDTO.setCommentId(1L);
+		commentDTO.setCommentContent("댓글 수정 TEST");
+		// when
+		commentService.editComment(commentDTO);
+		// then
+		Comment comment = commentRepository.findByCommentId(commentDTO.getCommentId());
+		log.info("댓글 수정 : " + comment);
+		assertNotNull(comment);
+	}
+	
+	// 댓글 삭제
+	@Test
+	public void deleteCommentTest() {
+		// given
+		long commentId = 1L;
+		// when
+		commentService.deleteComment(commentId);
+		// then
+		Comment result = commentRepository.findByCommentId(commentId);
+		assertNull(result);
 	}
 }

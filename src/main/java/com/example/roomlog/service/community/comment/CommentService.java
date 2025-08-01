@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.domain.community.comment.Comment.CommentBuilder;
@@ -25,21 +26,6 @@ public class CommentService {
 	UserRepository userRepository;
 	@Autowired
 	CommunityRepository communityRepository;
-
-	// 댓글 등록
-	public void insertComment(CommentDTO commentDTO) {
-		CommentBuilder builder = Comment.builder()
-				.writerUser(userRepository.findByUserId(commentDTO.getUserId()).get())
-				.community(communityRepository.findByCommunityId(commentDTO.getCommunityId()))
-				.commentContent(commentDTO.getCommentContent());
-		
-		if (commentDTO.getParentCommentId() != null) {
-		    builder.parentComment(commentRepository.findByCommentId(commentDTO.getParentCommentId()));
-		}
-		
-		Comment comment = builder.build();
-		commentRepository.save(comment);
-	}
 	
 	// 해당 게시글의 모든 댓글 개수 조회
 	public int countComment(long communityId) {
@@ -74,6 +60,47 @@ public class CommentService {
 		}
 		
 		return childs;
+	}
+
+	// 댓글 등록
+	public void insertComment(CommentDTO commentDTO) {
+		CommentBuilder builder = Comment.builder()
+				.writerUser(userRepository.findByUserId(commentDTO.getUserId()).get())
+				.community(communityRepository.findByCommunityId(commentDTO.getCommunityId()))
+				.commentContent(commentDTO.getCommentContent());
+		
+		if (commentDTO.getParentCommentId() != null) {
+		    builder.parentComment(commentRepository.findByCommentId(commentDTO.getParentCommentId()));
+		}
+		
+		Comment comment = builder.build();
+		commentRepository.save(comment);
+	}
+	
+	// 댓글 수정
+	public void editComment(CommentDTO commentDTO) {
+		Comment comment = commentRepository.findByCommentId(commentDTO.getCommentId());
+		comment.updateComment(commentDTO.getCommentContent());
+		commentRepository.save(comment);
+	}
+	
+	// 댓글 삭제
+	public void deleteComment(long commentId) {
+		Comment comment = commentRepository.findByCommentId(commentId);
+		int childCount = commentRepository.countChildComment(commentId);
+		System.out.println("자식 개수 : " + childCount);
+		
+		if (childCount == 0) {
+			System.out.println("대댓글이 없는 경우");
+			// 대댓글이 없을 경우 삭제
+			commentRepository.deleteByCommentId(commentId);
+		} else {
+			System.out.println("대댓글 있음");
+			// 대댓글이 있을 경우 삭제 상태로 변경
+			comment.deleteParentComment();
+			commentRepository.save(comment);
+		}
+		
 	}
 	
 }

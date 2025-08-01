@@ -3,6 +3,7 @@ package com.example.roomlog.repository.community.comment;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.dto.community.comment.CommentDTO;
 import com.example.roomlog.dto.page.Criteria;
 
@@ -89,6 +91,33 @@ public class CommentRepositoryTest {
 		// then
 	    assertThat(lists).isNotNull();
 	    assertThat(lists.getContent());
+	}
+	
+	// 댓글 수정
+	@Test
+	public void editCommentTest() {
+		// given
+		long commentId = 1L;
+		String editContent = "댓글 수정";
+		Comment comment = commentRepository.findByCommentId(commentId);
+		comment.updateComment(editContent);
+		// when
+		commentRepository.save(comment);
+		// then
+		Comment result = commentRepository.findByCommentId(commentId);
+		log.info("수정 : " + result);
+	}
+	
+	// 댓글 삭제
+	@Test
+	public void deleteCommentTest() {
+		// given
+		long commentId = 1L;
+		// when
+		commentRepository.deleteByCommentId(commentId);
+		// then
+		Comment result = commentRepository.findByCommentId(commentId);
+		assertNull(result);
 	}
 	
 }

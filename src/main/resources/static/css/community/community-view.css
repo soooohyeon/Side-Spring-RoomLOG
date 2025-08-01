@@ -382,7 +382,7 @@ img {
 }
 .div-more-btn-wrap:hover { color: #006497; }
 
-.span-plus { margin-left: 15px; }
+.span-plus { margin-left: 10px; }
 
 /* 댓글 수정 시 */
 .div-comment-update-wrap {
