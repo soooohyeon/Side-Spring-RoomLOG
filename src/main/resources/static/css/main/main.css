@@ -170,6 +170,8 @@
   border-radius: 3px;
 }
 
+.div-board-content { width: 100%; }
+
 .div-board-info-count-wrap {
   width: 100%;
   display: flex;

@@ -9,6 +9,9 @@ import com.example.roomlog.dto.page.Criteria;
 
 public interface CommunityCustomRepository {
 
+	// 메인 - 커뮤니티 스크랩 순 게시글 상위 3개
+	List<CommunityListDTO> selectScrapRankingList();
+	
 	// 커뮤니티 게시글 목록
 	List<CommunityListDTO> selectListWithPaging(Criteria criteria);
 

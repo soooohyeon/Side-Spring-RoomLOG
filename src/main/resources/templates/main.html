@@ -9,6 +9,17 @@
   <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
   <link rel="stylesheet" th:href="@{/css/main/main.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <th:block th:if="${session.userId != null} and ${session.userId != -1}">
+    <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
+    <script th:inline="javascript">
+      sessionStorage.setItem("userId", [[${session.userId}]]);
+    </script>
+  </th:block>
+  <th:block th:unless="${session.userId != null} and ${session.userId != -1}">
+    <script th:inline="javascript">
+      sessionStorage.removeItem("userId");
+    </script>
+  </th:block>
   <script defer th:src="@{/js/main/main.js}"></script>
   <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
@@ -138,66 +149,32 @@
       <div class="div-rank-wrap">
         
         <!-- 게시글 1개 -->
-        <div class="div-rank-layout div-rank-board-wrap post-hover">
-          <div class="div-board-info-wrap">
-            <div class="div-skip div-board-title">이번에 인테리어 싹 바꿔봤습니당</div>
-            <div class="div-board-image"><img th:src="@{/image/example/board/work-desk.jpg}"></div>
-          </div>
-          <div class="div-skip div-board-content">
-            자취 로망이었던 인테리어로 싹 바꿔 봤어요. 따뜻한 무드톤으로 바꿔봤는데 어때여??
-          </div>
-          <div class="div-board-info-count-wrap">
-            <div class="div-board-count-wrap">
-              <img th:src="@{/image/layout/comment_count.png}" class="img-bookmark" alt="bookmark">
-              <div class="div-board-info-count comment-count">46</div>
+        <th:block th:each="scrapRank : ${scrapRankLists}">
+          <div class="div-rank-layout div-rank-board-wrap post-hover" th:onclick="|location.href='@{/community/community-view}?communityId=${scrapRank.communityId}'|">
+            <div class="div-board-info-wrap">
+              <div class="div-skip div-board-title" th:text="${scrapRank.communityTitle}"></div>
+              <div class="div-board-image" th:if="${scrapRank.checkCommunityImg}">
+                <img th:src="@{|/upload/${scrapRank.communityImgPath}/th_${scrapRank.communityImgUuid}|}">
+              </div>
             </div>
-            <div class="div-board-count-wrap">
-              <!-- <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" onclick="noScrap(event, this, 0)"> -->
-              <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" onclick="goScrap(event, this, 0)">
-              <div class="div-board-info-count">117</div>
-            </div>
-          </div>
-        </div>
-        <!--  -->
-
-        <!--  -->
-        <div class="div-rank-layout div-rank-board-wrap post-hover">
-          <div class="div-board-info-wrap">
-            <div class="div-skip div-board-title">이번에 소파 사려고 하는데 추천 좀 부탁드려요!!</div>
-          </div>
-          <div class="div-skip div-board-content">
-            소파가 너무 헤져서 바꾸려고 하는데요... 20만원 이하 2인 소파 추천 부탁드립니다!!!!
-          </div>
-          <div class="div-board-info-count-wrap">
-            <div class="div-board-count-wrap">
-              <img src="../image/layout/comment_count.png" class="img-bookmark" alt="bookmark">
-              <div class="div-board-info-count comment-count">46</div>
-            </div>
-            <div class="div-board-count-wrap">
-              <img src="../../image/layout/scrap_no.png" alt="scrap_ok" onclick="goScrap(event, this, 1)">
-              <div class="div-board-info-count">117</div>
+            <div class="div-skip div-board-content" th:utext="${scrapRank.communityContent}"></div>
+            <div class="div-board-info-count-wrap">
+              <div class="div-board-count-wrap">
+                <img th:src="@{/image/layout/comment_count.png}" class="img-bookmark" alt="bookmark">
+                <div class="div-board-info-count comment-count" th:text="${scrapRank.commentCount}"></div>
+              </div>
+              <div class="div-board-count-wrap div-count-wrap">
+                <th:block th:if="${scrapRank.isScrapped}">
+                  <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${scrapRank.communityId})|">
+                </th:block>
+                <th:block th:unless="${scrapRank.isScrapped}">
+                  <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${scrapRank.communityId})|">
+                </th:block>
+                <div class="div-board-info-count div-scrap" th:text="${scrapRank.scrapCount}"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="div-rank-layout div-rank-board-wrap post-hover">
-          <div class="div-board-info-wrap">
-            <div class="div-skip div-board-title">화장실에 둘만한 장식 없을까요?</div>
-            <div class="div-board-image"><img src="../image/example/board/work-desk.jpg"></div>
-          </div>
-          <div class="div-skip div-board-content">
-            뭔가 허전해서 장식 하나 두고 싶은데 피규어 같은건 그닥 안좋아해서요,,, 어떤 게 유행...
-          </div>
-          <div class="div-board-info-count-wrap">
-            <div class="div-board-count-wrap">
-              <img src="../image/layout/comment_count.png" class="img-bookmark" alt="bookmark">
-              <div class="div-board-info-count comment-count">46</div>
-            </div>
-            <div class="div-board-count-wrap">
-              <img src="../../image/layout/scrap_no.png" alt="scrap_ok" onclick="goScrap(event, this, 1)">
-              <div class="div-board-info-count">117</div>
-            </div>
-          </div>
-        </div>
+        </th:block>
         <!--  -->
 
       </div>

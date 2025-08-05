@@ -25,6 +25,19 @@ public class CommunityRepositoryTest {
 	@Autowired
 	CommunityRepository communityRepository;
 	
+	// 메인 - 커뮤니티 스크랩 순 게시글 상위 3개
+	@Test
+	public void selectScrapRankingListTest() {
+		// when
+		List<CommunityListDTO> lists = communityRepository.selectScrapRankingList();
+		// then
+		for (CommunityListDTO list : lists) {
+			log.info("list : " + list);
+		}
+		log.info("list count : " + lists.size());
+		assertNotNull(lists);
+	}
+	
 	// 커뮤니티 게시글 목록 (유저 + 프로필사진 + 게시글)
 	@Test
 	public void selectListAllTest() {
@@ -32,10 +45,10 @@ public class CommunityRepositoryTest {
 		// when
 		List<CommunityListDTO> lists = communityRepository.selectListWithPaging(criteria);
 		// then
-		for (CommunityListDTO list : lists) {
-			log.info("list : " + list);
-		}
-		log.info("list count : " + lists.size());
+//		for (CommunityListDTO list : lists) {
+//			log.info("list : " + list);
+//		}
+//		log.info("list count : " + lists.size());
 		assertNotNull(lists);
 	}
 	
@@ -46,7 +59,7 @@ public class CommunityRepositoryTest {
 		// when
 		long count = communityRepository.countSearchResult(criteria);
 		// then
-		log.info("list count : " + count);
+//		log.info("list count : " + count);
 		assertNotNull(count);
 	}
 	

@@ -28,6 +28,36 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 	
 	private final JPAQueryFactory jpaQueryFactory;
 
+	// 메인 - 커뮤니티 스크랩 순 게시글 상위 3개
+	public List<CommunityListDTO> selectScrapRankingList() {
+		QCommunity c = QCommunity.community;
+		QComment cm = QComment.comment;
+		QScrap s = QScrap.scrap;
+
+		List<CommunityListDTO> lists = jpaQueryFactory
+			.select(Projections.fields(CommunityListDTO.class,
+				c.communityId,
+		        c.communityTitle,
+		        c.communityContent,
+		        cm.commentId.countDistinct().as("commentCount"),
+		        s.scrapId.countDistinct().as("scrapCount")
+			))
+			.from(c)
+		    .leftJoin(cm).on(cm.community.eq(c))
+		    .leftJoin(s).on(s.community.eq(c))
+		    .groupBy(
+				c.communityId,
+				c.communityTitle,
+				c.communityContent
+			)
+			.orderBy(Expressions.numberPath(Long.class, "scrapCount").desc())
+		    .offset(0)
+		    .limit(3)
+			.fetch();
+		
+		return lists;
+	}
+	
 	// 커뮤니티 게시글 목록
 	public List<CommunityListDTO> selectListWithPaging(Criteria criteria) {
 		QCommunity c = QCommunity.community;
