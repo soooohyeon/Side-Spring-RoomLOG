@@ -1,4 +1,4 @@
-package com.example.roomlog.controller.user;
+package com.example.roomlog.controller.login;
 
 import java.io.IOException;
 

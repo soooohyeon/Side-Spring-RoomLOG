@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.community.image.CommunityImg;
 import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.user.UserDTO;
 import com.example.roomlog.repository.community.CommunityRepository;
 import com.example.roomlog.repository.community.image.CommunityImgRepository;
+import com.example.roomlog.repository.follow.FollowRepository;
 import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
@@ -24,7 +26,21 @@ public class MainService {
 	private final CommunityImgRepository communityImgRepository;
 	private final ScrapRepository scrapRepository;
 	private final UserRepository userRepository;
+	private final FollowRepository followRepository;
 	
+	// 팔로우 많은 순 상위 4명의 유저
+	public List<UserDTO> selectFollowRankList(long userId) {
+		List<UserDTO> lists = userRepository.selectFollowRankingList();
+		
+		// 팔로우 여부
+		for (UserDTO list : lists) {
+			long followCount = followRepository.checkFollow(userId, list.getUserId());
+			list.setFollowed(followCount != 0);
+		}
+		
+		return lists;
+	}
+		
 	// 커뮤니티 게시글 스크랩 순 상위 3개
 	public List<CommunityListDTO> selectScrapRankList(long userId) {
 		List<CommunityListDTO> lists = communityRepository.selectScrapRankingList();

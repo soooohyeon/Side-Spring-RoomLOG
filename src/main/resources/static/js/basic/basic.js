@@ -63,7 +63,7 @@ $(document).ready(function() {
 function goUserPage(e) {
   e.stopPropagation();
   const userId = $(this).closest(".div-go-user-page").data("user-id");
-  location.href = "/user/userPage?userId=" + userId;
+  location.href = "/profile/" + userId;
 }
 
 // ---------------------------------------------------------------
@@ -105,7 +105,7 @@ const userId = sessionStorage.getItem("userId");
 const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주세요.";
 // -----------------------------------
 
-// 팔로우 - 메인, 게시판 디테일, 유저 개인 페이지
+// 팔로우 - 게시판 디테일, 유저 개인 페이지
 // 팔로우 하기
 function goFollow(event, element, toUserId) {
   event.stopPropagation();

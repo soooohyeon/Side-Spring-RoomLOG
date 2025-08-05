@@ -2,18 +2,23 @@ package com.example.roomlog.controller.mypage;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/mypage")
 public class MypageContoller {
 
-	@GetMapping("")
-	public String mapageMainPage(HttpSession session) {
+	@GetMapping("/mypage")
+	public String maPageMain(HttpSession session) {
 		
 		return "userPage/mypage";
+	}
+	
+	@GetMapping("/profile/{userId}")
+	public String userPage(@PathVariable long userId) {
+		
+		return "userPage/userPage";
 	}
 	
 	

@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roomlog.controller.user.LoginController;
-import com.example.roomlog.controller.user.UserRestController;
+import com.example.roomlog.controller.login.LoginController;
+import com.example.roomlog.controller.login.LoginRestController;
 import com.example.roomlog.dto.user.UserDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserControllerTest {
 
 	@Autowired
-	UserRestController userRestController;
+	LoginRestController userRestController;
 	@Autowired
 	LoginController loginController;
 	

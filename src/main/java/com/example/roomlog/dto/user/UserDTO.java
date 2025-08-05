@@ -23,39 +23,39 @@ import lombok.ToString;
 public class UserDTO {
 	private long userId;
 	private SocialType socialType;
-	private ProfileImg profileImg;
-	private UserRole userRoleS;
+	private UserRole userRole;
 	private String userEmail;
 	private String userNickname;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate userBirth;
-	private int isAgeVisible = 1;
+	private int isAgeVisible;
 	private String userIntro;
 	private LocalDateTime userJoinDate;
-
-	public User toEntity() {
-		return User.builder()
-				.socialType(socialType)
-				.userEmail(userEmail)
-				.userNickname(userNickname)
-				.userBirth(userBirth)
-				.isAgeVisible(isAgeVisible)
-				.build();
-	}
+	private String profileImgPath;
+	private String profileImgUuid;
+	private long communityCount;
+	private boolean isFollowed;
+	private long followCount;
 
 	@QueryProjection
-	public UserDTO(long userId, SocialType socialType, ProfileImg profileImg, String userEmail, String userNickname,
-			LocalDate userBirth, int isAgeVisible, String userIntro, LocalDateTime userJoinDate) {
+	public UserDTO(long userId, SocialType socialType, UserRole userRole, String userEmail, String userNickname,
+			LocalDate userBirth, int isAgeVisible, String userIntro, LocalDateTime userJoinDate, String profileImgPath,
+			String profileImgUuid, long communityCount, boolean isFollowed, long followCount) {
 		super();
 		this.userId = userId;
 		this.socialType = socialType;
-		this.profileImg = profileImg;
+		this.userRole = userRole;
 		this.userEmail = userEmail;
 		this.userNickname = userNickname;
 		this.userBirth = userBirth;
 		this.isAgeVisible = isAgeVisible;
 		this.userIntro = userIntro;
 		this.userJoinDate = userJoinDate;
+		this.profileImgPath = profileImgPath;
+		this.profileImgUuid = profileImgUuid;
+		this.communityCount = communityCount;
+		this.isFollowed = isFollowed;
+		this.followCount = followCount;
 	}
 	
 }

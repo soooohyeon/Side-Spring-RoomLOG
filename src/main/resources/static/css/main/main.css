@@ -67,7 +67,7 @@
 .div-rank-follower-wrap {
   width: 23%;
   min-width: 180px;
-  padding: 30px 2%;
+  padding: 30px 2% 20px;
 }
 
 /* 유저 리스트 중 마지막 유저만 제외하고 여백주기 */
@@ -87,15 +87,28 @@
 
 .div-nickname {
   margin: 15px 0 11px;
-
   font-size: 20px;
 }
 
-.p-user-intro {
-  margin: 10px 0 20px;
+.div-follow-btn-wrap { height: 32px; }
+.limit-follow {
+  width: 115px !important;
+  height: 37px;
+  line-height: 37px;
+  background-color: #BDBDBD;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.div-user-intro {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 15px;
   padding: 0 5%;
-  
-  text-align: center;
+}
+
+.user-intro {
+  flex: 1 1;
 }
 
 .button-style {
