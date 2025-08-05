@@ -11,6 +11,15 @@ $("#GO-MESSAGE-PAGE").on("click", function() {
   }
 })
 
+// ---------------------------------------------------------------
+
+// 로그아웃 상태에서 건의사항 메뉴 클릭 시
+$(".a-feedback").on("click", function() {
+	openModal("더 나은 서비스를 위해<br>로그인 후 건의사항을 작성해 주세요.");
+});
+
+// ---------------------------------------------------------------
+
 $(document).ready(function() {
 
   // 로그아웃 버튼 클릭 시
@@ -23,6 +32,8 @@ $(document).ready(function() {
 	  });
   }
 	
+  // ---------------------------------------------------------------
+
   // 메뉴바 css 설정
   const url = window.location.pathname;
 
@@ -267,6 +278,119 @@ function setOnePreview(file) {
   const imageURL = URL.createObjectURL(file);
   $(".img-one-preview").attr("src", imageURL);
   return true;
+}
+
+// ---------------------------------------------------------------
+
+// 다중 이미지 첨부
+// 전역 변수로 선언하여 이미지 누적
+let imageFiles = [];
+let currentCount = $(".div-thumbnail-wrap").length;
+let deletedImageIds = [];	// 수정페이지에서 삭제 이미지의 번호 저장
+
+// 이미지 첨부시 미리보기
+$(document).ready(function() {
+  $("#input-image").on("change", setPreview);
+});
+
+function setPreview(e) {
+  let files = Array.from(e.target.files);
+  let filesList = Array.prototype.slice.call(files);
+  let maxCount = 5;
+
+  for (const file of filesList) {
+    // 현재까지 저장된 파일 수 + 새로 선택한 수가 5 초과면 차단
+    if (currentCount >= maxCount) {
+      openModal("이미지는 최대 5개까지만 업로드할 수 있어요.");
+      return;
+    }
+    
+    if (!file.type.match("image.*")) {
+      openModal("이미지 파일만 업로드할 수 있어요.");
+      continue;
+    }
+
+    imageFiles.push(file);
+    
+    let reader = new FileReader(); 
+    reader.onload = function(e) {
+      let $img = $(`
+        <div class="div-thumbnail-wrap" style="display:none;">
+          <img src="${e.target.result}" class="img-thumbnail">
+        </div>
+      `);
+      $("#DIV-THUMBNAIL-IMAGE-WRAP").append($img);
+      $img.fadeIn(150);
+    }
+    reader.readAsDataURL(file);
+    currentCount++;
+    updateUploadButton();
+  }
+}
+
+// --------------------------------------------
+
+// 마우스 호버에 따른 이미지 삭제 버튼 - 실제 이미지 삭제 동작은 basic.js
+$(document).on("mouseenter", ".div-thumbnail-wrap", function() {
+  const cancelBtn = `
+  <span class="span-thumbnail-close-btn">
+    <img src="/image/layout/close_btn_white.png" alt="close">
+  </span>
+  `;
+  $(this).append(cancelBtn);
+});
+
+$(document).on("mouseleave", ".div-thumbnail-wrap", function() {
+  $(this).find(".span-thumbnail-close-btn").remove();
+});
+
+// 등록한 이미지 삭제
+$(document).on("click", ".span-thumbnail-close-btn", deletePreview);
+
+function deletePreview() {
+  const $previewWrap = $(this).closest(".div-thumbnail-wrap");
+  if ($previewWrap.find(".img-thumbnail").data("img-id")) {
+	// 수정 페이지 - 기존에 등록한 이미지 삭제 시 해당하는 이미지의 ID 번호 저장
+	const deleteImgId = $previewWrap.find(".img-thumbnail").data("img-id");
+	deletedImageIds.push(deleteImgId);
+  } else {
+	// 새로 추가된 이미지일 경우 배열에서 제거
+  	const index = $previewWrap.index();
+	imageFiles.splice(index - 1, 1);
+  }
+  $previewWrap.fadeOut(150, function() {
+    $previewWrap.remove();
+    currentCount--;
+
+    updateUploadButton();
+    updateInputFiles();
+    updateBackBlock();
+  });
+}
+
+// --------------------------------------------
+
+// input[type="file"]의 이미지 삭제시 value값 정리
+// 페이지 이동 탐지를 위함
+function updateInputFiles() {
+  const dataTransfer = new DataTransfer();
+  for (let i = 0; i < imageFiles.length; i++) {
+    dataTransfer.items.add(imageFiles[i]);
+  }
+  $("input[name='images']")[0].files = dataTransfer.files;
+}
+
+// --------------------------------------------
+
+// 이미지 업로드 버튼 숨김, 표시
+function updateUploadButton() {
+  if (currentCount >= 5) {
+    $(".image-column").css("height", "auto")
+    $('#LABEL-IMAGE-BTN').hide();
+  } else {
+    $(".image-column").removeAttr("style");
+    $('#LABEL-IMAGE-BTN').show();
+  }
 }
 
 // ---------------------------------------------------------------

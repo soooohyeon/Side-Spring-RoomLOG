@@ -1,3 +1,18 @@
+// 게시글 작성, 수정, 삭제 후 처리
+const params = new URLSearchParams(window.location.search);
+const writeOkMsg = "건의사항이 정상적으로 제출되었습니다.<br>처리 결과는 별도로 안내되지 않으니 참고해 주세요.";
+const feedbackUrl = "/feedback/feedback-regist";
+
+if (params.get("registOk") === "true") {
+    openModal(writeOkMsg).then((result) => {
+	if (result) {
+		location.replace(feedbackUrl);
+	}
+  });
+}
+
+// --------------------------------------------------------------- 
+
 $(document).ready(function() {
   const $content = $("#TEXTAREA-CONTENT");
 
@@ -32,16 +47,15 @@ let isCheckCategory = false;
 let isCheckTitle = false;
 let isCheckContent = false;
 
-// 제목 값 확인
-$(`select[name="category"]`).on("change", function() {
+// 카테고리 값 확인
+$(`select[name="feedbackType"]`).on("change", function() {
   isCheckCategory = $(this).val() == "" ? false : true;
-  console.log($(this).val());
   writeButton();
   updateBackBlock();
 });
 
 // 제목 값 확인
-$("input[name='title']").on("input keyup", function() {
+$("input[name='feedbackTitle']").on("input keyup", function() {
   isCheckTitle = $(this).val() == "" ? false : true;
   writeButton();
   updateBackBlock();
@@ -70,16 +84,13 @@ function writeButton() {
 // --------------------------------------------------------------- 
 
 const writeMsg = "소중한 의견을 전달하시겠어요?<br>여러분의 건의는 더 나은 서비스를 만드는 데 큰 도움이 됩니다.";
-const writeOkMsg = "건의사항이 정상적으로 제출되었습니다.<br>처리 결과는 별도로 안내되지 않으니 참고해 주세요.";
+const $feedbackForm= $("#feedbackForm");
 
 // 글 등록 버튼 클릭 시
 $(document).on("click", ".basic-button", function() {
   openModal(writeMsg, 2).then((result) => {
     if (result) {
-      setTimeout(() => {
-        openModal(writeOkMsg);
-        // location.href="";
-      }, 50);
+	  $feedbackForm.submit();
     }
   });
 });

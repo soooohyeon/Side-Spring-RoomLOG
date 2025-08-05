@@ -19,7 +19,7 @@ public class MainController {
 
 	private final MainService mainService;
 	
-//	메인 화면
+	// 메인 화면
 	@GetMapping({"/", "/main"})
 	public String home(HttpSession session, Model model) {
 		long userId = SessionUtils.getUserId(session);
@@ -28,12 +28,6 @@ public class MainController {
 		
 		model.addAttribute("followRanklist", followRanklist);
 		model.addAttribute("scrapRanklist", scrapRanklist);
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("게시글 개수 : " + scrapRanklist.size());
-		for (CommunityListDTO post : scrapRanklist) {
-			System.out.println("게시글 : " + post);
-		}
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
 		
 	    return "main";
 	}

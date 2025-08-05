@@ -71,8 +71,6 @@ public class CommunityController {
 	public String insertCommunity(CommunityRegistDTO communityRegistDTO, List<MultipartFile> images, HttpSession session) {
 		long userId = SessionUtils.getUserId(session);
 		communityRegistDTO.setUserId(userId);
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(communityRegistDTO);
 		
 		try {
 			communityService.insertCommunity(communityRegistDTO, images);

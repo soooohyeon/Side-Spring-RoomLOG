@@ -4,7 +4,10 @@
     <li id="LI-HOME-LINK"><a th:href="@{/main}">홈</a></li>
     <li id="LI-COMMUNITY-LINK"><a th:href="@{/community/community-list}">커뮤니티</a></li>
     <li id="LI-NOTICE-LINK"><a th:href="@{/notice/notice-list}">공지사항</a></li>
-    <li id="LI-FEEDBACK-LINK"><a th:href="@{/feedback/feedback-regist}">건의사항</a></li>
+    <li id="LI-FEEDBACK-LINK">
+    	<a th:if="${session.userId == null}" class="a-feedback" href="javascript:void(0)">건의사항</a>
+    	<a th:unless="${session.userId == null}" th:href="@{/feedback/feedback-regist}">건의사항</a>
+    </li>
   </ul>
 </div>
 <!--  -->
