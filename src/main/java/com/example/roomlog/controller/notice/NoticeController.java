@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.roomlog.dto.notice.NoticeDTO;
 import com.example.roomlog.dto.page.Criteria;
@@ -33,6 +34,15 @@ public class NoticeController {
 		model.addAttribute("page", page);
 		
 		return "/notice/notice";
+	}
+	
+	// 공지 - 상세 보기
+	@GetMapping("/notice-view")
+	public String noticeViewPage(@RequestParam long noticeId, Model model) {
+		NoticeDTO post = noticeService.selectViewOne(noticeId);
+		model.addAttribute("post", post);
+		
+		return "/notice/notice-view";
 	}
 	
 	

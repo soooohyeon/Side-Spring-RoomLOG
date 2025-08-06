@@ -1,6 +1,7 @@
 package com.example.roomlog.dto.notice;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -21,17 +22,16 @@ public class NoticeDTO {
 	private String noticeTitle;
 	private String noticeContent;
 	private LocalDateTime createDate;
-	private LocalDateTime modifiedDate;
+	private List<String> images;
 
 	@QueryProjection
 	public NoticeDTO(long noticeId, long userId, String noticeTitle, String noticeContent,
-			LocalDateTime createDate, LocalDateTime modifiedDate) {
+			LocalDateTime createDate) {
 		this.noticeId = noticeId;
 		this.userId = userId;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.createDate = createDate;
-		this.modifiedDate = modifiedDate;
 	}
 	
 }

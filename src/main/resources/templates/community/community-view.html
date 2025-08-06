@@ -8,17 +8,6 @@
   <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
   <link rel="stylesheet" th:href="@{/css/community/community-view.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <th:block th:if="${session.userId != null} and ${session.userId != -1}">
-    <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
-    <script th:inline="javascript">
-      sessionStorage.setItem("userId", [[${session.userId}]]);
-    </script>
-  </th:block>
-  <th:block th:unless="${session.userId != null} and ${session.userId != -1}">
-    <script th:inline="javascript">
-      sessionStorage.removeItem("userId");
-    </script>
-  </th:block>
   <script defer th:src="@{/js/basic/basic.js}"></script>
   <script defer th:src="@{/js/community/community-view.js}"></script>
   <script defer type="module" th:src="@{/js/module/comment.js}"></script>

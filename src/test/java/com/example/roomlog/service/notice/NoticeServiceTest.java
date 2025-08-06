@@ -49,4 +49,15 @@ public class NoticeServiceTest {
 //		}
 	}
 	
+	// 공지 상세 게시글 정보
+	@Test
+	public void selectViewOneTest() {
+		// given
+		long noticeId = 1;
+		// when
+		NoticeDTO post = noticeService.selectViewOne(noticeId);
+		// then
+		assertNotNull(post);
+	}
+	
 }

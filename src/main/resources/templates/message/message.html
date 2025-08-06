@@ -15,21 +15,7 @@
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
-    <div id="DIV-HEADER-TOP">
-      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
-        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
-      </div>
-      <div id="DIV-RIGHT-LOGIN">
-        <div class="div-header-top-link div-menu-line">
-          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">마이페이지</a>
-        </div>
-        <div class="div-header-top-link">
-          <a href="../html/login/login.html">로그인</a>
-        </div>
-      </div>
-    </div>
-    <!--  -->
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
   </header>
   <!--  -->
   

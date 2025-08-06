@@ -1,9 +1,10 @@
-package com.example.roomlog.domain.community.image;
+package com.example.roomlog.domain.adminImg;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.roomlog.domain.community.Community;
+import com.example.roomlog.domain.banner.Banner;
+import com.example.roomlog.domain.notice.Notice;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,33 +22,40 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tbl_community_img")
+@Table(name = "tbl_admin_img")
 @Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CommunityImg {
-	
+public class AdminImg {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long communityImgId;
+	private long adminImgId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "communityId", nullable = false)
+	@JoinColumn(name = "noticeId")
     @OnDelete(action = OnDeleteAction.CASCADE)
-	private Community community;
+	private Notice notice;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bannerId")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Banner banner;
 	
 	@Column(nullable = false)
-	private String communityImgOriginal;
+	private String adminImgOriginal;
 	@Column(unique = true, nullable = false)
-	private String communityImgUuid;
+	private String adminImgUuid;
 	@Column(nullable = false)
-	private String communityImgPath;
+	private String adminImgPath;
 	
 	@Builder
-	public CommunityImg(Community community, String communityImgOriginal, String communityImgUuid, String communityImgPath) {
-		this.community = community;
-		this.communityImgOriginal = communityImgOriginal;
-		this.communityImgUuid = communityImgUuid;
-		this.communityImgPath = communityImgPath;
+	public AdminImg(Notice notice, Banner banner, String adminImgOriginal, String adminImgUuid,
+			String adminImgPath) {
+		this.notice = notice;
+		this.banner = banner;
+		this.adminImgOriginal = adminImgOriginal;
+		this.adminImgUuid = adminImgUuid;
+		this.adminImgPath = adminImgPath;
 	}
 	
 }

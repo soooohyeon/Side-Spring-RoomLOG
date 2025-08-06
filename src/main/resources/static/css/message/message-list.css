@@ -147,6 +147,8 @@
   justify-content: space-between;
 }
 
+.div-two-skip { height: 55px; }
+
 .div-profile-wrap { margin-bottom: 0; }
 .div-go-user-page > img {
     width: 55px;

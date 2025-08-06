@@ -1,5 +1,20 @@
-<!-- 로고 및 로그인 링크 -->
+
 <div id="DIV-HEADER-TOP" th:fragment="headerLoginFragment">
+
+  <!-- 로고 및 로그인 링크 -->
+  <th:block th:if="${session.userId != null} and ${session.userId != -1}">
+    <!-- 로그인 상태면 유저 번호 sessionStorage에 저장 -->
+    <script th:inline="javascript">
+      sessionStorage.setItem("userId", [[${session.userId}]]);
+    </script>
+  </th:block>
+  <th:block th:unless="${session.userId != null} and ${session.userId != -1}">
+    <script th:inline="javascript">
+      sessionStorage.removeItem("userId");
+    </script>
+  </th:block>
+  <!--  -->
+  
   <div id="DIV-LEFT-LOGO" th:attr="onclick=|location.href='@{/main}'|">
     <img th:src="@{/image/layout/logo.png}" id="IMG-LOGO" alt="LOGO">
   </div>
@@ -19,5 +34,6 @@
 	    </div>
     </div>
   </div>
+  
 </div>
 <!--  -->

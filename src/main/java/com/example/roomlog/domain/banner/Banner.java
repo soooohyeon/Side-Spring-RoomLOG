@@ -1,4 +1,7 @@
-package com.example.roomlog.domain.notice;
+package com.example.roomlog.domain.banner;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.roomlog.domain.common.BaseTimeEntity;
 import com.example.roomlog.domain.user.User;
@@ -19,29 +22,30 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tbl_notice")
+@Table(name = "tbl_banner")
 @Getter @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Notice extends BaseTimeEntity {
-
+public class Banner extends BaseTimeEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long noticeId;
-	
+	private long bannerId;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
 	private User adminUser;
-	
+
 	@Column(nullable = false)
-	private String noticeTitle;
-	@Column(length = 3500, nullable = false)
-	private String noticeContent;
+	private String bannerTitle;
+	@Column(length = 2000, nullable = false)
+	private String bannerMemo;
 	
 	@Builder
-	public Notice(User adminUser, String noticeTitle, String noticeContent) {
+	public Banner(User adminUser, String bannerTitle, String bannerMemo) {
 		this.adminUser = adminUser;
-		this.noticeTitle = noticeTitle;
-		this.noticeContent = noticeContent;
+		this.bannerTitle = bannerTitle;
+		this.bannerMemo = bannerMemo;
 	}
 	
 }

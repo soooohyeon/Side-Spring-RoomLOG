@@ -37,5 +37,23 @@ public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
 		
 		return lists;
 	}
+
+	// 공지 게시글 상세 정보
+	public NoticeDTO selectViewOne(long noticeId) {
+		QNotice n = QNotice.notice;
+
+		NoticeDTO post = jpaQueryFactory
+			.select(Projections.fields(NoticeDTO.class,
+				n.noticeId,
+				n.noticeTitle,
+				n.noticeContent,
+				n.createDate
+			))
+			.from(n)
+			.where(n.noticeId.eq(noticeId))
+			.fetchOne();
+		
+		return post;
+	}
 	
 }

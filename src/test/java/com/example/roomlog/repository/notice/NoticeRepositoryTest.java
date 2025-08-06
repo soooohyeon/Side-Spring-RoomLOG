@@ -36,4 +36,16 @@ public class NoticeRepositoryTest {
 //		}
 	}
 	
+	// 공지 상세 게시글 정보
+	@Test
+	public void selectViewOneTest() {
+		// given
+		long noticeId = 1;
+		// when
+		NoticeDTO post = noticeRepository.selectViewOne(noticeId);
+		// then
+		assertNotNull(post);
+		log.info("공지 게시글 : " + post);
+	}
+	
 }

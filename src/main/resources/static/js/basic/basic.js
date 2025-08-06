@@ -1,11 +1,13 @@
 // 공통 이벤트
 // ---------------------------------------------------------------
+const userId = sessionStorage.getItem("userId");
+// ---------------------------------------------------------------
 
 // 메세지함 버튼 클릭 시
 $("#GO-MESSAGE-PAGE").on("click", function() {
   if (userId != null && userId > 0) {
     // 페이지 이동
-    location.href = "" ;
+    location.href = "/message" ;
   } else {
     openModal("로그인이 필요해요.<br>메세지는 로그인 후 이용할 수 있어요!");
   }
@@ -112,7 +114,6 @@ $(document).ready(function () {
 });
 
 // ---------------------------------------------------------------
-const userId = sessionStorage.getItem("userId");
 const errMsg = "문제가 발생했습니다.<br>잠시 후 다시 시도해주세요.";
 // -----------------------------------
 
