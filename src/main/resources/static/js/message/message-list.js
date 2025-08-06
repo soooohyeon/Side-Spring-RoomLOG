@@ -1,3 +1,14 @@
+
+// 유저 페이지 이동
+$(document).ready(function () {
+  // 이미지 클릭 시
+  $(".div-go-user-page img").on("click", goUserPage);
+
+  // 닉네임 클릭 시
+  $(".div-nickname").on("click", goUserPage);
+});
+
+// ---------------------------------------------------------------
 // 카테고리
 const $receiveMsgImage = $(".ca-img[data-category='receive-msg']");
 const $sendMsgImage = $(".ca-img[data-category='send-msg']");
@@ -116,7 +127,7 @@ $(document).ready(function () {
 
 // 메세지 상세보기 모달창
 // 모달 열기
-function openFollowModal(userNumber, modalId = "#MODAL-ALERT-ONE-A") {
+function openFollowModal(userId, modalId = "#MODAL-ALERT-ONE-A") {
   const $modal = $(modalId);
   const $alertWrap = $(".div-alert-wrap");
   const messageFrame = `
@@ -161,10 +172,10 @@ function openFollowModal(userNumber, modalId = "#MODAL-ALERT-ONE-A") {
 
 // ----------------------------------------
 
-// 메세지 클릭 시
+// 메세지 클릭 시 상세보기
 $(".div-one-post-wrap").on("click", function() {
-  const userNumber = $(this).data("userNumber");
-  openFollowModal(userNumber);
+  const userId = $(this).find(".div-go-user-page").data("user-id");
+  openFollowModal(userId);
 });
 
 // ---------------------------------------------------------------

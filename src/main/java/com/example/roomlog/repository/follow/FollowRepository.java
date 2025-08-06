@@ -26,4 +26,14 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
 			"		AND f.toUser.userId = :toUserId")
 	void cancelFollow(long fromUserId, long toUserId);
 	
+	// 내가 팔로우한 수
+	@Query("SELECT COUNT(f) FROM Follow f " +
+			"	WHERE f.fromUser.userId = :userId")
+	int countFollow(long userId);
+	
+	// 나를 팔로우한 팔로워 수
+	@Query("SELECT COUNT(f) FROM Follow f " +
+			"	WHERE f.toUser.userId = :userId")
+	int countFollower(long userId);
+	
 }

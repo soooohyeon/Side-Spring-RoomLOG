@@ -21,7 +21,7 @@ public class FollowRepositoryTest {
 	
 	// 팔로우 여부 확인
 	@Test
-	public void checkFollowTest() {
+	public void checkFollowTestTest() {
 		// given
 		long fromUserId = 1;
 		long toUserId = 2;
@@ -33,7 +33,7 @@ public class FollowRepositoryTest {
 
 	// 팔로우 취소
 	@Test
-	public void cancelFollow() {
+	public void cancelFollowTest() {
 		// given
 		long fromUserId = 1;
 		long toUserId = 2;
@@ -41,6 +41,28 @@ public class FollowRepositoryTest {
 		followRepository.cancelFollow(fromUserId, toUserId);
 		// then
 		assertNull(followRepository.checkFollow(fromUserId, toUserId));
+	}
+	
+	// 내가 팔로우한 수
+	@Test
+	public void countFollowTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = followRepository.countFollow(userId);
+		// then
+		log.info("내가 팔로우한 수 : " + count);
+	}
+	
+	// 나를 팔로우한 팔로워 수
+	@Test
+	public void countFollowerTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = followRepository.countFollower(userId);
+		// then
+		log.info("나를 팔로우한 팔로워 수 : " + count);
 	}
 	
 }

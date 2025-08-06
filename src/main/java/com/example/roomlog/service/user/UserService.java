@@ -8,9 +8,12 @@ import com.example.roomlog.domain.user.ProfileImg;
 import com.example.roomlog.domain.user.SocialType;
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.user.UserDTO;
+import com.example.roomlog.dto.user.UserInfoDTO;
+import com.example.roomlog.repository.follow.FollowRepository;
 import com.example.roomlog.repository.user.ProfileImgRepository;
 import com.example.roomlog.repository.user.SocialTypeRepository;
 import com.example.roomlog.repository.user.UserRepository;
+import com.example.roomlog.util.AgeUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +25,7 @@ public class UserService {
 	private final SocialTypeRepository socialTypeRepository;
 	private final ProfileImgService profileImgService;
 	private final ProfileImgRepository profileImgRepository;
+	private final FollowRepository followRepository;
 
 	// 회원가입 - 필수 정보
 	public int insertUser(UserDTO userDTO, String socialTypeName) {
@@ -44,7 +48,7 @@ public class UserService {
 		return userRepository.existsByUserNickname(nickname);
 	}
 
-	// 프로필 사진, 닉네임, 한 줄 소개, 나이 공개 여부 수정 (회원가입시 선택정보 입력, 마이페이지 수정)
+	// 회원가입시 선택정보 입력, 마이페이지 수정 - 프로필 사진, 닉네임, 한 줄 소개, 나이 공개 여부 수정
 	public void updateUserInfo(UserDTO userDTO, MultipartFile image, String pageType) throws IOException {
 		String userNickname = userDTO.getUserNickname();
 		int isAgeVisible = userDTO.getIsAgeVisible();
@@ -63,6 +67,17 @@ public class UserService {
 			user.updateUserInfo(userNickname, isAgeVisible, userIntro);
 		}
 		userRepository.save(user);
+	}
+	
+	// 마이페이지 - 유저 정보 출력
+	public UserInfoDTO selectUser(long userId) {
+		UserInfoDTO user = userRepository.selectUser(userId);
+		
+		user.setUserAge(AgeUtils.getAgeLabel(user.getIsAgeVisible(), user.getUserBirth()));
+		user.setFollowCount(followRepository.countFollow(userId));
+		user.setFollowerCount(followRepository.countFollower(userId));
+		
+		return user;
 	}
     
 }

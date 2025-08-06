@@ -9,6 +9,7 @@ import com.example.roomlog.domain.follow.QFollow;
 import com.example.roomlog.domain.user.QProfileImg;
 import com.example.roomlog.domain.user.QUser;
 import com.example.roomlog.dto.user.UserDTO;
+import com.example.roomlog.dto.user.UserInfoDTO;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberExpression;
@@ -29,7 +30,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 		QFollow f = QFollow.follow;
 		QCommunity c = QCommunity.community;
 		
-		NumberExpression<Long> followCount = f.fromUser.userId.countDistinct();
+		NumberExpression<Long> followerCount = f.fromUser.userId.countDistinct();
 		NumberExpression<Long> communityCount = c.communityId.countDistinct();
 		
 		List<UserDTO> lists = jpaQueryFactory
@@ -40,7 +41,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 				pi.profileImgPath,
 				pi.profileImgUuid,
 		        ExpressionUtils.as(communityCount, "communityCount"),
-		        ExpressionUtils.as(followCount, "followCount")
+		        ExpressionUtils.as(followerCount, "followerCount")
 			))
 			.from(u)
 			.leftJoin(pi).on(pi.user.userId.eq(u.userId))
@@ -53,12 +54,40 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 				pi.profileImgPath,
 				pi.profileImgUuid
 			)
-			.orderBy(followCount.desc())
+			.orderBy(followerCount.desc())
 			.offset(0)
 		    .limit(4)
 			.fetch();
 		
 		return lists;
+	}
+	
+	// 마이페이지 (메인) - 유저 정보 출력
+	public UserInfoDTO selectUser(long userId) {
+		QUser u = QUser.user;
+		QProfileImg pi = QProfileImg.profileImg;
+		QCommunity c = QCommunity.community;
+
+		NumberExpression<Long> communityCount = c.communityId.countDistinct();
+		
+		UserInfoDTO user = jpaQueryFactory
+			.select(Projections.fields(UserInfoDTO.class, 
+				u.userId,
+				u.userNickname,
+				u.userIntro,
+				u.isAgeVisible,
+				u.userBirth,
+				pi.profileImgPath,
+				pi.profileImgUuid,
+		        ExpressionUtils.as(communityCount, "communityCount")
+			))
+			.from(u)
+			.leftJoin(pi).on(pi.user.userId.eq(u.userId))
+			.leftJoin(c).on(c.user.userId.eq(u.userId))
+			.where(u.userId.eq(userId))
+			.fetchOne();
+		
+		return user;
 	}
 	
 }

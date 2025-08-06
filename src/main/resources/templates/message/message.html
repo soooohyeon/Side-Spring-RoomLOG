@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/layout/list-layout.css">
-  <link rel="stylesheet" href="../../css/message/message-list.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/message/message-list.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
-  <script defer src="../../js/message/message-list.js"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
+  <script defer th:src="@{/js/basic/page.js}"></script>
+  <script defer th:src="@{/js/message/message-list.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
@@ -28,13 +29,13 @@
         <ul id="UL-CATEGORY">
           <li class="li-category-wrap">
             <div class="div-category div-selected" data-category="receive-msg">
-              <img src="../../image/message/msg_receive_active.png" class="ca-img img-receive-msg" data-category="receive-msg" alt="받은 메세지">
+              <img th:src="@{/image/message/msg_receive_active.png}" class="ca-img img-receive-msg" data-category="receive-msg" alt="받은 메세지">
               <div>받은 메세지</div>
             </div>
           </li>
           <li class="li-category-wrap">
             <div class="div-category" data-category="send-msg">
-              <img src="../../image/message/msg_sent.png" class="ca-img" data-category="send-msg" alt="보낸 메세지">
+              <img th:src="@{/image/message/msg_sent.png}" class="ca-img" data-category="send-msg" alt="보낸 메세지">
               <div>보낸 메세지</div>
             </div>
           </li>
@@ -52,10 +53,10 @@
         <div class="div-message-container receive-msg-list-wrap">
 
           <!-- 검색 -->
-          <form action="" method="">
+          <form action="@{/message}" method="get">
             <div class="div-search-wrap">
-              <img src="../../image/community/search.png" alt="search">
-              <input type="text" name="search" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
+              <img th:src="@{/image/layout/search.png}" alt="search">
+              <input type="text" name="keyword" id="INPUT-SEARCH-TEXT" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
             </div>
           </form>
           <!--  -->
@@ -67,14 +68,14 @@
             <div class="div-post-list-wrap">
   
               <!-- 메세지 1개 -->
-              <div class="div-one-post-wrap post-hover unread-msg" data-userNumber="2">
+              <div class="div-one-post-wrap post-hover unread-msg">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
-                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
-                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        <div class="div-go-user-page" data-user-id="2">
+                          <img th:src="@{/image/example/profile_image/profile3.jpg}">
+                          <div class="div-nickname div-nick">조용한 오후</div>
                         </div>
                         <div class="div-age">20대</div>
                       </div>
@@ -91,12 +92,12 @@
               <!--   -->
               
               <!--  -->
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile3.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">조용한 오후</div>
                         </div>
@@ -111,12 +112,12 @@
                   <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                 </div>
               </div>
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile6.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">반쯤열린창</div>
                         </div>
@@ -131,12 +132,12 @@
                   <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                 </div>
               </div>
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile5.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">작은식탁일기 </div>
                         </div>
@@ -185,8 +186,8 @@
           <!-- 검색 -->
           <form action="" method="">
             <div class="div-search-wrap">
-              <img src="../../image/community/search.png" alt="search">
-              <input type="text" name="search" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
+              <img th:src="@{/image/layout/search.png}" alt="search">
+              <input type="text" name="keyword" id="INPUT-SEARCH-TEXT" placeholder="메시지 또는 닉네임을 입력해 주세요" autocomplete="off">
             </div>
           </form>
           <!--  -->
@@ -200,14 +201,14 @@
             <div class="div-post-list-wrap">
   
               <!-- 메세지 1개 -->
-              <div class="div-one-post-wrap post-hover" data-userNumber="3">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
-                          <img src="../../image/example/profile_image/profile3.jpg" onclick="">
-                          <div class="div-nickname div-nick" onclick="">조용한 오후</div>
+                        <div class="div-go-user-page" data-user-id="2">
+                          <img th:src="@{/image/example/profile_image/profile3.jpg}">
+                          <div class="div-nickname div-nick">조용한 오후</div>
                         </div>
                         <div class="div-age">20대</div>
                       </div>
@@ -223,12 +224,12 @@
               <!--   -->
               
               <!--  -->
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile3.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">조용한 오후</div>
                         </div>
@@ -243,12 +244,12 @@
                   <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                 </div>
               </div>
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile3.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">조용한 오후</div>
                         </div>
@@ -263,12 +264,12 @@
                   <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                 </div>
               </div>
-              <div class="div-one-post-wrap post-hover" data-userNumber="">
+              <div class="div-one-post-wrap post-hover">
                 <div class="div-post-info-wrap">
                   <div class="div-post-wrap">
                     <div class="div-post-btn-wrap">
                       <div class="div-profile-wrap">
-                        <div class="div-go-user-page">
+                        <div class="div-go-user-page" data-user-id="2">
                           <img src="../../image/example/profile_image/profile6.jpg" onclick="">
                           <div class="div-nickname div-nick" onclick="">반쯤열린창 </div>
                         </div>
@@ -318,20 +319,6 @@
   </main>
   <!--  -->
 
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
-
   <!-- 메세지 상세 보기 -->
   <!-- <div class="div-alert-container madal-message" id="MODAL-ALERT-ONE-A">
     <div class="div-alert-wrap div-message-view">
@@ -365,6 +352,12 @@
     </div>
   </div> -->
   <!--  -->
+
+  <!-- 하단 푸터 영역 -->
+  <footer th:replace="layout/user-footer :: footerFragment"></footer>
+  
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>

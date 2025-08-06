@@ -46,7 +46,7 @@
       <p class="p-rank-section-sub-title">지금 이 순간, 가장 많은 마음을 받은 유저들</p>
       <div class="div-rank-wrap">
 
-        <!-- 팔로워 1명 -->
+        <!-- 유저 1명 -->
         <th:block th:each="followRank : ${followRanklist}">
           <div class="div-rank-layout div-rank-follower-wrap post-hover div-go-user-page" th:data-user-id="${followRank.userId}">
             <div class="div-profile-image">
@@ -73,7 +73,7 @@
               <div class="div-count-wrap">
                 <img src="/image/main/follower_count.png" class="img-followr-count" alt="follower">
                 <div class="div-count-name">팔로워</div>
-                <div class="div-follow" th:text="${followRank.followCount}"></div>
+                <div class="div-follow" th:text="${followRank.followerCount}"></div>
               </div>
               <div class="div-count-wrap">
                 <img src="/image/layout/board_count.png" class="img-board-count" alt="board">

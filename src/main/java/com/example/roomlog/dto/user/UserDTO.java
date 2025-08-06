@@ -18,10 +18,10 @@ import lombok.ToString;
 @Component
 @Getter @Setter @ToString
 @NoArgsConstructor
+// 메인 - 유저 랭킹
 public class UserDTO {
 	private long userId;
 	private SocialType socialType;
-	private UserRole userRole;
 	private String userEmail;
 	private String userNickname;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,16 +33,15 @@ public class UserDTO {
 	private String profileImgUuid;
 	private long communityCount;
 	private boolean isFollowed;
-	private long followCount;
+	private long followerCount;
 
 	@QueryProjection
-	public UserDTO(long userId, SocialType socialType, UserRole userRole, String userEmail, String userNickname,
+	public UserDTO(long userId, SocialType socialType, String userEmail, String userNickname,
 			LocalDate userBirth, int isAgeVisible, String userIntro, LocalDateTime userJoinDate, String profileImgPath,
-			String profileImgUuid, long communityCount, boolean isFollowed, long followCount) {
+			String profileImgUuid, long communityCount, boolean isFollowed, long followerCount) {
 		super();
 		this.userId = userId;
 		this.socialType = socialType;
-		this.userRole = userRole;
 		this.userEmail = userEmail;
 		this.userNickname = userNickname;
 		this.userBirth = userBirth;
@@ -53,7 +52,7 @@ public class UserDTO {
 		this.profileImgUuid = profileImgUuid;
 		this.communityCount = communityCount;
 		this.isFollowed = isFollowed;
-		this.followCount = followCount;
+		this.followerCount = followerCount;
 	}
 	
 }

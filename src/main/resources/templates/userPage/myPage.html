@@ -37,35 +37,36 @@
     <!-- 유저 프로필 정보 영역 -->
     <div id="DIV-USER-INFO-CONTAINER">
         <div id="DIV-USER-PROFILE-IMG">
-            <img src="../../image/example/profile_image/profile3.jpg">
+          <img th:if="${user.profileImgUuid == null}"  th:src="@{/image/layout/profile_img_basic.png}" alt="profile">
+          <img th:unless="${user.profileImgUuid == null}"  th:src="@{'/upload/' + ${user.profileImgPath} + '/th_' + ${user.profileImgUuid}}" alt="profile">
         </div>
         <!-- 유저 나이, 닉네임, 메세지함, 설정 -->
         <div id="DIV-USER-INFO-WRAP">
-          <div class="div-age-wrap"><span class="div-age">20대</span></div>
+          <div class="div-age-wrap"><span class="div-age" th:text="${user.userAge}"></span></div>
           <div class="div-nick-btn-wrap">
-            <div class="div-nickname">포근한 하루</div>
+            <div class="div-nickname" th:text="${user.userNickname}"></div>
             <div class="div-message-btn">메세지함</div>
             <div class="div-settings-btn" onclick="location.href='mypage-settings.html'">
-              <img src="../../image/userPage/setting.png">설정
+              <img th:src="@{/image/userPage/setting.png}">설정
             </div>
           </div>
           <!-- 게시글, 팔로워, 팔로우 -->
           <div class="div-counts-wrap">
             <div class="div-type-wrap">
               <div class="div-count-name">게시글</div>
-              <div class="div-count">10</div>
+              <div class="div-count" th:text="${user.communityCount}"></div>
             </div>
             <div class="div-type-wrap follow-click show-follower">
               <div class="div-count-name">팔로워</div>
-              <div class="div-count">254</div>
+              <div class="div-count" th:text="${user.followerCount}"></div>
             </div>
             <div class="div-type-wrap follow-click show-follow">
               <div class="div-count-name">팔로우</div>
-              <div class="div-count">112</div>
+              <div class="div-count" th:text="${user.followCount}"></div>
             </div>
           </div>
           <!-- 유저 한 줄 소개 -->
-          <div class="div-user-info">이불 속 온기를 좋아하는 사람<br>조용한 하루를 즐깁니다 🌿</div>
+          <div class="div-user-info" th:utext="${user.userIntro}"></div>
         </div>
     </div>
     <!--  -->

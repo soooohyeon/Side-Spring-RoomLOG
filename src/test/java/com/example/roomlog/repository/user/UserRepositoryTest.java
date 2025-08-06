@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.roomlog.domain.user.SocialType;
 import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.user.UserDTO;
+import com.example.roomlog.dto.user.UserInfoDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,5 +83,17 @@ public class UserRepositoryTest {
 		assertNotNull(userDTO);		
 	}
 	
+	// 마이페이지 (메인) - 유저 정보 출력
+	@Test
+	public void selectUserTest() {
+		// given
+		long userNumber = 1L;
+		// when
+		UserInfoDTO userInfoDTO = userRepository.selectUser(userNumber);
+		// then
+		assertNotNull(userInfoDTO);		
+		log.info("유저 1명 정보 : " + userInfoDTO);
+	}
+
 	
 }
