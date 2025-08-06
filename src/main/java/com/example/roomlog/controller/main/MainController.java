@@ -21,7 +21,7 @@ public class MainController {
 	
 	// 메인 화면
 	@GetMapping({"/", "/main"})
-	public String home(HttpSession session, Model model) {
+	public String mainPage(HttpSession session, Model model) {
 		long userId = SessionUtils.getUserId(session);
 		List<UserDTO> followRanklist = mainService.selectFollowRankList(userId);
 		List<CommunityListDTO> scrapRanklist = mainService.selectScrapRankList(userId);

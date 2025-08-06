@@ -93,8 +93,7 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 				pi.profileImgUuid,
 		        cm.commentId.countDistinct().as("commentCount"),
 		        s.scrapId.countDistinct().as("scrapCount")
-				)
-			)
+			))
 			.from(c)
 			.join(c.user, u)
 			.leftJoin(pi).on(pi.user.eq(u))

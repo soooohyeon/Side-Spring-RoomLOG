@@ -37,6 +37,7 @@ public class SecurityConfig {
     	"/", "/main",
     	"/login", "/oauth2/**", "/login/oauth2/**",
     	"/profile/**",
+    	"/notice/**",
     	"/community/community-list", "/community/community-view",
         "/comment/comment-list/**",
     	"/upload/**",

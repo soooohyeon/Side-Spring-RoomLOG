@@ -1,45 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/layout/list-layout.css">
-  <link rel="stylesheet" href="../../css/notice/notice.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/notice/notice.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
-    <div id="DIV-HEADER-TOP">
-      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
-        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
-      </div>
-      <div id="DIV-RIGHT-LOGIN">
-        <div class="div-header-top-link div-menu-line">
-          <a href="javascript:void(0);" id="GO-MESSAGE-PAGE">메세지함</a>
-        </div>
-        <div class="div-header-top-link">
-          <a href="../../html/login/login.html">로그인</a>
-        </div>
-      </div>
-    </div>
-    <!--  -->
-
-    <!-- 메뉴바 -->
-    <div id="DIV-HEADER-BOTTOM">
-      <ul id="UL-HEDAER-MENU">
-        <li id="LI-HOME-LINK"><a href="../main.html">홈</a></li>
-        <li id="LI-COMMUNITY-LINK"><a href="../../html/community/community.html">커뮤니티</a></li>
-        <li id="LI-NOTICE-LINK"><a href="../../html/notice/notice.html">공지사항</a></li>
-        <li id="LI-FEEDBACK-LINK"><a href="../../html/feedback/feedback.html">건의사항</a></li>
-      </ul>
-    </div>
-    <!--  -->
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
+	<div th:replace="layout/user-header-menu :: headerMenuFragment"></div>
   </header>
   <!--  -->
   
@@ -50,7 +26,7 @@
     <div id="DIV-LIST-CONTAINER">
       <!-- 페이지 설명 -->
       <section id="SECTION-TITLE-WRAP">
-        <p id="P-TITLE"><img src="../../image/layout/logo.png" alt="LOGO">의  소식과 안내</p>
+        <p id="P-TITLE"><img th:src="@{/image/layout/logo.png}" alt="LOGO">의  소식과 안내</p>
         <p id="P-SUB-TITLE">함께하는 공간을 위한 이야기<br>서비스 이용에 필요한 공지와 업데이트 내용을 전해드립니다.</p>
       </section>
       <!-- 검색창 + 리스트 출력 -->
@@ -59,90 +35,59 @@
         <div class="div-list-wrap">
           <!-- 글 개수 + 정렬 카테고리 -->
           <div id="DIV-INFO-WRAP">
-            <div id="DIV-POST-COUNT">총 83개</div>
+            <div id="DIV-POST-COUNT">총 <span th:text="${countNotice}"></span>개</div>
           </div>
 
           <!-- 글 목록 -->
           <div id="DIV-POST-LIST-WRAP">
 
             <!-- 글 1개 -->
-            <div class="div-one-post-wrap post-hover" onclick="location.href='notice-view.html'">
-              <div class="div-post-info-wrap">
-                <div class="div-profile-post-wrap">
-                  <div class="div-profile-wrap">
-                    <div class="div-go-user-page">
-                      <img src="../../image/layout/admin_profile.png">
-                      <div class="div-nickname">운영자</div>
+            <th:block th:if="${lists.size() > 0}" th:each="list : ${lists}">
+              <div class="div-one-post-wrap post-hover" th:onclick="|location.href='@{/notice/notice-view}?noticeId=${list.noticeId}'|">
+                <div class="div-post-info-wrap">
+                  <div class="div-profile-post-wrap">
+                    <div class="div-profile-wrap">
+                      <div class="div-go-user-page">
+                        <img th:src="@{/image/layout/admin_profile.png}">
+                        <div class="div-nickname">운영자</div>
+                      </div>
+                      <div class="div-time time-ago" th:data-timestamp="${list.createDate}"></div>
                     </div>
-                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
+                    <div class="div-one-skip div-title" th:text="${list.noticeTitle}"></div>
+                    <div class="div-two-skip div-content" th:utext="${list.noticeContent}"></div>
                   </div>
-                  <div class="div-one-skip div-title">[공지] 사진 등록 오류 안내</div>
-                  <div class="div-two-skip div-content">최근 일부 사용자에게서 이미지 첨부 시 등록이 되지 않는 현상이 확인되었습니다.<br>현재 원인 확인 중이며, 빠른 시일 내 조치 예정입니다.</div>
                 </div>
               </div>
-            </div>
+            </th:block>
             <!--   -->
             
-            <!--  -->
-            <div class="div-one-post-wrap post-hover" onclick="location.href='notice-view.html'">
-              <div class="div-post-info-wrap">
-                <div class="div-profile-post-wrap">
-                  <div class="div-profile-wrap">
-                    <div class="div-go-user-page">
-                      <img src="../../image/layout/admin_profile.png">
-                      <div class="div-nickname">운영자</div>
-                    </div>
-                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
-                  </div>
-                  <div class="div-one-skip div-title">커뮤니티 글쓰기 가이드 안내</div>
-                  <div class="div-two-skip div-content">RoomLOG는 인테리어, 공간, 일상에 대한 이야기를 나누는 커뮤니티입니다.<br>보다 쾌적한 공간을 위해 아래 기준을 참고해 주세요:</div>
-                </div>
-              </div>
-            </div>
-            <div class="div-one-post-wrap post-hover" onclick="location.href='notice-view.html'">
-              <div class="div-post-info-wrap">
-                <div class="div-profile-post-wrap">
-                  <div class="div-profile-wrap">
-                    <div class="div-go-user-page">
-                      <img src="../../image/layout/admin_profile.png">
-                      <div class="div-nickname">운영자</div>
-                    </div>
-                    <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
-                  </div>
-                  <div class="div-one-skip div-title">[공지] 서비스 점검 안내 (6/21 새벽 2~4시)</div>
-                  <div class="div-two-skip div-content">안정적인 서비스를 위해 아래 일정으로 점검이 예정되어 있습니다.<br>일시: 2025년 6월 21일(금) 새벽 2시 ~ 4시</div>
-                </div>
-              </div>
-            </div>
-            <!--  -->
-            
             <!-- 게시글이 없을 경우 -->
-            <!-- <div class="div-post-none">글이 아직 없어요. 첫 게시물을 작성해보세요!</div> -->
+            <div class="div-post-none" th:unless="${lists.size() > 0}">글이 아직 없어요. 첫 게시물을 작성해보세요!</div>
             <!--  -->
 
           </div>
         </div>
 
-        <div id="DIV-WRITE-WRAP">
-          <div class="button-style div-write-btn" onclick="location.href='../admin/admin-banner-write.html'">글 남기기</div>
+        <div id="DIV-WRITE-WRAP" th:if="(${session.userId} != null) and (${session.userRole} == 'ADMIN')">
+          <div class="button-style div-write-btn" th:onclick="|location.href='@{/admin/banner-write}'|">글 남기기</div>
         </div>
         
         <!-- 페이지네이션 -->
-        <div id="DIV-PAGENATION-WRAP">
-          <div class="div-page-btn-wrap">
-            <div class="pagenation previous" onclick="">◁</div>
+        <th:block th:if="${!lists.isEmpty()}">
+          <div id="DIV-PAGENATION-WRAP">
+            <div class="div-page-btn-wrap">
+              <div class="pagenation previous" th:onclick="|goPage(${page.startPage - 1}|)" th:if="${page.prev}">◁</div>
+            </div>
+            <ul>
+           	  <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+                <li class="pagenation page" th:classappend="${i == page.criteria.page ? 'selected' : ''}" th:onclick="|goPage(${i})|" th:text="${i}"></li>
+           	  </th:block>
+            </ul>
+            <div class="div-page-btn-wrap">
+              <div class="pagenation next" th:onclick="|goPage(${page.endPage + 1})|" th:if="${page.next}">▷</div>
+            </div>
           </div>
-          <ul>
-            <li class="pagenation page selected" onclick="">1</li>
-            <li class="pagenation page" onclick="">2</li>
-            <li class="pagenation page" onclick="">3</li>
-            <li class="pagenation page" onclick="">4</li>
-            <li class="pagenation page" onclick="">5</li>
-          </ul>
-          <div class="div-page-btn-wrap">
-            <div class="pagenation next" onclick="">▷</div>
-          </div>
-        </div>
+        </th:block>
 
       </section>
     </div>
@@ -151,35 +96,10 @@
   <!--  -->
 
   <!-- 하단 푸터 영역 -->
-  <footer id="FOOTER-CONTAINER">
-    <div id="DIV-FOOTER-WRAP">
-      <div id="DIV-FOOTER-LEGAL-WRAP">
-        <div class="div-footer-legal div-menu-line"><a href="">개인정보처리방침</a></div>
-        <div class="div-footer-legal"><a href="">이용약관</a></div>
-      </div>
-
-      <div id="DIV-ROOMLOG-INFO-WRAP">
-        <p>우선의 공간을 기록하는 사람들.</p>
-        <p>Contact: official@roomlog.com</p>
-        <p>Copyright © RoomLOG. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <!--  -->
-
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
+  <footer th:replace="layout/user-footer :: footerFragment"></footer>
+  
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>

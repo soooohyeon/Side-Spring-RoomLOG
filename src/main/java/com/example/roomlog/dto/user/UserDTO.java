@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-import com.example.roomlog.domain.user.ProfileImg;
 import com.example.roomlog.domain.user.SocialType;
-import com.example.roomlog.domain.user.User;
 import com.example.roomlog.type.UserRole;
 import com.querydsl.core.annotations.QueryProjection;
 
