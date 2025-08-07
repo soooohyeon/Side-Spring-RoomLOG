@@ -10,7 +10,7 @@ import com.example.roomlog.domain.follow.Follow;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface FollowRepository extends JpaRepository<Follow, Long> {
+public interface FollowRepository extends JpaRepository<Follow, Long>, FollowCustomRepository {
 
 	// 팔로우 여부 확인
 	@Query("SELECT COUNT(f) FROM Follow f " +

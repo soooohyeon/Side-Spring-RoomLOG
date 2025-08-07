@@ -1,16 +1,29 @@
+
+// userPage/follow.js
+// 팔로워 클릭 시
+$(".show-follower").on("click", function() {
+	showFollowerList(userId);
+});
+// 팔로우 클릭 시
+$(".show-follow").on("click", function() {
+	showFollowList(userId);
+});
+
+// ---------------------------------------------------------------
+
 // 카테고리
 const $caBoardImage = $(".ca-img[data-category='my-board']");
 const $caScrapImage = $(".ca-img[data-category='my-scrap']");
 const imageSrc = {
     board: {
-        normal: "../../image/layout/board_count.png",
-        selected: "../../image/userPage/board_menu.png",
-        hover: "../../image/userPage/board_hover.png"
+        normal: "/image/layout/board_count.png",
+        selected: "/image/userPage/board_menu.png",
+        hover: "/image/userPage/board_hover.png"
     },
     scrap: {
-        normal: "../../image/layout/scrap_no.png",
-        selected: "../../image/userPage/scrap_menu.png",
-        hover: "../../image/userPage/scrap_line_hover.png"
+        normal: "/image/layout/scrap_no.png",
+        selected: "/image/userPage/scrap_menu.png",
+        hover: "/image/userPage/scrap_line_hover.png"
     }
 };
 

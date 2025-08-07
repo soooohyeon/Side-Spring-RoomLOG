@@ -1,8 +1,11 @@
 package com.example.roomlog.service.follow;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.roomlog.domain.follow.Follow;
+import com.example.roomlog.dto.follow.FollowDTO;
 import com.example.roomlog.repository.follow.FollowRepository;
 import com.example.roomlog.repository.user.UserRepository;
 
@@ -33,4 +36,21 @@ public class FollowService {
 		followRepository.cancelFollow(fromUserId, toUserId);
 	}
 	
+	// 내가 팔로우한 유저 목록
+	public List<FollowDTO> selectFollowList(long userId, String keyword) {
+		keyword = keyword == null ? "" : keyword;
+		return followRepository.selectFollowList(userId, keyword);
+	}
+	
+	// 나를 팔로우한 팔로워 목록
+	public List<FollowDTO> selectFollowerList(long userId, String keyword) {
+		keyword = keyword == null ? "" : keyword;
+		List<FollowDTO> lists = followRepository.selectFollowerList(userId, keyword);
+		for (FollowDTO follow : lists) {
+			long isFollowed = followRepository.checkFollow(userId, follow.getUserId());
+			follow.setFollowed(isFollowed == 1);
+		}
+		
+		return lists;
+	}
 }

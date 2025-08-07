@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/layout/list-layout.css">
-  <link rel="stylesheet" href="../../css/layout/userPage-layout.css">
-  <link rel="stylesheet" href="../../css/userPage/userPage.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/list-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/layout/userPage-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/userPage/userPage.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/userPage/userPage.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
+  <script defer th:src="@{/js/userPage/follow.js}"></script>
+  <script defer th:src="@{/js/userPage/userPage.js}"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->

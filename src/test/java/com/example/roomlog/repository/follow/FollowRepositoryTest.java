@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.roomlog.dto.follow.FollowDTO;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +55,7 @@ public class FollowRepositoryTest {
 		// when
 		int count = followRepository.countFollow(userId);
 		// then
-		log.info("내가 팔로우한 수 : " + count);
+//		log.info("내가 팔로우한 수 : " + count);
 	}
 	
 	// 나를 팔로우한 팔로워 수
@@ -62,7 +66,37 @@ public class FollowRepositoryTest {
 		// when
 		int count = followRepository.countFollower(userId);
 		// then
-		log.info("나를 팔로우한 팔로워 수 : " + count);
+//		log.info("나를 팔로우한 팔로워 수 : " + count);
+	}
+	
+	// 내가 팔로우한 유저 목록
+	@Test
+	public void selectFollowListTest() {
+		// given
+		long userId = 1;
+		String keyword = "";
+		// when
+		List<FollowDTO> lists = followRepository.selectFollowList(userId, keyword);
+		// then
+		assertNotNull(lists);
+//		for (FollowDTO list : lists) {
+//			log.info("팔로우 목록 : " + list);
+//		}
+	}
+	
+	// 나를 팔로우한 팔로워 목록
+	@Test
+	public void selectFollowerListTest() {
+		// given
+		long userId = 1;
+		String keyword = "";
+		// when
+		List<FollowDTO> lists = followRepository.selectFollowerList(userId, keyword);
+		// then
+		assertNotNull(lists);
+//		for (FollowDTO list : lists) {
+//			log.info("팔로워 목록 : " + list);
+//		}
 	}
 	
 }
