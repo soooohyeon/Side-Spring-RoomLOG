@@ -1,6 +1,8 @@
 package com.example.roomlog.controller.follow;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,15 +39,29 @@ public class FollowRestController {
 		followService.cancelFollow(fromUserId, toUserId);
 	}
 	
-	// 나를 팔로우한 팔로워 목록
+	// 해당 유저의 팔로워 목록
 	@GetMapping("/follower-list/{targetUserId}")
-	public List<FollowDTO> selectFollowerList(@PathVariable long targetUserId, String keyword) {
-		return followService.selectFollowerList(targetUserId, keyword);
+	public Map<String, Object> selectFollowerList(@PathVariable long targetUserId, String keyword) {
+		Map<String, Object> result = new HashMap<>();
+		List<FollowDTO> lists = followService.selectFollowerList(targetUserId, keyword);
+		int followerCount = followService.countFollower(targetUserId);
+		
+		result.put("lists", lists);
+		result.put("count", followerCount);
+		
+		return result;
 	}
 	
-	// 내가 팔로우한 유저 목록
+	// 해당 유저가 팔로우한 유저 목록
 	@GetMapping("/follow-list/{targetUserId}")
-	public List<FollowDTO> selectFollowList(@PathVariable long targetUserId, String keyword) {
-		return followService.selectFollowList(targetUserId, keyword);
+	public Map<String, Object> selectFollowList(@PathVariable long targetUserId, String keyword) {
+		Map<String, Object> result = new HashMap<>();
+		List<FollowDTO> lists = followService.selectFollowList(targetUserId, keyword);
+		int followCount = followService.countFollow(targetUserId);
+		
+		result.put("lists", lists);
+		result.put("count", followCount);
+
+		return result;
 	}
 }

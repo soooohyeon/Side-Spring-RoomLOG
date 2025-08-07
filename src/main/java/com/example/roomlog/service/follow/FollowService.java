@@ -19,7 +19,7 @@ public class FollowService {
 	private final UserRepository userRepository;
 	
 	// 팔로우
-	public void insertFollow(long fromUserId, long toUserId) {
+	public void insertFollow (long fromUserId, long toUserId) {
 		long check = followRepository.checkFollow(fromUserId, toUserId);
 		
 		if (fromUserId != toUserId && check == 0) {
@@ -32,19 +32,22 @@ public class FollowService {
 	}
 	
 	// 팔로우 취소
-	public void cancelFollow(long fromUserId, long toUserId) {
+	public void cancelFollow (long fromUserId, long toUserId) {
 		followRepository.cancelFollow(fromUserId, toUserId);
 	}
 	
-	// 내가 팔로우한 유저 목록
-	public List<FollowDTO> selectFollowList(long userId, String keyword) {
-		keyword = keyword == null ? "" : keyword;
-		return followRepository.selectFollowList(userId, keyword);
+	// 내가 팔로우한 유저 수
+	public int countFollow (long userId) {
+		return followRepository.countFollow(userId);
 	}
 	
-	// 나를 팔로우한 팔로워 목록
-	public List<FollowDTO> selectFollowerList(long userId, String keyword) {
-		keyword = keyword == null ? "" : keyword;
+	// 나를 팔로우한 팔로워 수
+	public int countFollower (long userId) {
+		return followRepository.countFollower(userId);
+	}
+	
+	// 해당 유저의 팔로워 목록
+	public List<FollowDTO> selectFollowerList (long userId, String keyword) {
 		List<FollowDTO> lists = followRepository.selectFollowerList(userId, keyword);
 		for (FollowDTO follow : lists) {
 			long isFollowed = followRepository.checkFollow(userId, follow.getUserId());
@@ -52,5 +55,10 @@ public class FollowService {
 		}
 		
 		return lists;
+	}
+	
+	// 해당 유저가 팔로우한 유저 목록
+	public List<FollowDTO> selectFollowList (long userId, String keyword) {
+		return followRepository.selectFollowList(userId, keyword);
 	}
 }

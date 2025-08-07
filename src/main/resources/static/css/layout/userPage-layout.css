@@ -155,6 +155,7 @@
 /* 팔로워, 팔로우 목록 (모달) */
 .modal-follow > .div-alert-wrap {
     width: 550px;
+    min-height: 400px;
     margin-bottom: 3%;
     padding: 15px;
     padding-bottom: 30px;
