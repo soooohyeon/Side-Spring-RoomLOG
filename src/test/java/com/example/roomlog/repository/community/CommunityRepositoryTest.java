@@ -2,6 +2,7 @@ package com.example.roomlog.repository.community;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -31,11 +32,53 @@ public class CommunityRepositoryTest {
 		// when
 		List<CommunityListDTO> lists = communityRepository.selectScrapRankingList();
 		// then
-		for (CommunityListDTO list : lists) {
-			log.info("list : " + list);
-		}
-		log.info("list count : " + lists.size());
 		assertNotNull(lists);
+//		for (CommunityListDTO list : lists) {
+//			log.info("list : " + list);
+//		}
+//		log.info("list count : " + lists.size());
+	}
+	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글 개수
+	@Test
+	public void countListByUserTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = communityRepository.countListByUser(userId);
+		// then
+		assertTrue(count > 0, "유저가 작성한 글이 없음");
+//		log.info("작성한 게시글 개수 : " + count);
+	}
+		
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	@Test
+	public void selectListByUserTest() {
+		// given 
+		long userId = 1;
+		Criteria criteria = new Criteria(null, null, null);
+		// when
+		List<CommunityListDTO> lists = communityRepository.selectListByUser(userId, criteria);
+		// then
+		assertNotNull(lists);
+//		for (CommunityListDTO list : lists) {
+//			log.info("list : " + list);
+//		}
+	}
+	
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	@Test
+	public void selectScrapListByUserTest() {
+		// given 
+		long userId = 1;
+		Criteria criteria = new Criteria(null, null, null);
+		// when
+		List<CommunityListDTO> lists = communityRepository.selectScrapListByUser(userId, criteria);
+		// then
+		assertNotNull(lists);
+//		for (CommunityListDTO list : lists) {
+//			log.info("list : " + list);
+//		}
 	}
 	
 	// 커뮤니티 게시글 목록 (유저 + 프로필사진 + 게시글)
@@ -45,11 +88,11 @@ public class CommunityRepositoryTest {
 		// when
 		List<CommunityListDTO> lists = communityRepository.selectListWithPaging(criteria);
 		// then
+		assertNotNull(lists);
 //		for (CommunityListDTO list : lists) {
 //			log.info("list : " + list);
 //		}
 //		log.info("list count : " + lists.size());
-		assertNotNull(lists);
 	}
 	
 	// 현재 리스트의 게시글 개수 - 검색 전, 후 결과
@@ -59,8 +102,8 @@ public class CommunityRepositoryTest {
 		// when
 		long count = communityRepository.countSearchResult(criteria);
 		// then
-//		log.info("list count : " + count);
 		assertNotNull(count);
+//		log.info("list count : " + count);
 	}
 	
 	// 게시글 1개 조회

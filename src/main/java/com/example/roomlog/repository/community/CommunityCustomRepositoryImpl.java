@@ -58,6 +58,84 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		return lists;
 	}
 	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	public List<CommunityListDTO> selectListByUser(long userId, Criteria criteria) {
+		QCommunity c = QCommunity.community;
+		QComment cm = QComment.comment;
+		QScrap s = QScrap.scrap;
+		
+		List<CommunityListDTO> lists = jpaQueryFactory
+			.select(Projections.fields(CommunityListDTO.class,
+				c.communityId,
+				c.communityTitle,
+				c.communityContent,
+				c.createDate,
+		        cm.commentId.countDistinct().as("commentCount"),
+		        s.scrapId.countDistinct().as("scrapCount")
+			))
+			.from(c)
+		    .leftJoin(cm).on(cm.community.eq(c))
+		    .leftJoin(s).on(s.community.eq(c))
+		    .groupBy(
+				c.communityId,
+				c.communityTitle,
+				c.communityContent,
+				c.createDate
+			)
+			.orderBy(c.communityId.desc())
+			.where(c.user.userId.eq(userId))
+			.fetch();
+		
+		return lists;
+	}
+	
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	public List<CommunityListDTO> selectScrapListByUser(long userId, Criteria criteria) {
+		QCommunity c = QCommunity.community;
+		QUser u = QUser.user;
+		QProfileImg pi = QProfileImg.profileImg;
+		QComment cm = QComment.comment;
+		QScrap s = QScrap.scrap;
+		
+		List<CommunityListDTO> lists = jpaQueryFactory
+			.select(Projections.fields(CommunityListDTO.class,
+				c.communityId,
+				c.communityTitle,
+				c.communityContent,
+				c.createDate,
+				u.userId,
+				u.userNickname,
+				u.userBirth,
+				u.isAgeVisible,
+				pi.profileImgPath,
+				pi.profileImgUuid,
+				cm.commentId.countDistinct().as("commentCount"),
+				s.scrapId.countDistinct().as("scrapCount")
+			))
+			.from(c)
+			.join(c.user, u)
+			.leftJoin(pi).on(pi.user.eq(u))
+			.leftJoin(cm).on(cm.community.eq(c))
+			.leftJoin(s).on(s.community.eq(c))
+			.groupBy(
+				c.communityId,
+				c.communityTitle,
+				c.communityContent,
+				c.createDate,
+				u.userId,
+				u.userNickname,
+				u.userBirth,
+				u.isAgeVisible,
+				pi.profileImgPath,
+				pi.profileImgUuid
+			)
+			.orderBy(s.scrapRegistDate.desc())
+			.where(s.user.userId.eq(userId))
+			.fetch();
+		
+		return lists;
+	}
+	
 	// 커뮤니티 게시글 목록
 	public List<CommunityListDTO> selectListWithPaging(Criteria criteria) {
 		QCommunity c = QCommunity.community;

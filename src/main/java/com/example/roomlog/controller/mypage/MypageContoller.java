@@ -18,6 +18,7 @@ public class MypageContoller {
 	
 	private final UserService userService;
 
+	// 마이페이지 (메인)
 	@GetMapping("/mypage")
 	public String maPageMain(HttpSession session, Model model) {
 		long userId = SessionUtils.getUserId(session);
@@ -28,6 +29,7 @@ public class MypageContoller {
 		return "userPage/mypage";
 	}
 	
+	// 유저 개인 페이지
 	@GetMapping("/profile/{userId}")
 	public String userPage(@PathVariable long userId) {
 		

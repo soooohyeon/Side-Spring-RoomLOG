@@ -1,18 +1,23 @@
 package com.example.roomlog.repository.community;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.Community;
-import com.example.roomlog.dto.page.Criteria;
 
 public interface CommunityRepository extends JpaRepository<Community, Long>, CommunityCustomRepository {
 	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글 개수
+	@Query("SELECT COUNT(c) FROM Community c " +
+			"	WHERE c.user.userId = :userId")
+	int countListByUser(long userId);
+	
 	// 게시글 1개 조회
-	Community findByCommunityId(Long communityId);
+	Community findByCommunityId(long communityId);
 	
 	// 게시글 삭제
 	@Transactional
-	void deleteByCommunityId(Long communityId);
+	void deleteByCommunityId(long communityId);
 	
 }

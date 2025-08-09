@@ -12,6 +12,12 @@ public interface CommunityCustomRepository {
 	// 메인 - 커뮤니티 스크랩 순 게시글 상위 3개
 	List<CommunityListDTO> selectScrapRankingList();
 	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	List<CommunityListDTO> selectListByUser(long userId, Criteria criteria);
+	
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	List<CommunityListDTO> selectScrapListByUser(long userId, Criteria criteria);
+	
 	// 커뮤니티 게시글 목록
 	List<CommunityListDTO> selectListWithPaging(Criteria criteria);
 

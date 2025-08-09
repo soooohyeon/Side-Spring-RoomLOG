@@ -83,7 +83,7 @@
             <div id="DIV-POST-LIST-WRAP">
               <th:block th:each="list : ${lists}">
                 <!-- 글 1개 -->
-                <div class="div-one-post-wrap post-hover" th:onclick="|location.href='@{/community/community-view}?communityId=${list.communityId}'|">
+                <div class="div-one-post-wrap post-hover" th:classappend="${list.checkCommunityImg} ? ' has-img' : ''" th:onclick="|location.href='@{/community/community-view}?communityId=${list.communityId}'|">
                   <div class="div-post-info-wrap">
                     <div class="div-profile-post-wrap">
                       <div class="div-profile-wrap">

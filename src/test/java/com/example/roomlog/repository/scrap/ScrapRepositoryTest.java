@@ -3,6 +3,7 @@ package com.example.roomlog.repository.scrap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,18 @@ public class ScrapRepositoryTest {
 
 	@Autowired
 	ScrapRepository scrapRepository;
+
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글 개수
+	@Test
+	public void countScrapListByUserTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = scrapRepository.countScrapListByUser(userId);
+		// then
+		assertTrue(count > 0, "유저가 스크랩한 글이 없음");
+		log.info("스크랩한 게시글 개수 : " + count);
+	}
 	
 	// 커뮤니티 게시글 목록 - 해당 게시글의 스크랩 여부
 	@Test

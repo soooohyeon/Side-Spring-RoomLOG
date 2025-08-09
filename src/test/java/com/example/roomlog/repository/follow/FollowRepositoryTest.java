@@ -55,7 +55,7 @@ public class FollowRepositoryTest {
 		// when
 		int count = followRepository.countFollow(userId);
 		// then
-//		log.info("내가 팔로우한 수 : " + count);
+		log.info("내가 팔로우한 수 : " + count);
 	}
 	
 	// 나를 팔로우한 팔로워 수
@@ -66,7 +66,7 @@ public class FollowRepositoryTest {
 		// when
 		int count = followRepository.countFollower(userId);
 		// then
-//		log.info("나를 팔로우한 팔로워 수 : " + count);
+		log.info("나를 팔로우한 팔로워 수 : " + count);
 	}
 	
 	// 내가 팔로우한 유저 목록

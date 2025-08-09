@@ -13,6 +13,7 @@
   <script defer th:src="@{/js/basic/basic.js}"></script>
   <script defer th:src="@{/js/userPage/follow.js}"></script>
   <script defer th:src="@{/js/userPage/myPage.js}"></script>
+  <script defer th:src="@{/js/userPage/myPage-community.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
@@ -67,14 +68,14 @@
           <li class="ca-selected"></li>
           <li class="li-category-wrap">
             <div class="div-category div-selected" data-category="my-board">
-              <img src="../../image/userPage/board_menu.png" class="ca-img" data-category="my-board">
-              <div>작성 글 (10)</div>
+              <img th:src="@{/image/userPage/board_menu.png}" class="ca-img" data-category="my-board">
+              <div>작성 글 (<span class="span-regist-count"></span>)</div>
             </div>
           </li>
           <li class="li-category-wrap">
             <div class="div-category" data-category="my-scrap">
-              <img src="../../image/layout/scrap_no.png" class="ca-img" data-category="my-scrap">
-              <div>스크랩 (7)</div>
+              <img th:src="@{/image/layout/scrap_no.png}" class="ca-img" data-category="my-scrap">
+              <div>스크랩 (<span class="span-scrap-count"></span>)</div>
             </div>
           </li>
         </ul>
@@ -86,7 +87,7 @@
     <div id="DIV-LIST-CONTAINER">
       <div class="list-slide-wrap">
 
-        <!-- 받은 메세지 -->
+        <!-- 작성한 게시글 -->
         <div class="div-mypage-containe write-list-wrap">
 
             <!-- 글 목록 -->
@@ -94,14 +95,14 @@
               <div class="div-post-list-wrap">
     
                 <!-- 글 1개 -->
-                <div class="div-one-post-wrap post-hover" onclick="location.href='../community/community-view.html'">
+                <div class="div-one-post-wrap post-hover" onclick="location.href='/community/community-view'">
                   <div class="div-my-post-info-wrap">
                     <div class="div-post-text-wrap">
                       <div class="div-one-skip div-title">이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!이번에 소파 사려고 하는데 추천 좀 부탁드려요!!</div>
                       <div class="div-two-skip div-content">소파가 너무 헤져서 바꾸려고 하는데요...<br>20만원 이하 2인 소파 추천 부탁드립니다!!!!소파가 너무 헤져서 바꾸려고 하는데요...20만원 이하 2인 소파 추천 부탁드립니다!!!!</div>
                     </div>
                     <div class="div-none-profile">
-                      <img src="../../image/example/board/work-desk.jpg" alt="postIMG">
+                      <img src="/image/example/board/work-desk.jpg" alt="postIMG">
                     </div>
                   </div>
                   <div class="div-hashtag-wrap">
@@ -113,11 +114,11 @@
                     <div class="div-time time-ago" data-timestamp="2025-06-27T15:05:00"></div>
                     <div class="div-two-counts-wrap">
                       <div class="div-count-wrap">
-                        <img src="../../image/layout/comment_count.png" alt="comment">
+                        <img src="/image/layout/comment_count.png" alt="comment">
                         <div class="div-comment">17</div>
                       </div>
                       <div class="div-count-wrap">
-                        <img src="../../image/layout/scrap_no.png" alt="scrap">
+                        <img src="/image/layout/scrap_no.png" alt="scrap">
                         <div class="div-scrap">221</div>
                       </div>
                     </div>
@@ -358,63 +359,8 @@
   </main>
   <!--  -->
 
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
-
-  <!-- 팔로워, 팔로우 모달창 -->
-  <!-- <div class="div-alert-container modal-follow">
-    <div class="div-alert-wrap">
-      <div id="DIV-MODAL-HEADER">
-        <div class="div-modal-title">팔로워</div>
-        <img src="../../image/layout/close_btn_grey.png" class="modal-close modal-close-img" alt="close">
-      </div>
-
-      <div class="div-alert-content">
-        <div id="DIV-USER-SEARCH-WRAP">
-
-          <input type="text" id="user-search" placeholder="누구를 찾고 있나요?">
-        </div>
-        <div id="DIV-USER-COUNT-WRAP">
-          총 <div id="USER-COUNT">10</div>명
-        </div>
-        <div id="DIV-USER-LIST-WRAP">
-
-          <div class="div-user-wrap">
-            <div class="div-follow-user-wrap">
-              <div class="div-user-profile-img user-profile-img">
-                <img src="../../image/example/profile_image/profile1.jpg">
-              </div>
-              <div class="div-user-simple-info">
-                <div class="user-nick"><span class="user-nickname">조용한 오후</span></div>
-                <div class="user-info-wrap">
-                  <div class="user-info div-one-skip">집에 햇살과 고양이가 함께 있어요.</div>
-                </div>
-              </div>
-            </div>
-            <div class="div-follow-btn-wrap">
-              <div class="button-style delete-button" onclick="noFollow(event, this, 1)">삭제</div>
-              <div class="button-style basic-button" onclick="noFollow(event, this, 1)">팔로잉</div>
-              <div class="button-style follow-btn" onclick="goFollow(event, this, 0)">팔로우</div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-    </div>
-  </div> -->
-  <!--  -->
-
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
+  
 </body>
 </html>

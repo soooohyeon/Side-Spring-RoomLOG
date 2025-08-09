@@ -53,16 +53,6 @@ $(document).ready(function () {
 
 // ---------------------------------------------------------------
 
-// 게시글에 이미지가 존재할 경우 너비 조정
-document.querySelectorAll(".div-post-info-wrap").forEach(wrap => {
-  const imgWrap = wrap.querySelector(".div-post-img img");
-  if (imgWrap && imgWrap.complete && imgWrap.naturalWidth > 0) {
-    wrap.classList.add("has-img");
-  }
-});
-
-// ---------------------------------------------------------------
-
 // 글 작성 버튼 클릭 시
 $(".div-write-btn").on("click", function() {
   const userId = $(this).data("userId");

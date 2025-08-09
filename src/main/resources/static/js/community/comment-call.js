@@ -101,7 +101,7 @@ function showParentCommentList($pageWrap, data) {
 			$lastChild.after($moreBtn);
 		}
 		
-		// basic.js에 함수 호출 - 부모/자식 댓글 시간 형식 포맷
+		// basic.js의 함수 호출 - 부모/자식 댓글 시간 형식 포맷
 		updateTimeAgo();
 	  });
 	});

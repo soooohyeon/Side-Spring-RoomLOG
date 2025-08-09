@@ -1,6 +1,5 @@
 /**
  * 댓글 기능 모듈화
- * 
  */
 
 const communityId = new URLSearchParams(window.location.search).get("communityId");

@@ -1,6 +1,7 @@
 package com.example.roomlog.service.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -13,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.roomlog.domain.user.User;
+import com.example.roomlog.dto.community.CommunityListDTO;
+import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.user.UserDTO;
 import com.example.roomlog.repository.user.UserRepository;
 
@@ -98,4 +100,59 @@ public class UserServiceTest {
 		Optional<User> user = userRepository.findByUserId(userDTO2.getUserId());
 		assertThat(user).isNotEmpty();
 	}
+	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글 개수
+	@Test
+	public void countListTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = userService.countList(userId);
+		// then
+		assertTrue(count > 0, "유저가 작성한 글이 없음");
+//		log.info("작성한 게시글 개수 : " + count);
+	}
+	
+	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	@Test
+	public void selectListTest() {
+		// given
+		long userId = 1;
+		Criteria criteria = new Criteria(null, null, null);
+		// when
+		List<CommunityListDTO> lists = userService.selectList(userId, criteria);
+		// then
+		assertNotNull(lists);
+//		for(CommunityListDTO list : lists) {
+//			log.info("작성한 게시글 : " + list);
+//		}
+	}
+	
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글 개수
+	@Test
+	public void countScrapListTest() {
+		// given
+		long userId = 1;
+		// when
+		int count = userService.countScrapList(userId);
+		// then
+		assertTrue(count > 0, "유저가 스크랩한 글이 없음");
+//		log.info("스크랩한 게시글 개수 : " + count);
+	}
+	
+	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	@Test
+	public void selectScrapListTest() {
+		// given
+		long userId = 1;
+		Criteria criteria = new Criteria(null, null, null);
+		// when
+		List<CommunityListDTO> lists = userService.selectScrapList(userId, criteria);
+		// then
+		assertNotNull(lists);
+//		for(CommunityListDTO list : lists) {
+//			log.info("스크랩한 게시글 : " + list);
+//		}
+	}
+	
 }
