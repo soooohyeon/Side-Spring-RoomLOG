@@ -131,9 +131,4 @@ function updateSlideHeight(targetSelector) {
     $(".list-slide-wrap").stop().animate({ height: targetHeight }, 300);    // 애니메이션 효과 넣어줌
 }
 
-// ----------------------------------------
-
-// 기본 값은 작성 글 기준으로 계산
-$(document).ready(function () {
-    updateSlideHeight(".write-list-wrap");
-});
+// ---------------------------------------------------------------

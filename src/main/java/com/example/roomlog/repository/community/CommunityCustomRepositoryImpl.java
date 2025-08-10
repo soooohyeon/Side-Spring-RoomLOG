@@ -84,6 +84,8 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 			)
 			.orderBy(c.communityId.desc())
 			.where(c.user.userId.eq(userId))
+		    .offset((criteria.getPage() - 1) * criteria.getAmount())
+		    .limit(criteria.getAmount())
 			.fetch();
 		
 		return lists;
@@ -131,6 +133,8 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 			)
 			.orderBy(s.scrapRegistDate.desc())
 			.where(s.user.userId.eq(userId))
+		    .offset((criteria.getPage() - 1) * criteria.getAmount())
+		    .limit(criteria.getAmount())
 			.fetch();
 		
 		return lists;
