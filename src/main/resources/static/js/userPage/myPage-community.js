@@ -164,6 +164,7 @@ function renderList(temp, $wrap, list, count) {
 				아직 아무것도 남기지 않았어요.<br>당신의 방, 취향, 하루를 들려주세요.
 			</div>`;
 		$divWrap.html(postNone);
+		$wrap.find("#DIV-PAGENATION-WRAP").remove();
 		return;
 	}
 	
