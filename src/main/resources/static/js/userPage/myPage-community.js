@@ -237,9 +237,11 @@ function goCommunityView(communityId) {
 
 // 스크랩 취소 후 스크랩 목록 다시 불러오기
 // basic.js (noScrap)
-async function noScrapMyPage(event, element, toUserId) {
-  await noScrap(event, element, toUserId);
-  loadScrapData(scrapPage);
+function noScrapMyPage(event, element, toUserId) {
+  noScrap(event, element, toUserId);
+  setTimeout(() => {
+    loadScrapData(scrapPage); // 기존 함수 그대로 호출
+  }, 180);
 }
 
 // ---------------------------------------------------------------
