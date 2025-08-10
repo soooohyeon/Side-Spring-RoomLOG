@@ -128,7 +128,13 @@ $(".li-category-wrap").hover(function () {
 // 화면에 보여지는 리스트의 높이로 계산하여 자동 설정
 function updateSlideHeight(targetSelector) {
     const targetHeight = $(targetSelector).outerHeight(true);
-    $(".list-slide-wrap").stop().animate({ height: targetHeight }, 300);    // 애니메이션 효과 넣어줌
+	const $wrap = $(".list-slide-wrap");
+	// myPage-community.js - 페이지 이동 후 다시 마이페이지로 돌아온건지 체크
+	if (checkRestoring) {
+	  $wrap.height(targetHeight);
+	} else {
+	  $wrap.stop().animate({ height: targetHeight }, 300);
+	}
 }
 
 // ---------------------------------------------------------------

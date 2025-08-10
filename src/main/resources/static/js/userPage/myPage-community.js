@@ -1,9 +1,74 @@
+
+const STATE_KEY = "mypage_state"; 	// 세션 저장 키
+const WRAP_FRAME = { 'my-board': '.write-list-wrap', 'my-scrap': '.scrap-list-wrap' };
+let checkRestoring = false;			// 복원 중인지 여부 체크
+let restoreScrollY = null;			// 복원할 스크롤 위치
+
+// --------------------------------
+
+// 선택한 카테고리 읽기
+function getActiveCategory() {
+  return $('.scrap-list-wrap').is(':visible') ? 'my-scrap' : 'my-board';
+}
+
+// --------------------------------
+
+// 기존 카테고리 설정 불러와서 활성화 표시
+function setActiveCategory(category) {
+  // 카테고리 탭 버튼 상태
+  $('.div-category').removeClass('div-selected');
+  $(`.div-category[data-category="${category}"]`).addClass('div-selected');
+
+  // 활성화된 카테고리 목록 보여주기
+  $('.div-mypage-container').hide();
+  $(WRAP_FRAME[category]).show();
+
+  // myPage.js - 높이 자동조절 함수 사용
+  requestAnimationFrame(() => updateSlideHeight(WRAP_FRAME[category]));
+}
+
+// --------------------------------
+
+// 페이지 이동 전 현재 상태(현재 활성화된 카테고리, 페이지, 스크롤 위치) 저장
+function saveMyPageState() {
+  sessionStorage.setItem(STATE_KEY, JSON.stringify({
+    activeCategory: getActiveCategory(),
+    registPage,
+    scrapPage,
+    scrollY: window.scrollY
+  }));
+}
+
+// --------------------------------
+
+// 상태 복원
+$(function restoreMyPageState() {
+	const raw = sessionStorage.getItem("mypage_state");
+	if (!raw) return;
+	const active = JSON.parse(raw);
+	const activeCategory  = (active.activeCategory === 'my-scrap') ? 'my-scrap' : 'my-board';
+	const page = (activeCategory === 'my-scrap') ? (active.scrapPage || 1) : (active.registPage || 1);
+		
+	// myPage.js - 해당 li-category-wrap에 걸려있는 click 이벤트 그대로 실행
+	$(`.div-category[data-category="${activeCategory}"]`).closest(".li-category-wrap").trigger("click");
+		
+	// 원하는 목록 로드
+	activeCategory === 'my-scrap' ? loadScrapData(page) : loadWriteData(page);
+
+	// 스크롤 위치 복원
+	requestAnimationFrame(() => window.scrollTo(0, active.scrollY || 0));
+	// 저장한 상태 삭제
+	sessionStorage.removeItem("mypage_state");
+});
+
+// ---------------------------------------------------------------
+
 // errMsg는 basic.js
 // 페이지 기본은 1
 let registPage = 1;
 let scrapPage = 1;
 
-// ---------------------------------------------------------------
+// --------------------------------
 
 loadWriteData(registPage);
 
@@ -20,8 +85,18 @@ function loadWriteData(page) {
 	.catch((err) => { 
 		console.log(err);
 		openModal(errMsg); });
+			
+	// 렌더 끝난 후 한 프레임 뒤 스크롤 복원
+	if (restoreScrollY !== null) {
+		requestAnimationFrame(() => {
+			window.scrollTo(0, restoreScrollY);
+			restoreScrollY = null;
+		});
+	}
 }
-	
+
+// --------------------------------
+
 function showWriteList(data) {
 	const $countDiv = $(".span-regist-count");
 	const $wrap = $(".write-list-wrap");
@@ -34,6 +109,7 @@ function showWriteList(data) {
 	// 페이징 처리
 	showPage($pageWrap, data.page);
 }
+
 // ---------------------------------------------------------------
 
 loadScrapData(scrapPage);
@@ -51,8 +127,18 @@ function loadScrapData(page) {
 	.catch((err) => { 
 		console.log(err);
 		openModal(errMsg); });
+		
+	// 렌더 끝난 후 한 프레임 뒤 스크롤 복원
+	if (restoreScrollY !== null) {
+		requestAnimationFrame(() => {
+			window.scrollTo(0, restoreScrollY);
+			restoreScrollY = null;
+		});
+	}
 }
-	
+
+// --------------------------------
+
 function showScrapList(data) {
 	const $countDiv = $(".span-scrap-count");
 	const $wrap = $(".scrap-list-wrap");
@@ -83,7 +169,7 @@ function renderList(temp, $wrap, list, count) {
 	
 	$divWrap.empty();
 	const postWrap = list.map(post => `
-		<div class="div-one-post-wrap post-hover ${post.checkCommunityImg ? 'has-img' : ''}" onclick="location.href='/community/community-view?communityId=${post.communityId}'">
+		<div class="div-one-post-wrap post-hover ${post.checkCommunityImg ? 'has-img' : ''}" onclick="goCommunityView(${post.communityId})">
 		  <div class="${temp === "regist" ? 'div-my-post-info-wrap' : 'div-post-info-wrap'}">
 		    <div class="${temp === "regist" ? 'div-post-text-wrap' : 'div-profile-post-wrap'}">
 			${temp === "scrap"
@@ -137,6 +223,14 @@ function renderList(temp, $wrap, list, count) {
 	
 	// basic.js
 	updateTimeAgo();
+}
+
+// ---------------------------------------------------------------
+
+// 커뮤니티 상세페이지 이동
+function goCommunityView(communityId) {
+	saveMyPageState();
+	location.href = "/community/community-view?communityId=" + communityId;
 }
 
 // ---------------------------------------------------------------
