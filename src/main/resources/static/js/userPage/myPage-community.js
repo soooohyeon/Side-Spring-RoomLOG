@@ -8,7 +8,7 @@ let restoreScrollY = null;			// 복원할 스크롤 위치
 
 // 선택한 카테고리 읽기
 function getActiveCategory() {
-  return $('.scrap-list-wrap').is(':visible') ? 'my-scrap' : 'my-board';
+  return $('.div-category.div-selected').data('category') || 'my-board';
 }
 
 // --------------------------------
