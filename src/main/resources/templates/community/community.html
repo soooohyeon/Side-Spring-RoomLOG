@@ -115,11 +115,18 @@
                         <div class="div-comment" th:text="${list.commentCount}"></div>
                       </div>
                       <div class="div-count-wrap">
-                      	<th:block th:if="${list.isScrapped}">
-                          <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${list.communityId})|">
-                      	</th:block>
-                      	<th:block th:unless="${list.isScrapped}">
-                          <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${list.communityId})|">
+                        <th:block th:with="
+						  isOwner = ${session.userId != null and session.userId.longValue() == list.userId},
+						  isScrapped = ${list.isScrapped}">
+                      	  <th:block th:if="${isOwner}">
+                            <img th:src="@{/image/layout/scrap_no.png}">
+                      	  </th:block>
+                      	  <th:block th:if="${isScrapped}">
+                            <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${list.communityId})|">
+                      	  </th:block>
+                      	  <th:block th:if="${!isOwner and !isScrapped}">
+                            <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${list.communityId})|">
+                      	  </th:block>
                       	</th:block>
                         <div class="div-scrap" th:text="${list.scrapCount}"></div>
                       </div>

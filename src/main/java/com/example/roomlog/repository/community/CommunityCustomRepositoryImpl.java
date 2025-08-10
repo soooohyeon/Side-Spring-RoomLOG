@@ -36,6 +36,7 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 
 		List<CommunityListDTO> lists = jpaQueryFactory
 			.select(Projections.fields(CommunityListDTO.class,
+				c.user.userId,
 				c.communityId,
 		        c.communityTitle,
 		        c.communityContent,
@@ -46,6 +47,7 @@ public class CommunityCustomRepositoryImpl implements CommunityCustomRepository 
 		    .leftJoin(cm).on(cm.community.eq(c))
 		    .leftJoin(s).on(s.community.eq(c))
 		    .groupBy(
+				c.user.userId,
 				c.communityId,
 				c.communityTitle,
 				c.communityContent

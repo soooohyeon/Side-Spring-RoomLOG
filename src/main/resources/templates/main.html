@@ -113,11 +113,18 @@
                 <div class="div-board-info-count comment-count" th:text="${scrapRank.commentCount}"></div>
               </div>
               <div class="div-board-count-wrap div-count-wrap">
-                <th:block th:if="${scrapRank.isScrapped}">
-                  <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${scrapRank.communityId})|">
-                </th:block>
-                <th:block th:unless="${scrapRank.isScrapped}">
-                  <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${scrapRank.communityId})|">
+                <th:block th:with="
+			  	  isOwner = ${session.userId != null and session.userId.longValue() == scrapRank.userId},
+			  	  isScrapped = ${scrapRank.isScrapped}">
+                  <th:block th:if="${isOwner}">
+                    <img th:src="@{/image/layout/scrap_no.png}">
+                  </th:block>
+                  <th:block th:if="${isScrapped}">
+                    <img th:src="@{/image/layout/scrap_ok.png}" alt="scrap_ok" th:onclick="|noScrap(event, this, ${scrapRank.communityId})|">
+                  </th:block>
+                  <th:block th:if="${!isOwner and !isScrapped}">
+                    <img th:src="@{/image/layout/scrap_no.png}" alt="scrap_no" th:onclick="|goScrap(event, this, ${scrapRank.communityId})|">
+                  </th:block>
                 </th:block>
                 <div class="div-board-info-count div-scrap" th:text="${scrapRank.scrapCount}"></div>
               </div>
