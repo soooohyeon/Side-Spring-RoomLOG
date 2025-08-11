@@ -1,31 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/userPage/myPage-settings.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/userPage/myPage-settings.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
-  <script defer src="../../js/userPage/myPage-settings.js"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
+  <script defer th:src="@{/js/userPage/myPage-settings.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
-    <div id="DIV-HEADER-TOP">
-      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
-        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
-      </div>
-      <div id="DIV-RIGHT-LOGIN">
-        <div class="div-header-top-link">
-          <a href="">로그아웃</a>
-        </div>
-      </div>
-    </div>
-    <!--  -->
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
   </header>
   <!--  -->
   
@@ -41,13 +30,14 @@
       </div>
       <!--  -->
 
-      <form action="" method="">
+      <form action="" method="post">
         <!-- 프로필 이미지 -->
         <div id="DIV-PROFILE-IMG" class="none-img">
           <div id="DIV-PROFILE-IMG-WRAP">
-            <img src="../../image/userPage/profile_img_basic.png" class="img-one-preview" alt="프로필사진">
+            <img th:if="${user.profileImgUuid == null}" th:src="@{/image/userPage/profile_img_basic.png}" class="img-one-preview" alt="profile">
+            <img th:unless="${user.profileImgUuid == null}" th:src="@{'/upload/' + ${user.profileImgPath} + '/th_' + ${user.profileImgUuid}}" class="img-one-preview" alt="profile">
             <label for="profile-image" id="LABEL-PROFILE-IMAGE-BTN">
-              <img src="../../image/userPage/profile_img_update_btn.png" alt="img-btn" id="IMG-PROFILE-IMAGE-BTN">
+              <img th:src="@{/image/userPage/profile_img_update_btn.png}" alt="img-btn" id="IMG-PROFILE-IMAGE-BTN">
             </label>
             <input type="file" name="one-image" id="profile-image" class="input-profile-image">
           </div>
@@ -61,9 +51,9 @@
             </div>
             <div class="div-data-column-wrap">
               <div class="div-no-edit-wrap">
-                <img src="../../image/layout/login_google.png" alt="social-type">
-                <!-- <img src="../../image/layout/login_kakao.png" alt="social-type"> -->
-                test123@gmail.com
+                <img th:if="${user.socialTypeId == 1}" th:src="@{/image/layout/login_kakao.png}" alt="social-type">
+                <img th:if="${user.socialTypeId == 2}" th:src="@{/image/layout/login_google.png}" alt="social-type">
+                <span th:text="${user.userEmail}"></span>
               </div>
             </div>
           </div>
@@ -72,7 +62,7 @@
               <div class="div-column-text">닉네임</div>
             </div>
             <div class="div-data-column-wrap">
-              <input type="text" name="nickname" data-original="포근한하루" value="포근한하루" id="INPUT-NICK" class="input-mypage" autocomplete="off">
+              <input type="text" name="userNickname" th:data-original="${user.userNickname}" th:value="${user.userNickname}" id="INPUT-NICK" class="input-mypage" autocomplete="off">
               <div class="div-check-msg" id="DIV-NICK-CHECK"></div>
             </div>
           </div>
@@ -81,7 +71,7 @@
               <div class="div-column-text">한 줄 소개</div>
             </div>
             <div class="div-data-column-wrap">
-              <input type="text" name="intro" data-original="" id="INPUT-INTRO" class="input-mypage" autocomplete="off">
+              <input type="text" name="userIntro" th:data-original="${user.userIntro}" th:value="${user.userIntro}" id="INPUT-INTRO" class="input-mypage" autocomplete="off">
               <div class="div-check-msg">짧은 한 문장이 더 오래 머물 수 있어요 (30자 이내)</div>
             </div>
           </div>
@@ -90,7 +80,7 @@
               <div class="div-column-text">생년월일</div>
             </div>
             <div class="div-data-column-wrap">
-              <div class="div-no-edit-wrap">2000.01.01</div>
+              <div class="div-no-edit-wrap" th:text="${user.formatBirth}"></div>
             </div>
           </div>
           <div class="div-one-column-wrap">
@@ -100,11 +90,11 @@
             <div class="div-data-column-wrap">
               <div class="div-age-visible-wrap">
                 <label for="age-visible-yes">
-                  <input type="radio" name="age-visible" data-original="Y" value="Y" id="age-visible-yes" class="input-join-data required-input" required checked>
+                  <input type="radio" name="isAgeVisible" data-original="1" value="1" id="age-visible-yes" class="input-join-data required-input" th:field="*{user.isAgeVisible}" required>
                   <span>보여주기</span>
                 </label>
                 <label for="age-visible-no" class="">
-                  <input type="radio" name="age-visible" data-original="Y" value="N" id="age-visible-no" class="input-join-data required-input" required>
+                  <input type="radio" name="isAgeVisible" data-original="0" value="0" id="age-visible-no" class="input-join-data required-input" th:field="*{user.isAgeVisible}" required>
                   <span>숨기기</span>
                 </label>
               </div>
@@ -114,7 +104,7 @@
 
           <!-- 탈퇴, 뒤로가기, 저장 -->
           <div class="action-btn-wrap">
-            <div id="DIV-QUIT-SITE"><a href="mypage-quit.html">계정을 삭제하시려면 여기를 눌러주세요</a></div>
+            <div id="DIV-QUIT-SITE"><a th:href="@{/mypage/quit}">계정을 삭제하시려면 여기를 눌러주세요</a></div>
             <div id="DIV-WRITE-WRAP">
               <div class="button-style list-button" onclick="history.back();"><span>←</span> 돌아가기</div>
               <div class="button-style basic-button" id="WRITE-BTN">저장하기</div>
@@ -130,19 +120,8 @@
   </main>
   <!--  -->
 
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
-  <!--  -->
+  <!-- 알람 모달 -->
+  <div th:replace="layout/modal :: modalFragment"></div>
 
 </body>
 </html>

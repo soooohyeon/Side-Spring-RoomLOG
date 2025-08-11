@@ -177,7 +177,7 @@ function showPage($pageWrap, page) {
 // --------------------------------
 
 // 페이지 이동 이벤트
-$(document).off().on("click", ".pagenation", function() {
+$(document).off("click", ".pagenation").on("click", ".pagenation", function() {
 	const pageNum = $(this).data("page");
 	
 	if (reCommentCheck) {

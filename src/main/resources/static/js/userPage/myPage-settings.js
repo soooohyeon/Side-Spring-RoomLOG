@@ -26,7 +26,7 @@ $(document).ready(function () {
   // --------------------------------------
 
   // 나이 공개 여부 유효성 검사
-  $(`input[type="radio"][name="age-visible"]`).on("change", function() {
+  $(`input[type="radio"][name="isAgeVisible"]`).on("change", function() {
     let ageVisibleValue = $(this).val();
     isCheckAgeVisible = ageVisibleValue == "" ? false : true;
     updateJoinButton();
@@ -63,9 +63,9 @@ $(document).ready(function () {
 // 프로필 이미지 등록 버튼 호버
 const $imgBtn = $("#IMG-PROFILE-IMAGE-BTN");
 $('#LABEL-PROFILE-IMAGE-BTN').hover(function() {
-  $imgBtn.attr("src", "../../image/userPage/profile_img_update_btn_hover.png");
+  $imgBtn.attr("src", "/image/userPage/profile_img_update_btn_hover.png");
 }, function() {
-  $imgBtn.attr("src", "../../image/userPage/profile_img_update_btn.png");
+  $imgBtn.attr("src", "/image/userPage/profile_img_update_btn.png");
 });
 
 // ---------------------------------------------------------------
@@ -87,7 +87,7 @@ const moveMsg = "저장하지 않으면 변경한 내용이 사라집니다.<br>
 function isFormEdited() {
   const $nickname = $("input[name='nickname']");
   const $intro = $("input[name='intro']");
-  const $ageVisible = $("input[name='age-visible']:checked");
+  const $ageVisible = $("input[name='isAgeVisible']:checked");
   const $originalNickname = $nickname.data("original");
   const $originalIntro = $intro.data("original");
   const $originalAgeVisible = $ageVisible.data("original");

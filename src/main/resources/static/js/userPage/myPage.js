@@ -11,26 +11,6 @@ $(".show-follow").on("click", function() {
 
 // ----------------------------------------
 
-// 팔로우 목록 검색 시
-$(document).on("input change", ".input-follow", function() {
-    const keyword = $(this).val();
-    fetch(`/follow/follow-list/${userId}?keyword=${encodeURIComponent(keyword)}`)
-        .then(res => res.json())
-        .then(data => renderFollowList("follow", data))
-        .catch(() => openModal(errMsg));
-});
-
-// 팔로워 목록 검색 시
-$(document).on("input change", ".input-follower", function() {
-    const keyword = $(this).val();
-    fetch(`/follow/follower-list/${userId}?keyword=${encodeURIComponent(keyword)}`)
-        .then(res => res.json())
-        .then(data => renderFollowList("follower", data))
-        .catch(() => openModal(errMsg));
-});
-
-// ----------------------------------------
-
 // 팔로우 목록 - 팔로우 해제
 function deleteFollow(event, element, toUserId) {
   noFollow(event, element, toUserId);
@@ -138,3 +118,10 @@ function updateSlideHeight(targetSelector) {
 }
 
 // ---------------------------------------------------------------
+
+// 유저 페이지 이동
+// 이미지 또는 닉네임 클릭 시
+$(document).on("click", ".div-go-user-page img, .div-nickname", function(e) {
+	saveMyPageState();
+	goUserPage.call(this, e);
+});

@@ -13,4 +13,7 @@ public interface UserCustomRepository {
 	// 마이페이지 (메인) - 유저 정보 출력
 	UserInfoDTO selectUser(long userId);
 	
+	// 마이페이지 (설정) - 수정할 유저 정보 출력
+	UserInfoDTO selectEditUser(long userId);
+	
 }

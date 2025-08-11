@@ -175,7 +175,7 @@ function renderList(temp, $wrap, list, count) {
 		    <div class="${temp === "regist" ? 'div-post-text-wrap' : 'div-profile-post-wrap'}">
 			${temp === "scrap"
 			  ?	`<div class="div-profile-wrap">
-			       <div class="div-go-user-page">
+			       <div class="div-go-user-page" data-user-id="${post.userId}">
 				     ${post.profileImgUuid === null
 					   ? `<img src="/image/layout/profile_img_basic.png" alt="프로필">`
 			           : `<img src="/upload/${post.profileImgPath}/th_${post.profileImgUuid}" alt="프로필">`}
@@ -231,7 +231,7 @@ function renderList(temp, $wrap, list, count) {
 // 커뮤니티 상세페이지 이동
 function goCommunityView(communityId) {
 	saveMyPageState();
-	location.href = "/community/community-view?communityId=" + communityId;
+	/*location.href = "/community/community-view?communityId=" + communityId;*/
 }
 
 // ---------------------------------------------------------------
@@ -281,7 +281,7 @@ function showPage($pageWrap, page) {
 // --------------------------------
 
 // 페이지 이동 이벤트
-$(document).off().on("click", ".pagenation", function() {
+$(document).off("click", ".pagenation").on("click", ".pagenation", function() {
 	const pageNum = $(this).data("page");
 	
 	if ($(this).closest(".div-mypage-container").hasClass("write-list-wrap")) {

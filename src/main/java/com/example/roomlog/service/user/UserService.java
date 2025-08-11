@@ -1,6 +1,7 @@
 package com.example.roomlog.service.user;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -85,7 +86,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	// 마이페이지 - 유저 정보 출력
+	// 마이페이지(메인) - 유저 정보 출력
 	public UserInfoDTO selectUser(long userId) {
 		UserInfoDTO user = userRepository.selectUser(userId);
 		
@@ -96,12 +97,12 @@ public class UserService {
 		return user;
 	}
 	
-	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글 개수
+	// 마이페이지(메인) - 해당 유저가 작성한 커뮤니티 게시글 개수
 	public int countList(long userId) {
 		return communityRepository.countListByUser(userId);
 	}
 	
-	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	// 마이페이지(메인) - 해당 유저가 작성한 커뮤니티 게시글
 	public List<CommunityListDTO> selectList(long userId, Criteria criteria) {
 		List<CommunityListDTO> lists = communityRepository.selectListByUser(userId, criteria);
 		List<Long> communityIds = lists.stream()
@@ -135,12 +136,12 @@ public class UserService {
 		return lists;
 	}
 	
-	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글 개수
+	// 마이페이지(메인) - 해당 유저가 스크랩한 커뮤니티 게시글 개수
 	public int countScrapList(long userId) {
 		return scrapRepository.countScrapListByUser(userId);
 	}
 	
-	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	// 마이페이지(메인) - 해당 유저가 스크랩한 커뮤니티 게시글
 	public List<CommunityListDTO> selectScrapList(long userId, Criteria criteria) {
 		List<CommunityListDTO> lists = communityRepository.selectScrapListByUser(userId, criteria);
 		List<Long> communityIds = lists.stream()
@@ -175,6 +176,15 @@ public class UserService {
 		}
 		
 		return lists;
+	}
+	
+	// 마이페이지(설정) - 수정할 유저 정보 출력
+	public UserInfoDTO selectEditUser(long userId) {
+		UserInfoDTO user = userRepository.selectEditUser(userId);
+		String birth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+		user.setFormatBirth(birth);
+		
+		return user;
 	}
     
 }

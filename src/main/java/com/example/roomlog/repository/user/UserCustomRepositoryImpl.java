@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.example.roomlog.domain.community.QCommunity;
 import com.example.roomlog.domain.follow.QFollow;
 import com.example.roomlog.domain.user.QProfileImg;
+import com.example.roomlog.domain.user.QSocialType;
 import com.example.roomlog.domain.user.QUser;
 import com.example.roomlog.dto.user.UserDTO;
 import com.example.roomlog.dto.user.UserInfoDTO;
@@ -84,6 +85,31 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 			.from(u)
 			.leftJoin(pi).on(pi.user.userId.eq(u.userId))
 			.leftJoin(c).on(c.user.userId.eq(u.userId))
+			.where(u.userId.eq(userId))
+			.fetchOne();
+		
+		return user;
+	}
+	
+	// 마이페이지 (설정) - 수정할 유저 정보 출력
+	public UserInfoDTO selectEditUser(long userId) {
+		QUser u = QUser.user;
+		QProfileImg pi = QProfileImg.profileImg;
+		
+		UserInfoDTO user = jpaQueryFactory
+			.select(Projections.fields(UserInfoDTO.class, 
+				u.userId,
+				ExpressionUtils.as(u.socialType.socialTypeId, "socialTypeId"),
+				u.userEmail,
+				u.userNickname,
+				u.userIntro,
+				u.userBirth,
+				u.isAgeVisible,
+				pi.profileImgPath,
+				pi.profileImgUuid
+			))
+			.from(u)
+			.leftJoin(pi).on(pi.user.userId.eq(u.userId))
 			.where(u.userId.eq(userId))
 			.fetchOne();
 		

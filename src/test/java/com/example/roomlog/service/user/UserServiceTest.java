@@ -19,6 +19,7 @@ import com.example.roomlog.domain.user.User;
 import com.example.roomlog.dto.community.CommunityListDTO;
 import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.user.UserDTO;
+import com.example.roomlog.dto.user.UserInfoDTO;
 import com.example.roomlog.repository.user.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -101,7 +102,19 @@ public class UserServiceTest {
 		assertThat(user).isNotEmpty();
 	}
 	
-	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글 개수
+	// 마이페이지(메인) - 유저 정보 출력
+	@Test
+	public void selectUserTest() {
+		// given
+		long userId = 1;
+		// when
+		UserInfoDTO user = userService.selectUser(userId);
+		// then
+		assertNotNull(user);
+//		log.info("유저 : " + user);
+	}
+	
+	// 마이페이지(메인) - 해당 유저가 작성한 커뮤니티 게시글 개수
 	@Test
 	public void countListTest() {
 		// given
@@ -113,7 +126,7 @@ public class UserServiceTest {
 //		log.info("작성한 게시글 개수 : " + count);
 	}
 	
-	// 마이페이지 - 해당 유저가 작성한 커뮤니티 게시글
+	// 마이페이지(메인) - 해당 유저가 작성한 커뮤니티 게시글
 	@Test
 	public void selectListTest() {
 		// given
@@ -128,7 +141,7 @@ public class UserServiceTest {
 //		}
 	}
 	
-	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글 개수
+	// 마이페이지(메인) - 해당 유저가 스크랩한 커뮤니티 게시글 개수
 	@Test
 	public void countScrapListTest() {
 		// given
@@ -140,7 +153,7 @@ public class UserServiceTest {
 //		log.info("스크랩한 게시글 개수 : " + count);
 	}
 	
-	// 마이페이지 - 해당 유저가 스크랩한 커뮤니티 게시글
+	// 마이페이지(메인) - 해당 유저가 스크랩한 커뮤니티 게시글
 	@Test
 	public void selectScrapListTest() {
 		// given
@@ -153,6 +166,18 @@ public class UserServiceTest {
 //		for(CommunityListDTO list : lists) {
 //			log.info("스크랩한 게시글 : " + list);
 //		}
+	}
+	
+	// 마이페이지(설정) - 수정할 유저 정보 출력
+	@Test
+	public void selectEditUser() {
+		// given
+		long userId = 1;
+		// when
+		UserInfoDTO user = userService.selectEditUser(userId);
+		// then
+		assertNotNull(user);
+//		log.info("수정할 유저 정보 : " + user);
 	}
 	
 }

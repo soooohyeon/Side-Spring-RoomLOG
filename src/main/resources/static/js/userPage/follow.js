@@ -82,14 +82,14 @@ function renderFollowList(temp, data) {
     data.lists.forEach(user => {
         const userWrap = `
             <div class="div-user-wrap">
-                <div class="div-follow-user-wrap">
+                <div class="div-follow-user-wrap div-go-user-page" data-user-id="${user.userId}">
                     <div class="div-user-profile-img user-profile-img">
                         ${user.profileImgUuid
                             ? `<img src="/upload/${user.profileImgPath}/th_${user.profileImgUuid}">`
                             : `<img src="/image/layout/profile_img_basic.png">`}
                     </div>
                     <div class="div-user-simple-info">
-                        <div class="user-nick"><span class="user-nickname">${user.userNickname}</span></div>
+                        <div class="user-nick"><span class="div-nickname">${user.userNickname}</span></div>
                         <div class="user-info-wrap">
                             <div class="user-info div-one-skip">${user.userIntro}</div>
                         </div>
@@ -106,3 +106,23 @@ function renderFollowList(temp, data) {
         $listWrap.append(userWrap);
     });
 }
+
+// ----------------------------------------
+
+// 팔로우 목록 검색 시
+$(document).on("input change", ".input-follow", function() {
+    const keyword = $(this).val();
+    fetch(`/follow/follow-list/${userId}?keyword=${encodeURIComponent(keyword)}`)
+        .then(res => res.json())
+        .then(data => renderFollowList("follow", data))
+        .catch(() => openModal(errMsg));
+});
+
+// 팔로워 목록 검색 시
+$(document).on("input change", ".input-follower", function() {
+    const keyword = $(this).val();
+    fetch(`/follow/follower-list/${userId}?keyword=${encodeURIComponent(keyword)}`)
+        .then(res => res.json())
+        .then(data => renderFollowList("follower", data))
+        .catch(() => openModal(errMsg));
+});

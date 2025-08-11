@@ -92,8 +92,19 @@ public class UserRepositoryTest {
 		UserInfoDTO userInfoDTO = userRepository.selectUser(userNumber);
 		// then
 		assertNotNull(userInfoDTO);		
-		log.info("유저 1명 정보 : " + userInfoDTO);
+//		log.info("유저 1명 정보 : " + userInfoDTO);
 	}
-
+	
+	// 마이페이지 (설정) - 수정할 유저 정보 출력
+	@Test
+	public void selectEditUserTest() {
+		// given
+		long userNumber = 1L;
+		// when
+		UserInfoDTO userInfoDTO = userRepository.selectEditUser(userNumber);
+		// then
+		assertNotNull(userInfoDTO);		
+		log.info("수정할 유저의 정보 : " + userInfoDTO);
+	}
 	
 }

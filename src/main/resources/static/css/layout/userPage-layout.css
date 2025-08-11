@@ -255,15 +255,15 @@
     object-fit: cover;
 }
 
-
 /* 유저 닉네임, 한 줄 소개 */
-.div-user-simple-info {
-    min-width: 0;
-}
+.div-user-simple-info { min-width: 0; }
+
 .div-user-simple-info > .user-nick {
     margin-top: 10px;
     font-size: 18px;
 }
+
+.div-alert-content .div-nickname { margin-left: 0; }
 
 .div-user-simple-info > .user-nick > span:hover {
     color: #006497;
