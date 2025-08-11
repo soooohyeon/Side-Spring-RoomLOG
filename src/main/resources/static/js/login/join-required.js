@@ -5,12 +5,12 @@ $(document).ready(function () {
   let isCheckAgeVisible = true;
 
   // 닉네임 중복 검사
-  $("#nickname").on("input", function() {
+  $("#nickname").on("input", async function() {
     let $nickResult = $("#DIV-NICK-CHECK")
     let nickValue = $(this).val();
     
     // basic.js
-    isCheckNick = isNickUsed($nickResult, nickValue);
+    isCheckNick = await isNickUsed($nickResult, nickValue);
     updateJoinButton();
   });
 

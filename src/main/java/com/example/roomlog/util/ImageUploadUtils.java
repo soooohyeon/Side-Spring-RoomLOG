@@ -41,7 +41,6 @@ public class ImageUploadUtils {
 		Map<String, Object> result = new HashMap<>();
 		result.put("uploadImg", uploadImg);
 		result.put("uploadPath", uploadPath);
-		result.put("uuid", uuid);
 		result.put("imgUuid", imgUuid);
 		result.put("originalImgName", originalImgName);
 		result.put("setfileDir", setfileDir);

@@ -1,3 +1,16 @@
+$(document).ready(function() {
+  // 로그아웃 버튼 클릭 시
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("editOk") === "true") {
+      openModal("변경하신 내용이 저장되었습니다.").then((result) => {
+		if (result) {
+			location.replace("/mypage");
+		}
+	  });
+  }
+});
+
+// ---------------------------------------------------------------
 
 // userPage/follow.js
 // 팔로워 클릭 시

@@ -23,6 +23,20 @@ function bannerSlide() {
 
 // ---------------------------------------------------------------
 
+$(document).ready(function() {
+  // 로그아웃 버튼 클릭 시
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("logout") === "true") {
+      openModal("로그아웃 되었습니다").then((result) => {
+		if (result) {
+			location.replace("/main");
+		}
+	  });
+  }
+});
+
+// ---------------------------------------------------------------
+
 // 유저 페이지 이동 - basic.js
 $(document).ready(function () {
   $(document).on("click", ".div-go-user-page", goUserPage);

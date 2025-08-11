@@ -4,13 +4,13 @@ $(document).ready(function () {
   let isCheckAgeVisible = true;
 
   // 닉네임 중복 검사
-  $("#INPUT-NICK").on("input", function() {
+  $("#INPUT-NICK").on("input", async function() {
     let $nickResult = $("#DIV-NICK-CHECK");
     let nickValue = $(this).val();
     const originalNick = $(this).data("original");
 
     // basic.js
-    isCheckNick = isNickUsed($nickResult, nickValue, originalNick);
+    isCheckNick = await isNickUsed($nickResult, nickValue, originalNick);
     updateJoinButton();
   });
 
@@ -60,19 +60,19 @@ $(document).ready(function () {
 
 // ---------------------------------------------------------------
 
+// 저장하기 버튼 클릭 시
+$(document).on("click", ".basic-button", function() {
+	$("#editForm").submit();
+});
+
+// ---------------------------------------------------------------
+
 // 프로필 이미지 등록 버튼 호버
 const $imgBtn = $("#IMG-PROFILE-IMAGE-BTN");
 $('#LABEL-PROFILE-IMAGE-BTN').hover(function() {
   $imgBtn.attr("src", "/image/userPage/profile_img_update_btn_hover.png");
 }, function() {
   $imgBtn.attr("src", "/image/userPage/profile_img_update_btn.png");
-});
-
-// ---------------------------------------------------------------
-
-// 저장하기 버튼 클릭 시
-$(document).on("click", ".basic-button", function() {
-  openModal("변경하신 내용이 저장되었습니다.")
 });
 
 // ---------------------------------------------------------------
@@ -92,11 +92,6 @@ function isFormEdited() {
   const $originalIntro = $intro.data("original");
   const $originalAgeVisible = $ageVisible.data("original");
 
-
-  console.log("변경 :  ", $ageVisible.val());
-  console.log("기존  : ", $originalAgeVisible);
-  console.log($ageVisible.val() !== $originalAgeVisible);
-  console.log($nickname.val() !== $originalNickname);
   return $nickname.val() !== $originalNickname || $intro.val() !== $originalIntro || $ageVisible.val() !== $originalAgeVisible;
 }
 

@@ -24,18 +24,6 @@ $(".a-feedback").on("click", function() {
 
 $(document).ready(function() {
 
-  // 로그아웃 버튼 클릭 시
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("logout") === "true") {
-      openModal("로그아웃 되었습니다").then((result) => {
-		if (result) {
-			location.replace("/main");
-		}
-	  });
-  }
-	
-  // ---------------------------------------------------------------
-
   // 메뉴바 css 설정
   const url = window.location.pathname;
 
@@ -68,6 +56,7 @@ $(document).ready(function() {
       $(this).text("▷");
     }
   });
+  
 });
 
 // ---------------------------------------------------------------
@@ -227,8 +216,9 @@ async function isNickUsed($result, nickname, originalNick = null) {
     const trimmed = Array.from(nickname).slice(0, 12).join("");
     $(this).val(trimmed);
   } else {  // 2 ~ 12자 이내일 때 중복 검사
-	  isCheckNick = await checkNickname($result, nickname);
+	isCheckNick = await checkNickname($result, nickname);
   }
+  
   return isCheckNick;
 }
 
@@ -249,6 +239,7 @@ async function checkNickname($result, nickname) {
 		$result.css("color", "#064973");
 		checkResult = true;
 	}
+	
 	return checkResult;
 }
 

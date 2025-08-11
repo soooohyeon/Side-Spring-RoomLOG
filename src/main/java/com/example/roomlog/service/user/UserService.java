@@ -75,8 +75,8 @@ public class UserService {
 		User user = userRepository.findByUserId(userDTO.getUserId()).get();
 		if (image != null && !image.isEmpty()) {
 			profileImg = profileImgService.updateProfileImg(user, image);
+			profileImgRepository.save(profileImg);
 		}
-		profileImgRepository.save(profileImg);
 		
 		if (pageType.equals("JOIN")) {
 			user.saveUserIntro(userIntro);
@@ -186,5 +186,5 @@ public class UserService {
 		
 		return user;
 	}
-    
+	
 }

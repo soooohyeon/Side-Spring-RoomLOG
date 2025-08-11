@@ -23,7 +23,7 @@ public interface CommunityImgRepository extends JpaRepository<CommunityImg, Long
 			"   	GROUP BY img2.community.communityId)")
 	List<CommunityImg> findFirstImagesByCommunityIds(List<Long> communityIds);
 	
-	// 해당 게시글의 해시태그 삭제
+	// 해당 게시글의 이미지 삭제
 	@Modifying
 	@Transactional
 	@Query("DELETE FROM CommunityImg img " +

@@ -78,7 +78,7 @@ public class LoginController {
 	
 	// 회원 가입 - 선택 정보 저장
 	@PostMapping("/join-optional-data")
-	public String updateUserInfo(@RequestParam("one-image") MultipartFile image, HttpSession session, UserDTO userDTO) {
+	public String updateUserInfo(UserDTO userDTO, @RequestParam("one-image") MultipartFile image, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("joinUserId");
 		// 예외 처리 : 세션 만료 시 로그인 페이지로 이동
 	    if (userId == null) {

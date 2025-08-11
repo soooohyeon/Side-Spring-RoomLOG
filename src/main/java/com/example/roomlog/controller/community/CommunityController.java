@@ -90,13 +90,9 @@ public class CommunityController {
 		return "community/community-edit";
 	}
 	
-	// 게시판 - 글 수정
+	// 게시판 - 글 수정 처리
 	@PostMapping("/community-editOk/{communityId}")
 	public String editCommunity(@PathVariable long communityId, CommunityEditDTO communityEditDTO, List<MultipartFile> images) {
-		System.out.println("--------------------------------------------------");
-		System.out.println(communityEditDTO);
-		System.out.println("--------------------------------------------------");
-		
 		communityEditDTO.setCommunityId(communityId);
 		
 		try {
@@ -108,7 +104,7 @@ public class CommunityController {
 		return "redirect:/community/community-list?editOk=true";
 	}
 	
-	// 게시판 - 글 삭제
+	// 게시판 - 글 삭제 처리
 	@GetMapping("/community-deleteOk")
 	public String deleteCommunity(long communityId) {
 		communityService.deleteCommunity(communityId);

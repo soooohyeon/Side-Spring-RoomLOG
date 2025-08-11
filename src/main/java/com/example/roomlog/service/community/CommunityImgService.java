@@ -47,7 +47,7 @@ public class CommunityImgService {
 		return communityImg;
 	}
 	
-	// DB에 저장된 이미지 삭제 후 폴더에 저장된 이미지 삭제
+	// 폴더에 저장된 이미지 삭제 후 DB에 저장된 이미지 삭제
 	public void deleteCommunityImg(long imageId) {
 		CommunityImgDTO communityImgDTO = communityImgRepository.findCommunityImgByImageId(imageId);
 		deleteCommunityImgFile(communityImgDTO);

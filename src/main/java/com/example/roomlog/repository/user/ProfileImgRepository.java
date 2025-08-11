@@ -11,7 +11,8 @@ public interface ProfileImgRepository extends JpaRepository<ProfileImg, Long> {
 
 	// 프로필 이미지 조회
 	Optional<ProfileImg> findByUser(User user);
+	
 	// 수정할 프로필 이미지 조회
 	Optional<ProfileImg> findByProfileImgId(long profileImgId);
-	
+
 }
