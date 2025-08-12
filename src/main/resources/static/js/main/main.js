@@ -23,15 +23,23 @@ function bannerSlide() {
 
 // ---------------------------------------------------------------
 
+const quitMsg = "탈퇴가 정상적으로 처리되었습니다.<br>소중한 시간을 함께해 주셔서 고맙습니다.";
+
 $(document).ready(function() {
   // 로그아웃 버튼 클릭 시
   const params = new URLSearchParams(window.location.search);
   if (params.get("logout") === "true") {
-      openModal("로그아웃 되었습니다").then((result) => {
-		if (result) {
-			location.replace("/main");
-		}
-	  });
+	openModal("로그아웃 되었습니다").then((result) => {
+	  if (result) {
+		location.replace("/main");
+	  }
+	});
+  } else if (params.get("quitOk") === "true") {
+  	openModal(quitMsg).then((result) => {
+	  if (result) {
+ 		location.replace("/main");
+ 	  }
+	});
   }
 });
 

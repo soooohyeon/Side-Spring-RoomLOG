@@ -27,9 +27,7 @@ function updateQuitButton() {
 
 // ---------------------------------------------------------------
 
-const quitMsg = "탈퇴가 정상적으로 처리되었습니다.<br>소중한 시간을 함께해 주셔서 고맙습니다.";
-
 // 탈퇴하기 버튼 클릭 시
 $(document).on("click", ".basic-button", function() {
-  openModal(quitMsg)
+	
 });

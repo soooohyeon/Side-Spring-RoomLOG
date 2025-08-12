@@ -64,10 +64,15 @@ public class MypageContoller {
 	
 	// 마이페이지 (탈퇴)
 	@GetMapping("/mypage/quit")
-	public String quitPage(HttpSession session) {
-		System.out.println("컨트롤러 들어옴");
-		
+	public String quitPage() {
 		return "userPage/mypage-quit";
+	}
+	
+	// 마이페이지 (탈퇴)
+	@GetMapping("/mypage/quitOk")
+	public String quitUser() {
+		
+		return "redirect:/main?quitOk=true";
 	}
 	
 	// 유저 개인 페이지

@@ -68,7 +68,8 @@ function renderFollowList(temp, data) {
         const userNone = temp === "follower"
             ? `<div id="DIV-USER-NONE">아직 팔로워가 없어요.<br>내 활동이 쌓이면 누군가가 찾아올지도 몰라요 :)</div>`
             : `<div id="DIV-USER-NONE">아직 팔로우한 사람이 없어요.<br>관심 있는 사용자를 찾아 팔로우해보세요!</div>`;
-        $(".div-alert-content").html(userNone);
+        $(".div-alert-content").remove();
+        $(".div-alert-wrap").append(userNone);
         return;
     }
 	

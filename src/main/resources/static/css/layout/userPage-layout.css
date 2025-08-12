@@ -154,6 +154,9 @@
 
 /* 팔로워, 팔로우 목록 (모달) */
 .modal-follow > .div-alert-wrap {
+    display: flex;
+    flex-direction: column;
+    
     width: 550px;
     min-height: 400px;
     margin-bottom: 3%;
@@ -293,10 +296,11 @@
 
 /* 팔로워, 팔로우 0명일 경우 */
 #DIV-USER-NONE {
-    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
+    height: 100%;
 
     color: #555555;
     font-size: 18px;

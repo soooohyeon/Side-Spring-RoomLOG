@@ -1,31 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomLOG</title>
-  <link rel="shortcut icon" href="../../image/layout/favicon.png">
-  <link rel="stylesheet" href="../../css/layout/main-layout.css">
-  <link rel="stylesheet" href="../../css/userPage/myPage-quit.css">
+  <link rel="shortcut icon" th:href="@{/image/layout/favicon.png}">
+  <link rel="stylesheet" th:href="@{/css/layout/main-layout.css}">
+  <link rel="stylesheet" th:href="@{/css/userPage/myPage-quit.css}">
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script defer src="../../js/basic/basic.js"></script>
-  <script defer src="../../js/userPage/myPage-quit.js"></script>
+  <script defer th:src="@{/js/basic/basic.js}"></script>
+  <script defer th:src="@{/js/userPage/myPage-quit.js}"></script>
 </head>
 <body>
   <!-- 상단 공통 헤더 영역 -->
   <header id="HEADER-CONTAINER">
-    <!-- 로고 및 로그인 링크 -->
-    <div id="DIV-HEADER-TOP">
-      <div id="DIV-LEFT-LOGO" onclick="location.href='';">
-        <img src="../../image/layout/logo.png" id="IMG-LOGO" alt="LOGO">
-      </div>
-      <div id="DIV-RIGHT-LOGIN">
-        <div class="div-header-top-link">
-          <a href="">로그아웃</a>
-        </div>
-      </div>
-    </div>
-    <!--  -->
+	<div th:replace="layout/user-header-login :: headerLoginFragment"></div>
   </header>
   <!--  -->
   
@@ -60,20 +49,6 @@
     </section>
 
   </main>
-  <!--  -->
-
-  <!-- 알람 모달창 -->
-  <div class="div-alert-container" id="MODAL-ALERT-ONE-A">
-    <div class="div-alert-wrap">
-      <div class="div-alert-content">
-        모달 내용
-      </div>
-      <div class="div-alert-btn-wrap">
-        <div class="div-alert-btn alert-ok modal-close">확인</div>
-        <div class="div-alert-btn alert-no">취소</div>
-      </div>
-    </div>
-  </div>
   <!--  -->
 
 </body>
