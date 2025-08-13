@@ -2,6 +2,7 @@ package com.example.roomlog.repository.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -76,9 +77,9 @@ public class UserRepositoryTest {
 	@Test
 	public void updateUserTest() {
 		// given
-		long userNumber = 1L;
+		long userId = 1L;
 		// when
-		Optional<User> userDTO = userRepository.findByUserId(userNumber);
+		Optional<User> userDTO = userRepository.findByUserId(userId);
 		// then
 		assertNotNull(userDTO);		
 	}
@@ -87,9 +88,9 @@ public class UserRepositoryTest {
 	@Test
 	public void selectUserTest() {
 		// given
-		long userNumber = 1L;
+		long userId = 1L;
 		// when
-		UserInfoDTO userInfoDTO = userRepository.selectUser(userNumber);
+		UserInfoDTO userInfoDTO = userRepository.selectUser(userId);
 		// then
 		assertNotNull(userInfoDTO);		
 //		log.info("유저 1명 정보 : " + userInfoDTO);
@@ -99,12 +100,23 @@ public class UserRepositoryTest {
 	@Test
 	public void selectEditUserTest() {
 		// given
-		long userNumber = 1L;
+		long userId = 1L;
 		// when
-		UserInfoDTO userInfoDTO = userRepository.selectEditUser(userNumber);
+		UserInfoDTO userInfoDTO = userRepository.selectEditUser(userId);
 		// then
 		assertNotNull(userInfoDTO);		
-		log.info("수정할 유저의 정보 : " + userInfoDTO);
+//		log.info("수정할 유저의 정보 : " + userInfoDTO);
+	}
+	
+	// 회원 탈퇴
+	@Test
+	public void deleteByUserIdTest() {
+		// given
+		long userId = 1L;
+		// when
+		userRepository.deleteByUserId(userId);
+		// then
+		assertNull(userRepository.findByUserId(userId));
 	}
 	
 }

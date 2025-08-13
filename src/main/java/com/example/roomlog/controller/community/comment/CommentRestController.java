@@ -95,13 +95,13 @@ public class CommentRestController {
 	
 	// 댓글 대댓글 삭제
 	@DeleteMapping("/comment-delete/{commentId}")
-	public void  deleteComment(@PathVariable("commentId")long commentId, HttpSession session) {
+	public void  deleteComment(@PathVariable long commentId, HttpSession session) {
 		Long userId = SessionUtils.getUserId(session);
 		if (userId == null) {
 			throw new IllegalStateException("로그인이 필요한 서비스입니다.");
 		}
 		
-		commentService.deleteComment(commentId);
+		commentService.deleteComment(commentId, "delete");
 	}
 	
 }

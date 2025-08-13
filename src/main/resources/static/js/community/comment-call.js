@@ -49,12 +49,12 @@ function showParentCommentList($pageWrap, data) {
 		    <div class="div-comment-user-time-wrap">
 		      <div class="div-comment-user-profile-wrap div-go-user-page" data-user-id="${pl.userId}">
 		        <div class="div-comment-profile-wrap">
-				${pl.profileImgPath == null
+				${pl.profileImgPath == null || pl.isDeleted == 2
 				  ? `<img src="/image/layout/profile_img_basic.png" alt="profile">`
 			  	  : `<img src="/upload/${pl.profileImgPath}/th_${pl.profileImgUuid}" alt="profile">`}
 		        </div>
-		        <div class="div-nick">${pl.userNickname}</div>
-		        <div class="div-age">${pl.userAge}</div>
+		        <div class="div-nick">${pl.isDeleted == 2 ? `탈퇴한 사용자` : pl.userNickname}</div>
+		        <div class="div-age">${pl.isDeleted == 2 ? `-` : pl.userAge}</div>
 		      </div>
 		      <div class="div-comment-date time-ago" data-timestamp="${pl.createDate}"></div>
 		    </div>

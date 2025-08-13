@@ -3,6 +3,7 @@ package com.example.roomlog.service.user;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,12 +38,10 @@ public class ProfileImgService {
         .size(350, 350)
         .toFile(new File((File) img.get("uploadPath"), "th_" + img.get("imgUuid")));
 
-        long profileImgId = profileImgRepository.findByUser(user)
-        		.map(ProfileImg::getProfileImgId)
-        		.orElse(-1L);
+        Optional<ProfileImg> checkProfileImg = profileImgRepository.findByUserId(user.getUserId());
         ProfileImg profileImg = null;
-		
-        if (profileImgId < 0) {
+        
+        if (checkProfileImg.isEmpty()) {
         	// 회원가입 또는 기존 프로필 이미지가 없을 경우 새로 등록
         	profileImg = ProfileImg.builder()
         		.user(user)
@@ -52,7 +51,7 @@ public class ProfileImgService {
 	        	.build();
         } else {
         	// 기존 프로필 이미지 수정할 경우
-        	profileImg = profileImgRepository.findByProfileImgId(profileImgId).get();
+        	profileImg = checkProfileImg.get();
         	deleteProfileImgFile(profileImg);
         	
         	profileImg.updateProfileImg(img.get("imgUuid").toString(), (String)img.get("originalImgName"), (String)img.get("setfileDir"));

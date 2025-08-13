@@ -36,7 +36,7 @@ public class CommentServiceTest {
 	@Test
 	public void countCommentTest() {
 		// given
-		long communityId = 48;
+		long communityId = 2;
 		// when
 		int count = commentService.countComment(communityId);
 		// then
@@ -47,11 +47,11 @@ public class CommentServiceTest {
 	@Test
 	public void countParentCommentTest() {
 		// given
-		long communityId = 48;
+		long communityId = 2;
 		// when
 		int count = commentService.countParentComment(communityId);
 		// then
-		log.info("count : " + count);
+//		log.info("count : " + count);
 		assertEquals(count, 17);
 	}
 	
@@ -59,11 +59,11 @@ public class CommentServiceTest {
 	@Test
 	public void countChildCommentTest() {
 		// given
-		long parentId = 36;
+		long parentId = 13;
 		// when
 		int count = commentService.countChildComment(parentId);
 		// then
-		log.info("count : " + count);
+//		log.info("count : " + count);
 		assertEquals(count, 9);
 	}
 	
@@ -84,7 +84,7 @@ public class CommentServiceTest {
 	@Test
 	public void selectChildListTest() {
 		// given
-		long parentId = 15;
+		long parentId = 13;
 		Pageable pageable = PageRequest.of(0, 5); 
 		// when
 		Slice<CommentDTO> lists = commentService.selectChildList(parentId, pageable);
@@ -117,13 +117,13 @@ public class CommentServiceTest {
 	public void editCommentTest() {
 		// given
 		CommentDTO commentDTO = new CommentDTO();
-		commentDTO.setCommentId(1L);
+		commentDTO.setCommentId(2L);
 		commentDTO.setCommentContent("댓글 수정 TEST");
 		// when
 		commentService.editComment(commentDTO);
 		// then
 		Comment comment = commentRepository.findByCommentId(commentDTO.getCommentId());
-		log.info("댓글 수정 : " + comment);
+//		log.info("댓글 수정 : " + comment);
 		assertNotNull(comment);
 	}
 	
@@ -131,11 +131,13 @@ public class CommentServiceTest {
 	@Test
 	public void deleteCommentTest() {
 		// given
-		long commentId = 1L;
+		long commentId = 13L;
 		// when
-		commentService.deleteComment(commentId);
+		commentService.deleteComment(commentId, "delete");
+//		commentService.deleteComment(commentId, "quit");
 		// then
 		Comment result = commentRepository.findByCommentId(commentId);
 		assertNull(result);
+//		log.info("댓글 삭제 : "  + result);
 	}
 }

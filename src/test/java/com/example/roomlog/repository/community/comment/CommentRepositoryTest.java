@@ -48,7 +48,7 @@ public class CommentRepositoryTest {
 		// when
 		int count = commentRepository.countParentComment(communityId);
 		// then
-		log.info("count : " + count);
+//		log.info("count : " + count);
 		assertEquals(count, 17);
 	}
 	
@@ -60,7 +60,7 @@ public class CommentRepositoryTest {
 		// when
 		int count = commentRepository.countChildComment(parentId);
 		// then
-		log.info("count : " + count);
+//		log.info("count : " + count);
 		assertEquals(count, 9);
 	}
 
@@ -105,7 +105,33 @@ public class CommentRepositoryTest {
 		commentRepository.save(comment);
 		// then
 		Comment result = commentRepository.findByCommentId(commentId);
-		log.info("수정 : " + result);
+//		log.info("수정 : " + result);
+	}
+	
+	// 자식 댓글 존재하는 부모 댓글은 삭제 상태로 변경
+	@Test
+	public void updateDeleteStatusTest() {
+		// given
+		long commentId = 1L;
+		// when
+		commentRepository.updateDeleteStatus(commentId);
+		// then
+		Comment result = commentRepository.findByCommentId(commentId);
+		assertNotNull(result);
+//		log.info("삭제 상태 변경 : " + result);
+	}
+	
+	// 회원 탈퇴시 자식 댓글 존재하는 부모 댓글은 삭제 상태로 변경
+	@Test
+	public void updateQuitStatusTest() {
+		// given
+		long commentId = 1L;
+		// when
+		commentRepository.updateQuitStatus(commentId);
+		// then
+		Comment result = commentRepository.findByCommentId(commentId);
+		assertNotNull(result);
+		log.info("삭제 상태 변경 : " + result);
 	}
 	
 	// 댓글 삭제
@@ -118,6 +144,18 @@ public class CommentRepositoryTest {
 		// then
 		Comment result = commentRepository.findByCommentId(commentId);
 		assertNull(result);
+	}
+	
+	// 회원 탈퇴시 해당 회원이 작성한 댓글 번호만 조회
+	@Test
+	public void findAllCommentByUserIdTest() {
+		// given
+		long userId = 1L;
+		// when
+		List<Long> lists = commentRepository.findAllCommentByUserId(userId);
+		// then
+		assertNotNull(lists);
+//		log.info("댓글 번호 : " + lists);
 	}
 	
 }

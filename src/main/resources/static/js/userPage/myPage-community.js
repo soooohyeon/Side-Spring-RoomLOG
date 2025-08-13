@@ -231,7 +231,7 @@ function renderList(temp, $wrap, list, count) {
 // 커뮤니티 상세페이지 이동
 function goCommunityView(communityId) {
 	saveMyPageState();
-	/*location.href = "/community/community-view?communityId=" + communityId;*/
+	location.href = "/community/community-view?communityId=" + communityId;
 }
 
 // ---------------------------------------------------------------

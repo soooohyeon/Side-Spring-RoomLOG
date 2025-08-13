@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roomlog.domain.community.comment.Comment;
 import com.example.roomlog.domain.community.comment.Comment.CommentBuilder;
@@ -18,6 +19,7 @@ import com.example.roomlog.util.AgeUtils;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CommentService {
 
@@ -63,7 +65,7 @@ public class CommentService {
 	// 댓글 등록
 	public void insertComment(CommentDTO commentDTO) {
 		CommentBuilder builder = Comment.builder()
-				.writerUser(userRepository.findByUserId(commentDTO.getUserId()).get())
+				.user(userRepository.findByUserId(commentDTO.getUserId()).get())
 				.community(communityRepository.findByCommunityId(commentDTO.getCommunityId()))
 				.commentContent(commentDTO.getCommentContent());
 		
@@ -83,10 +85,10 @@ public class CommentService {
 	}
 	
 	// 댓글 삭제
-	public void deleteComment(long commentId) {
+	public void deleteComment(long commentId, String temp) {
 		Comment comment = commentRepository.findByCommentId(commentId);
 		int commentCount = commentRepository.countChildComment(commentId);
-		int childCount = 0; // 자식 댓글
+		int childCount = 0; // 자식 댓글 개수
 		
 		if (commentCount == 0 && comment.getParentComment() != null) {
 			// 자식 댓글의 삭제를 눌렀을 경우
@@ -103,10 +105,12 @@ public class CommentService {
 		} else if (commentCount == 0) {
 			// 부모 댓글에 자식 댓글이 없을 때 삭제를 누른 경우
 			commentRepository.deleteByCommentId(commentId);
-		} else if (commentCount > 0) {
-			// 부모 댓글에 자식 댓글이 있을 때 삭제를 누른 경우
-			comment.deleteParentComment();
-			commentRepository.save(comment);
+		} else if (commentCount > 0 && temp.equals("delete")) {
+			// 게시글 - 부모 댓글에 자식 댓글이 있을 때 삭제를 누른 경우
+			commentRepository.updateDeleteStatus(comment.getCommentId());
+		} else if (commentCount > 0 && temp.equals("quit")) {
+			// 회원 탈퇴 - 부모 댓글에 자식 댓글이 있는 경우
+			commentRepository.updateQuitStatus(comment.getCommentId());
 		}
 	}
 	

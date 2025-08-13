@@ -34,7 +34,7 @@ public class Comment extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = true)
-	private User writerUser;
+	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "community_id", nullable = false)
@@ -43,7 +43,6 @@ public class Comment extends BaseTimeEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_comment_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
 	private Comment parentComment;
 
 	@Column(length = 700, nullable = false)
@@ -52,8 +51,8 @@ public class Comment extends BaseTimeEntity {
 	private int isDeleted = 0;
 	
 	@Builder
-	public Comment(User writerUser, Community community, Comment parentComment, String commentContent) {
-		this.writerUser = writerUser;
+	public Comment(User user, Community community, Comment parentComment, String commentContent) {
+		this.user = user;
 		this.community = community;
 		this.parentComment = parentComment;
 		this.commentContent = commentContent;
@@ -62,16 +61,6 @@ public class Comment extends BaseTimeEntity {
 	// 댓글 수정
 	public void updateComment (String commentContent) {
 		this.commentContent = commentContent;
-	}
-	
-	// 댓글 삭제
-	public void deleteParentComment () {
-		this.isDeleted = 1;
-	}
-	
-	// 대댓글이 존재하는 댓글의 유저 탈퇴시
-	public void quitUser () {
-		this.isDeleted = 2;
 	}
 	
 }

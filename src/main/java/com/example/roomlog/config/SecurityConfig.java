@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -82,8 +83,6 @@ public class SecurityConfig {
 	        	        }
 
 	        	        SocialType socialType = socialTypeRepository.findBySocialTypeName(socialTypeName);
-	        	        System.out.println("email : " + email);
-	        	        System.out.println("socialType : " + socialType);
 	        	        User user = userRepository.findByUserEmailAndSocialType(email, socialType).get();
 
 	        	        session.setAttribute("userId", user.getUserId());
@@ -94,9 +93,12 @@ public class SecurityConfig {
 	        )
 	        .logout(logout -> logout
 	        	.logoutUrl("/logout") 
-	        	.logoutSuccessUrl("/main?logout=true")
 	            .invalidateHttpSession(true)
-	            .deleteCookies("JSESSIONID")
+	            .deleteCookies("JSESSIONID", "remember-me", "access_token", "refresh_token")
+	            .logoutSuccessHandler((req, res, auth) -> {
+	            	new SecurityContextLogoutHandler().logout(req, res, auth);
+	                res.sendRedirect("/main?logout=true");
+	            })
 	        )
 	        .csrf(csrf -> csrf.disable());
 

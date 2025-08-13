@@ -29,5 +29,5 @@ function updateQuitButton() {
 
 // 탈퇴하기 버튼 클릭 시
 $(document).on("click", ".basic-button", function() {
-	
+	location.href = "/mypage/quitOk";
 });

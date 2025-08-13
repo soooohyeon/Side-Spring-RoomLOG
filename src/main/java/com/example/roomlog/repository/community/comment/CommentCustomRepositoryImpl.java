@@ -45,7 +45,7 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 				c.modifiedDate
 			))
 			.from(c)
-			.join(c.writerUser, u)
+			.join(c.user, u)
 			.leftJoin(pi).on(pi.user.eq(u))
 			.orderBy(c.commentId.desc())
 			.where(c.community.communityId.eq(communityId),
@@ -80,7 +80,7 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 				c.modifiedDate
 			))
 			.from(c)
-			.join(c.writerUser, u)
+			.join(c.user, u)
 			.leftJoin(pi).on(pi.user.eq(u))
 			.orderBy(c.commentId.desc())
 			.where(c.parentComment.commentId.eq(parentId))

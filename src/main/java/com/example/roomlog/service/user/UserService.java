@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import com.example.roomlog.dto.page.Criteria;
 import com.example.roomlog.dto.user.UserDTO;
 import com.example.roomlog.dto.user.UserInfoDTO;
 import com.example.roomlog.repository.community.CommunityRepository;
+import com.example.roomlog.repository.community.comment.CommentRepository;
 import com.example.roomlog.repository.community.hashtag.HashtagRepository;
 import com.example.roomlog.repository.community.image.CommunityImgRepository;
 import com.example.roomlog.repository.follow.FollowRepository;
@@ -26,6 +28,8 @@ import com.example.roomlog.repository.scrap.ScrapRepository;
 import com.example.roomlog.repository.user.ProfileImgRepository;
 import com.example.roomlog.repository.user.SocialTypeRepository;
 import com.example.roomlog.repository.user.UserRepository;
+import com.example.roomlog.service.community.CommunityService;
+import com.example.roomlog.service.community.comment.CommentService;
 import com.example.roomlog.util.AgeUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +37,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    private final CommentService commentService;
+    private final CommunityService communityService;
 
 	private final UserRepository userRepository;
 	private final SocialTypeRepository socialTypeRepository;
@@ -43,6 +50,7 @@ public class UserService {
 	private final CommunityImgRepository communityImgRepository;
 	private final HashtagRepository hashtagRepository;
 	private final ScrapRepository scrapRepository;
+	private final CommentRepository commentRepository;
 
 	// 회원가입 - 필수 정보
 	public int insertUser(UserDTO userDTO, String socialTypeName) {
@@ -185,6 +193,34 @@ public class UserService {
 		user.setFormatBirth(birth);
 		
 		return user;
+	}
+	
+	// 탈퇴
+	public void deleteUser(long userId) {
+		// 해당 유저가 작성한 게시글 및 이미지 삭제
+		List<Long> communityIds = communityRepository.findAllCommunityByUserId(userId);
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("게시글 번호 : " + communityIds);
+		for (Long communityId : communityIds) {
+			communityService.deleteCommunity(communityId);
+		}
+		
+		// 다른 유저에 작성한 댓글 중 대댓글이 있는 자식 댓글은 삭제 상태로 변경 그 외에는 전부 삭제
+		List<Long> commentIds = commentRepository.findAllCommentByUserId(userId);
+		System.out.println("댓글 번호 : " + commentIds);
+		for (Long commentId : commentIds) {
+			commentService.deleteComment(commentId, "quit");
+		}
+		
+		// 폴더에 저장된 프로필 이미지 삭제
+        Optional<ProfileImg> checkProfileImg = profileImgRepository.findByUserId(userId);
+        if (!checkProfileImg.isEmpty()) {
+        	ProfileImg profileImg = checkProfileImg.get();
+        	profileImgService.deleteProfileImgFile(profileImg);
+        }
+        
+        // 유저 삭제
+        userRepository.deleteByUserId(userId);
 	}
 	
 }

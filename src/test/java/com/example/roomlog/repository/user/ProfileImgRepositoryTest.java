@@ -27,10 +27,10 @@ public class ProfileImgRepositoryTest {
 	@Test
 	public void findByUserTest() {
 		// given
-		long userNumber = 1;
-		User user = userRepository.findByUserId(userNumber).get();
+		long userId = 1;
+		User user = userRepository.findByUserId(userId).get();
 		// when
-		long profileImgId = profileImgRepository.findByUser(user)
+		long profileImgId = profileImgRepository.findByUserId(userId)
         		.map(ProfileImg::getProfileImgId)
         		.orElse(-1L);
 		// then

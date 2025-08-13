@@ -139,4 +139,16 @@ public class CommunityRepositoryTest {
 		assertNull(communityRepository.findByCommunityId(communityId));
 	}
 	
+	// 회원 탈퇴시 해당 회원이 작성한 게시글 번호만 조회
+	@Test
+	public void findAllCommunityByUserIdTest() {
+		// given
+		long userId = 1;
+		// when
+		List<Long> lists = communityRepository.findAllCommunityByUserId(userId);
+		// then
+		assertNotNull(lists);
+		log.info("게시글 번호 : " + lists);
+	}
+	
 }
